@@ -1,9 +1,6 @@
-var express = require('express');
-var router = express.Router();
+authRouter = require('./auth')
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-module.exports = router;
+function route(app){
+  app.use('/api', authRouter)
+}
+module.exports = route;
