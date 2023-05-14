@@ -11,7 +11,7 @@ passport.use(
     try {
       var user = await User.findById(jwt_payload.id);
       if (user) {
-        return done(null, user, 'authInfo if need');
+        return done(null, user, "authInfo if need");
       } else {
         return done(null, false);
         // or you could create a new account
