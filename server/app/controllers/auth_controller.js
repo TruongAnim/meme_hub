@@ -16,14 +16,16 @@ class AuthController {
         return res.status(400).json({ msg: "Incorrect password!" });
       }
       const token = jwt.sign({ id: user._id }, "passwordKey");
-      res.json({ token, ...user._doc });
+      res.json({ token});
     } catch (err) {
       next(err)
     }
   }
   async signup(req, res, next) {
+    console.log('hello')
     try {
       const { name, email, password } = req.body;
+      console.log({ name, email, password })
       const existingUser = await User.findOne({ email });
       if (existingUser) {
         return res.status(400).json({ msg: "email has been used!" });
