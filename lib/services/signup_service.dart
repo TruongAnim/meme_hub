@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
-import 'package:meme_hub/utils/constant.dart';
+import 'package:meme_hub/utils/api_constants.dart';
 
 class SignupService {
   final Dio _dio = Dio();
 
   Future<bool> signup(String username, String email, String password) async {
     const url =
-        '${ApiConstant.baseUrl}/signup'; // Replace with your signup endpoint
+        '${ApiConstants.baseUrl}/signup'; // Replace with your signup endpoint
 
     try {
       final response = await _dio.post(

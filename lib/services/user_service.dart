@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:meme_hub/models/user.dart';
-import 'package:meme_hub/utils/constant.dart';
+import 'package:meme_hub/utils/api_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserService {
@@ -16,7 +16,7 @@ class UserService {
 
       if (token != null) {
         const url =
-            '${ApiConstant.baseUrl}/get-user'; // Replace with your user endpoint
+            '${ApiConstants.baseUrl}/get-user'; // Replace with your user endpoint
 
         final response = await _dio.get(
           url,

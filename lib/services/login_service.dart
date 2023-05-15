@@ -1,7 +1,7 @@
 import 'dart:ffi';
 
 import 'package:dio/dio.dart';
-import 'package:meme_hub/utils/constant.dart';
+import 'package:meme_hub/utils/api_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginService {
@@ -9,7 +9,7 @@ class LoginService {
 
   Future<String?> login(String email, String password) async {
     const url =
-        '${ApiConstant.baseUrl}/login'; // Replace with your login endpoint
+        '${ApiConstants.baseUrl}/login'; // Replace with your login endpoint
 
     try {
       final response = await _dio.post(
