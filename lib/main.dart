@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:meme_hub/Screens/Home/home_screen.dart';
+import 'package:meme_hub/Screens/Login/login_screen.dart';
+import 'package:meme_hub/Screens/Signup/signup_screen.dart';
 import 'package:meme_hub/Screens/Welcome/welcome_screen.dart';
+import 'package:meme_hub/bindings/home_binding.dart';
+import 'package:meme_hub/bindings/login_binding.dart';
+import 'package:meme_hub/bindings/signup_binding.dart';
+import 'package:meme_hub/bindings/welcome_binding.dart';
 import 'package:meme_hub/constants.dart';
+import 'package:meme_hub/routes/app_routes.dart';
 import 'package:meme_hub/services/login_service.dart';
 import 'package:meme_hub/services/signup_service.dart';
 import 'package:meme_hub/services/user_service.dart';
@@ -15,9 +24,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Auth',
+      initialRoute: AppRoutes.welcome,
+      getPages: AppRoutes.pages,
       theme: ThemeData(
           primaryColor: kPrimaryColor,
           scaffoldBackgroundColor: Colors.white,
@@ -42,7 +53,6 @@ class MyApp extends StatelessWidget {
               borderSide: BorderSide.none,
             ),
           )),
-      home: const WelcomeScreen(),
     );
   }
 }
