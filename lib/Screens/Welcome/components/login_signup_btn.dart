@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:meme_hub/controllers/welcome_controller.dart';
 
 import '../../../constants.dart';
 import '../../Login/login_screen.dart';
@@ -11,20 +13,14 @@ class LoginAndSignupBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WelcomeController controller = Get.find();
     return Column(
       children: [
         Hero(
           tag: "login_btn",
           child: ElevatedButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return LoginScreen();
-                  },
-                ),
-              );
+              controller.toLoginScreen();
             },
             child: Text(
               "Login".toUpperCase(),
@@ -34,14 +30,7 @@ class LoginAndSignupBtn extends StatelessWidget {
         const SizedBox(height: 16),
         ElevatedButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return SignUpScreen();
-                },
-              ),
-            );
+            controller.toSignupScreen();
           },
           style: ElevatedButton.styleFrom(
               primary: kPrimaryLightColor, elevation: 0),
