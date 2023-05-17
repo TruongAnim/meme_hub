@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
+import 'package:meme_hub/routes/app_routes.dart';
 
 class HomeController extends GetxController {
-  final selectedIndex = 0.obs;
-
-  void changeTab(int index) {
-    selectedIndex.value = index;
+  void toUserScreen() {
+    Get.toNamed(AppRoutes.user);
   }
 }

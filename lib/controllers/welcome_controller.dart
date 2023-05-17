@@ -22,6 +22,6 @@ class WelcomeController extends GetxController {
   }
 
   void toHomeScreen() {
-    Get.toNamed(AppRoutes.home);
+    Get.offAllNamed(AppRoutes.home);
   }
 }
