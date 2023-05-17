@@ -13,8 +13,6 @@ class SignupController extends GetxController {
   Future<bool> signup(String username, String email, String password) async {
     try {
       LoadingOverlay.show();
-      await Future.delayed(Duration(seconds: 3));
-      LoadingOverlay.hide();
       SignupService signupService = SignupService();
       bool result = await signupService.signup(username, email, password);
       LoadingOverlay.hide();

@@ -130,9 +130,7 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           const SizedBox(height: defaultPadding / 2),
           ElevatedButton(
-            onPressed: () {
-              _submitForm();
-            },
+            onPressed: _submitForm,
             child: Text("Sign Up".toUpperCase()),
           ),
           const SizedBox(height: defaultPadding),

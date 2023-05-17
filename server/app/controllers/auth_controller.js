@@ -22,7 +22,6 @@ class AuthController {
     }
   }
   async signup(req, res, next) {
-    console.log('hello')
     try {
       const { name, email, password } = req.body;
       console.log({ name, email, password })

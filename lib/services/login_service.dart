@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class LoginService {
   final Dio _dio = Dio();
 
-  Future<String?> login(String email, String password) async {
+  Future<bool> login(String email, String password) async {
     const url =
         '${ApiConstants.baseUrl}/login'; // Replace with your login endpoint
 
@@ -21,18 +21,15 @@ class LoginService {
         // Login successful, extract and return the token
         final token = response.data['token'] as String;
         bool isTokenSaved = await saveTokenToSharedPreferences(token);
-        if (!isTokenSaved) {
-          return null;
-        }
-        return token;
+        return isTokenSaved;
       } else {
         // Login failed, return null
-        return null;
+        return false;
       }
     } catch (e) {
       // Error occurred, return null
       print('Error: $e');
-      return null;
+      return false;
     }
   }
 

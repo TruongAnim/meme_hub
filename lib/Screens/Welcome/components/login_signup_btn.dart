@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:meme_hub/controllers/welcome_controller.dart';
 
 import '../../../constants.dart';
-import '../../Login/login_screen.dart';
-import '../../Signup/signup_screen.dart';
 
 class LoginAndSignupBtn extends StatelessWidget {
   const LoginAndSignupBtn({
