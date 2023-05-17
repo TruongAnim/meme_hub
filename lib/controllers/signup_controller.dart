@@ -10,15 +10,18 @@ class SignupController extends GetxController {
     Get.offNamed(AppRoutes.login);
   }
 
-  void signup(String username, String email, String password) async {
-    LoadingOverlay.show();
-    await Future.delayed(Duration(seconds: 3));
-    LoadingOverlay.hide();
-    SignupService signupService = SignupService();
-    bool result = await signupService.signup(username, email, password);
-    BuildContext? context2 = Get.context;
-
-    context2!.loaderOverlay.hide();
-    toLoginScreen();
+  Future<bool> signup(String username, String email, String password) async {
+    try {
+      LoadingOverlay.show();
+      await Future.delayed(Duration(seconds: 3));
+      LoadingOverlay.hide();
+      SignupService signupService = SignupService();
+      bool result = await signupService.signup(username, email, password);
+      LoadingOverlay.hide();
+      toLoginScreen();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }
