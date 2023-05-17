@@ -18,8 +18,13 @@ class SignupController extends GetxController {
       SignupService signupService = SignupService();
       bool result = await signupService.signup(username, email, password);
       LoadingOverlay.hide();
-      toLoginScreen();
-      return true;
+
+      if (result) {
+        toLoginScreen();
+        return true;
+      } else {
+        return false;
+      }
     } catch (e) {
       return false;
     }
