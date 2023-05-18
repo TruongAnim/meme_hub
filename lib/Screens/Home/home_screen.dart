@@ -20,7 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Container(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            // Add news post
+            HomeController controller = Get.find();
+            controller.toUploadScreen();
           },
           child: Icon(Icons.add),
         ),
