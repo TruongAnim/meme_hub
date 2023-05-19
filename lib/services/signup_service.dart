@@ -5,8 +5,7 @@ class SignupService {
   final Dio _dio = Dio();
 
   Future<bool> signup(String username, String email, String password) async {
-    const url =
-        '${ApiConstants.baseUrl}/signup'; // Replace with your signup endpoint
+    const url = '${ApiConstants.baseUrl}/signup';
 
     try {
       final response = await _dio.post(

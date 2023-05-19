@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:meme_hub/controllers/upload_controller.dart';
+import 'package:meme_hub/controllers/new_post_controller.dart';
 import 'package:meme_hub/services/cloud_service.dart';
 
 class NewPostScreen extends StatefulWidget {
@@ -15,7 +15,7 @@ class NewPostScreen extends StatefulWidget {
 }
 
 class _NewPostScreenState extends State<NewPostScreen> {
-  final UploadController _controller = Get.find();
+  final NewPostController _controller = Get.find();
   File? _image;
   final _picker = ImagePicker();
   final TextEditingController _titleController = TextEditingController();

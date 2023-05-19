@@ -4,8 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/routes/app_routes.dart';
 import 'package:meme_hub/services/cloud_service.dart';
+import 'package:meme_hub/services/post_service.dart';
+import 'package:meme_hub/utils/loading_overlay.dart';
+import 'package:meme_hub/utils/toast_maker.dart';
 
-class UploadController extends GetxController {
+class NewPostController extends GetxController {
   late CloudService api;
   Uint8List? _imageBytes;
   String? _imageName;
@@ -18,9 +21,25 @@ class UploadController extends GetxController {
   }
 
   Future<bool> post(File image, String title) async {
-    String imageLink = await uploadImage(image);
-    print(imageLink);
-    return true;
+    try {
+      LoadingOverlay.show();
+      String mediaLink = await uploadImage(image);
+      PostService postService = PostService();
+      bool result =
+          await postService.newPost(title, mediaLink, ['image', 'hello']);
+      LoadingOverlay.hide();
+      if (result) {
+        ToastMaker.showToast(content: 'Your meme has been post!');
+        Get.back();
+      } else {
+        ToastMaker.showToast(content: 'Error!');
+      }
+      return true;
+    } catch (e) {
+      print(e);
+      LoadingOverlay.hide();
+      return false;
+    }
   }
 
   Future<String> uploadImage(File image) async {
