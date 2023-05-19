@@ -29,8 +29,11 @@ class UserService {
           // User data retrieved successfully
           print(response.data);
           Map<String, dynamic> data = response.data;
-          currentUser =
-              User(name: data['name'], email: data['email'], token: token);
+          currentUser = User(
+              id: data['_id'],
+              name: data['name'],
+              email: data['email'],
+              token: token);
           return true;
         }
       }
