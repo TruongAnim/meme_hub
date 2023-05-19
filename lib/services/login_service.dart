@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:dio/dio.dart';
+import 'package:meme_hub/utils/LogUtil.dart';
 import 'package:meme_hub/utils/api_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -23,12 +24,10 @@ class LoginService {
         bool isTokenSaved = await saveTokenToSharedPreferences(token);
         return isTokenSaved;
       } else {
-        // Login failed, return null
         return false;
       }
-    } catch (e) {
-      // Error occurred, return null
-      print('Error: $e');
+    } catch (error, stackTrace) {
+      LogUtil.error('login', error, stackTrace);
       return false;
     }
   }
@@ -37,8 +36,8 @@ class LoginService {
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       return await prefs.setString('token', token);
-    } catch (e) {
-      print('Error saving token to SharedPreferences: $e');
+    } catch (error, stackTrace) {
+      LogUtil.error('login', error, stackTrace);
       return false;
     }
   }

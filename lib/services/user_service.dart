@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:meme_hub/models/user.dart';
+import 'package:meme_hub/utils/LogUtil.dart';
 import 'package:meme_hub/utils/api_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,8 +27,6 @@ class UserService {
         );
 
         if (response.statusCode == 200) {
-          // User data retrieved successfully
-          print(response.data);
           Map<String, dynamic> data = response.data;
           currentUser = User(
               id: data['_id'],
@@ -39,9 +38,8 @@ class UserService {
       }
 
       return false; // No token or request failed
-    } catch (e) {
-      // Error occurred
-      print('Error retrieving user data: $e');
+    } catch (error, stackTrace) {
+      LogUtil.error('login', error, stackTrace);
       return false;
     }
   }

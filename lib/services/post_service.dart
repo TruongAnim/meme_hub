@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:meme_hub/services/user_service.dart';
+import 'package:meme_hub/utils/LogUtil.dart';
 import 'package:meme_hub/utils/api_constants.dart';
 
 class PostService {
@@ -17,14 +18,13 @@ class PostService {
           headers: {'Authorization': 'Bearer ${UserService.currentUser.token}'},
         ),
       );
-      print(response);
       if (response.statusCode == 200) {
         return true;
       } else {
         return false;
       }
-    } catch (e) {
-      print(e);
+    } catch (error, stackTrace) {
+      LogUtil.error('newPost', error, stackTrace);
       return false;
     }
   }

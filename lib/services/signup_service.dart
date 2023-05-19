@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:meme_hub/utils/LogUtil.dart';
 import 'package:meme_hub/utils/api_constants.dart';
 
 class SignupService {
@@ -20,9 +21,8 @@ class SignupService {
         // Signup failed
         return false;
       }
-    } catch (e) {
-      // Error occurred
-      print('Error: $e');
+    } catch (error, stackTrace) {
+      LogUtil.error('login', error, stackTrace);
       return false;
     }
   }
