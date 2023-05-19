@@ -1,6 +1,8 @@
 authRouter = require('./auth')
+postRouter = require('./post')
 
 function route(app){
+  app.use('/api/post', postRouter)
   app.use('/api', authRouter)
 
   app.use('/', (req, res, next)=>{
