@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:meme_hub/routes/app_routes.dart';
 import 'package:meme_hub/services/cloud_service.dart';
 import 'package:meme_hub/services/post_service.dart';
+import 'package:meme_hub/utils/LogUtil.dart';
 import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
 
@@ -35,8 +36,8 @@ class NewPostController extends GetxController {
         ToastMaker.showToast(content: 'Error!');
       }
       return true;
-    } catch (e) {
-      print(e);
+    } catch (error, stackTrace) {
+      LogUtil.error('login', error, stackTrace);
       LoadingOverlay.hide();
       return false;
     }

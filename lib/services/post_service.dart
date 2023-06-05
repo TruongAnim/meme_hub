@@ -10,7 +10,6 @@ class PostService {
       String title, String mediaLink, List<String> tags) async {
     const url = '${ApiConstants.baseUrl}/post/new-post';
     try {
-      print(UserService.currentUser.token);
       final response = await _dio.post(
         url,
         data: {'title': title, 'mediaLink': mediaLink, 'tags': tags},
