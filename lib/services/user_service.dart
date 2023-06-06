@@ -7,7 +7,10 @@ import 'package:meme_hub/utils/api_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserService {
-  static late User currentUser;
+  UserService._();
+  static final UserService _instance = UserService._();
+  static UserService get instance => _instance;
+  late User currentUser;
   final Dio _dio = Dio();
 
   Future<bool> getUser() async {

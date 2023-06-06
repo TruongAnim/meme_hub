@@ -1,26 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:meme_hub/Screens/Post/response_item.dart';
+import 'package:meme_hub/controllers/post_list_controller.dart';
+import 'package:meme_hub/controllers/response_controller.dart';
 import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class PostItem extends StatelessWidget {
   final Post post;
-  final User user;
+  late User user;
+  PostListController controller = Get.find();
 
-  const PostItem({super.key, required this.post, required this.user});
+  PostItem({super.key, required this.post}) {
+    if (post.userId is User) {
+      user = post.userId;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final responseController = Get.put(ResponseController(
+        upvotes: post.upVotes,
+        downvotes: post.downVotes,
+        comments: post.comments));
     return Container(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        // mainAxisAlignment: MainAxisAlignment.s,
         children: [
           Row(
             children: [
               const CircleAvatar(
-                backgroundImage:
-                    NetworkImage(''), // Provide the user avatar URL here
+                backgroundImage: NetworkImage(
+                    'https://i.pravatar.cc/300'), // Provide the user avatar URL here
               ),
               const SizedBox(width: 8),
               Text(
@@ -35,9 +49,8 @@ class PostItem extends StatelessWidget {
           const SizedBox(height: 8),
           Image.network(
             post.mediaLink,
-            height: 200,
             width: double.infinity,
-            fit: BoxFit.cover,
+            fit: BoxFit.contain,
           ),
           const SizedBox(height: 8),
           Text(
@@ -54,6 +67,10 @@ class PostItem extends StatelessWidget {
               color: Colors.grey,
             ),
           ),
+          GetBuilder<ResponseController>(
+              builder: (responseController) => ResponseItem(
+                    controller: responseController,
+                  )),
         ],
       ),
     );

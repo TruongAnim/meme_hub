@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:meme_hub/models/user.dart';
+
 class Post {
   String id;
-  String userId;
+  dynamic userId;
   List<String> comments;
   List<String> upVotes;
   List<String> downVotes;
@@ -25,7 +27,7 @@ class Post {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      '_id': id,
       'userId': userId,
       'comments': comments,
       'upVotes': upVotes,
@@ -38,16 +40,23 @@ class Post {
   }
 
   factory Post.fromMap(Map<String, dynamic> map) {
+    dynamic user = map['userId'];
+    if (map['userId'] is Map) {
+      user = User.fromMap(map['userId']);
+    }
     return Post(
-      id: map['id'] as String,
-      userId: map['userId'] as String,
-      comments: map['comments'] as List<String>,
-      upVotes: List<String>.from(map['upVotes'] as List<String>),
-      downVotes: List<String>.from(map['downVotes'] as List<String>),
-      tags: List<String>.from(map['tags'] as List<String>),
+      id: map['_id'] as String,
+      userId: user,
+      comments:
+          (map['comments'] as List<dynamic>).map((e) => e.toString()).toList(),
+      upVotes:
+          (map['upVotes'] as List<dynamic>).map((e) => e.toString()).toList(),
+      downVotes:
+          (map['downVotes'] as List<dynamic>).map((e) => e.toString()).toList(),
+      tags: (map['tags'] as List<dynamic>).map((e) => e.toString()).toList(),
       title: map['title'] as String,
       mediaLink: map['mediaLink'] as String,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
+      createdAt: DateTime.parse(map['createdAt']).toLocal(),
     );
   }
 

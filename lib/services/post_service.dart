@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/services/user_service.dart';
 import 'package:meme_hub/utils/LogUtil.dart';
 import 'package:meme_hub/utils/api_constants.dart';
@@ -14,7 +15,9 @@ class PostService {
         url,
         data: {'title': title, 'mediaLink': mediaLink, 'tags': tags},
         options: Options(
-          headers: {'Authorization': 'Bearer ${UserService.currentUser.token}'},
+          headers: {
+            'Authorization': 'Bearer ${UserService.instance.currentUser.token}'
+          },
         ),
       );
       if (response.statusCode == 200) {
@@ -25,6 +28,33 @@ class PostService {
     } catch (error, stackTrace) {
       LogUtil.error('newPost', error, stackTrace);
       return false;
+    }
+  }
+
+  Future<List<Post>> fetchPosts(
+      {String tag = 'all', int startIndex = 0}) async {
+    String url = '${ApiConstants.baseUrl}/post/get-post/$tag';
+    try {
+      final response = await _dio.get(
+        url,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${UserService.instance.currentUser.token}'
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> data = response.data;
+        data.forEach((element) {
+          print(element);
+        });
+        return data.map((e) => Post.fromMap(e)).toList();
+      } else {
+        return [];
+      }
+    } catch (error, stackTrace) {
+      LogUtil.error('newPost', error, stackTrace);
+      return [];
     }
   }
 }

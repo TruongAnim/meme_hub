@@ -5,7 +5,7 @@ import 'package:meme_hub/services/user_service.dart';
 class WelcomeController extends GetxController {
   @override
   void onInit() async {
-    UserService userService = UserService();
+    UserService userService = UserService.instance;
     bool result = await userService.getUser();
     if (result) {
       toHomeScreen();
