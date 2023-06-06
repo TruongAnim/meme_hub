@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:meme_hub/services/user_service.dart';
 
+// currently unused
 class ResponseController extends GetxController {
   UserService userService = UserService.instance;
 

@@ -20,10 +20,6 @@ class PostItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final responseController = Get.put(ResponseController(
-        upvotes: post.upVotes,
-        downvotes: post.downVotes,
-        comments: post.comments));
     return Container(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -67,10 +63,7 @@ class PostItem extends StatelessWidget {
               color: Colors.grey,
             ),
           ),
-          GetBuilder<ResponseController>(
-              builder: (responseController) => ResponseItem(
-                    controller: responseController,
-                  )),
+          ResponseItem(post: post),
         ],
       ),
     );
