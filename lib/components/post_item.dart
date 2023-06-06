@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meme_hub/Screens/Post/response_item.dart';
+import 'package:meme_hub/components/response_item.dart';
 import 'package:meme_hub/controllers/post_list_controller.dart';
-import 'package:meme_hub/controllers/response_controller.dart';
 import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:timeago/timeago.dart' as timeago;

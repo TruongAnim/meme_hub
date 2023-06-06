@@ -83,13 +83,13 @@ class PostService {
     }
   }
 
-  Future<void> downvote(String postId, String userId, bool isDownvote) async {
-    String url = '${ApiConstants.baseUrl}/post/downvote';
+  Future<void> favourite(String postId, String userId, bool isFavourite) async {
+    String url = '${ApiConstants.baseUrl}/post/favourite';
     try {
       Map<String, dynamic> data = {
         'postId': postId,
         'userId': userId,
-        'isDownvote': isDownvote,
+        'isFavourite': isFavourite,
       };
       final response = await _dio.post(
         url,
@@ -101,7 +101,7 @@ class PostService {
         ),
       );
       if (response.statusCode == 200) {
-        print('downvote successfully!');
+        print('isFavourite successfully!');
       } else {}
     } catch (error, stackTrace) {
       LogUtil.error('newPost', error, stackTrace);

@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
+import 'package:meme_hub/Screens/Comment/comment_screen.dart';
 import 'package:meme_hub/Screens/Home/home_screen.dart';
 import 'package:meme_hub/Screens/Login/login_screen.dart';
 import 'package:meme_hub/Screens/Signup/signup_screen.dart';
 import 'package:meme_hub/Screens/NewPost/new_post_screen.dart';
 import 'package:meme_hub/Screens/User/user_screen.dart';
 import 'package:meme_hub/Screens/Welcome/welcome_screen.dart';
+import 'package:meme_hub/bindings/comment_binding.dart';
 import 'package:meme_hub/bindings/home_binding.dart';
 import 'package:meme_hub/bindings/login_binding.dart';
 import 'package:meme_hub/bindings/signup_binding.dart';
@@ -19,6 +21,7 @@ class AppRoutes {
   static const String signup = '/signup';
   static const String user = '/user';
   static const String upload = '/upload';
+  static const String comment = '/comment';
 
   static List<GetPage<dynamic>> pages = [
     GetPage(
@@ -41,5 +44,9 @@ class AppRoutes {
         name: AppRoutes.upload,
         page: () => NewPostScreen(),
         binding: UploadBinding()),
+    GetPage(
+        name: AppRoutes.comment,
+        page: () => CommentScreen(),
+        binding: CommentBinding()),
   ];
 }

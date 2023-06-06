@@ -50,26 +50,27 @@ class PostController {
       next(err);
     }
   }
-  async downvote(req, res, next){
+  async favourite(req, res, next){
     try {
       const postId = req.body['postId'];
       const userId = req.body['userId'];
-      const isDownvote = req.body['isDownvote'];
+      const isFavourite = req.body['isFavourite'];
       var post = await Post.findById(postId);
-      if (isDownvote){
-        const indexToAdd = post.downVotes.indexOf(userId);
+      if (isFavourite){
+        const indexToAdd = post.favourites.indexOf(userId);
         if(indexToAdd == -1){
-          post.downVotes.push(userId)
+          post.favourites.push(userId)
         }
       }else{
-        const indexToRemove = post.downVotes.indexOf(userId);
+        const indexToRemove = post.favourites.indexOf(userId);
         if (indexToRemove > -1) {
-          post.downVotes.splice(indexToRemove, 1);
+          post.favourites.splice(indexToRemove, 1);
         }
       }
       post = await post.save();
       res.json(post);
     } catch (err) {
+      console.log(err)
       next(err);
     }
   }

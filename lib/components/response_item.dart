@@ -55,7 +55,9 @@ class _ResponseItemState extends State<ResponseItem> {
     });
   }
 
-  _comment() {}
+  _comment() {
+    controller.comment(widget.post);
+  }
 
   @override
   void initState() {

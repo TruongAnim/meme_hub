@@ -1,9 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:meme_hub/Screens/Post/post_item.dart';
+import 'package:meme_hub/components/post_item.dart';
 import 'package:meme_hub/controllers/post_list_controller.dart';
 import 'package:meme_hub/models/post.dart';
-import 'package:meme_hub/models/user.dart';
 
 class PostList extends StatelessWidget {
   PostList({super.key});

@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/models/user.dart';
+import 'package:meme_hub/routes/app_routes.dart';
 import 'package:meme_hub/services/post_service.dart';
 import 'package:meme_hub/services/user_service.dart';
 
@@ -49,6 +50,10 @@ class PostListController extends GetxController {
   }
 
   void downvote(String id, bool isDownvote) {
-    _postService.downvote(id, currentUser.id, isDownvote);
+    _postService.favourite(id, currentUser.id, isDownvote);
+  }
+
+  void comment(Post post) {
+    Get.toNamed(AppRoutes.comment, arguments: {'post': post});
   }
 }
