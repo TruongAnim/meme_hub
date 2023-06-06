@@ -5,6 +5,7 @@ import 'package:gcloud/storage.dart';
 import 'package:mime/mime.dart';
 
 class CloudService {
+  final String _bucketName = 'meme_hub';
   late auth.ServiceAccountCredentials _credentials;
   auth.AutoRefreshingAuthClient? _client;
 
@@ -12,24 +13,29 @@ class CloudService {
     _credentials = auth.ServiceAccountCredentials.fromJson(json);
   }
 
-  Future<ObjectInfo> save(String name, Uint8List imgBytes) async {
+  Future<String> save(String name, Uint8List imgBytes) async {
     // Create a client
     _client ??=
         await auth.clientViaServiceAccount(_credentials, Storage.SCOPES);
 
     // Instantiate objects to cloud storage
     var storage = Storage(_client!, 'Test project');
-    var bucket = storage.bucket('meme_hub');
+    var bucket = storage.bucket(_bucketName);
 
     // Save to bucket
-    final timestamp = DateTime.now().millisecondsSinceEpoch;
+    final now = DateTime.now();
+    final timestamp = now.millisecondsSinceEpoch;
     final type = lookupMimeType(name);
-    return await bucket.writeBytes(name, imgBytes,
+    final newName = '${timestamp}_${name}';
+    final ObjectInfo objectInfo = await bucket.writeBytes(newName, imgBytes,
         metadata: ObjectMetadata(
           contentType: type,
           custom: {
             'timestamp': '$timestamp',
           },
         ));
+    // String downloadLink = objectInfo.downloadLink.toString();
+    print('https://storage.googleapis.com/${_bucketName}/${newName}');
+    return 'https://storage.googleapis.com/${_bucketName}/${newName}';
   }
 }

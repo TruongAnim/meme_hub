@@ -11,7 +11,7 @@ const postScheme = mongoose.Schema({
     ref: "User",
     require: true,
   }],
-  downVotes: [{
+  favourites: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     require: true,

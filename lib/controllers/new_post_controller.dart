@@ -46,9 +46,7 @@ class NewPostController extends GetxController {
   Future<String> uploadImage(File image) async {
     Uint8List _imageBytes = image.readAsBytesSync();
     String _imageName = image.path.split('/').last;
-
-    final response = await api.save(_imageName, _imageBytes);
-    return response.downloadLink.toString();
+    return await api.save(_imageName, _imageBytes);
   }
 
   void toUserScreen() {
