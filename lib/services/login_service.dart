@@ -1,6 +1,8 @@
 import 'dart:ffi';
 
 import 'package:dio/dio.dart';
+import 'package:meme_hub/models/user.dart';
+import 'package:meme_hub/services/user_service.dart';
 import 'package:meme_hub/utils/LogUtil.dart';
 import 'package:meme_hub/utils/api_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,7 +22,10 @@ class LoginService {
 
       if (response.statusCode == 200) {
         // Login successful, extract and return the token
+        print(response.data);
+
         final token = response.data['token'] as String;
+        UserService.instance.currentUser = User.fromMap(response.data);
         bool isTokenSaved = await saveTokenToSharedPreferences(token);
         return isTokenSaved;
       } else {

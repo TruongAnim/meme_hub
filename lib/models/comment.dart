@@ -21,7 +21,7 @@ class Comment {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      '_id': id,
       'userId': userId,
       'upVotes': upVotes,
       'downVotes': downVotes,
@@ -33,7 +33,7 @@ class Comment {
 
   factory Comment.fromMap(Map<String, dynamic> map) {
     return Comment(
-      id: map['id'] as String,
+      id: map['_id'] as String,
       userId: map['userId'] as String,
       upVotes: List<String>.from(map['upVotes'] as List<String>),
       downVotes: List<String>.from(map['downVotes'] as List<String>),

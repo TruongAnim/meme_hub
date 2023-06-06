@@ -25,7 +25,7 @@ class _ResponseItemState extends State<ResponseItem> {
 
   _updateData() {
     countUpvote = widget.post.upVotes.length;
-    countDownvote = widget.post.downVotes.length;
+    countDownvote = widget.post.favourites.length;
     countComment = widget.post.comments.length;
   }
 
@@ -44,14 +44,14 @@ class _ResponseItemState extends State<ResponseItem> {
 
   _downvote() {
     setState(() {
-      if (widget.post.downVotes.contains(currentUser.id)) {
-        widget.post.downVotes.remove(currentUser.id);
+      if (widget.post.favourites.contains(currentUser.id)) {
+        widget.post.favourites.remove(currentUser.id);
         controller.downvote(widget.post.id, false);
       } else {
-        widget.post.downVotes.add(currentUser.id);
+        widget.post.favourites.add(currentUser.id);
         controller.downvote(widget.post.id, true);
       }
-      countDownvote = widget.post.downVotes.length;
+      countDownvote = widget.post.favourites.length;
     });
   }
 
@@ -86,7 +86,7 @@ class _ResponseItemState extends State<ResponseItem> {
             },
             icon: Icon(
               Icons.favorite,
-              color: widget.post.downVotes.contains(currentUser.id)
+              color: widget.post.favourites.contains(currentUser.id)
                   ? Colors.red
                   : Colors.grey,
             ),

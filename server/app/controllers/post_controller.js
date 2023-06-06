@@ -29,7 +29,6 @@ class PostController {
   }
   async upvote(req, res, next){
     try {
-      console.log(req.body)
       const postId = req.body['postId'];
       const userId = req.body['userId'];
       const isUpvote = req.body['isUpvote'];
@@ -53,7 +52,6 @@ class PostController {
   }
   async downvote(req, res, next){
     try {
-      console.log(req.body)
       const postId = req.body['postId'];
       const userId = req.body['userId'];
       const isDownvote = req.body['isDownvote'];
@@ -72,7 +70,6 @@ class PostController {
       post = await post.save();
       res.json(post);
     } catch (err) {
-      console.log(err)
       next(err);
     }
   }

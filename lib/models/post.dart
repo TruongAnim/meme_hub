@@ -7,7 +7,7 @@ class Post {
   dynamic userId;
   List<String> comments;
   List<String> upVotes;
-  List<String> downVotes;
+  List<String> favourites;
   List<String> tags;
   String title;
   String mediaLink;
@@ -18,7 +18,7 @@ class Post {
     required this.userId,
     required this.comments,
     required this.upVotes,
-    required this.downVotes,
+    required this.favourites,
     required this.tags,
     required this.title,
     required this.mediaLink,
@@ -31,7 +31,7 @@ class Post {
       'userId': userId,
       'comments': comments,
       'upVotes': upVotes,
-      'downVotes': downVotes,
+      'favourites': favourites,
       'tags': tags,
       'title': title,
       'mediaLink': mediaLink,
@@ -51,8 +51,9 @@ class Post {
           (map['comments'] as List<dynamic>).map((e) => e.toString()).toList(),
       upVotes:
           (map['upVotes'] as List<dynamic>).map((e) => e.toString()).toList(),
-      downVotes:
-          (map['downVotes'] as List<dynamic>).map((e) => e.toString()).toList(),
+      favourites: (map['favourites'] as List<dynamic>)
+          .map((e) => e.toString())
+          .toList(),
       tags: (map['tags'] as List<dynamic>).map((e) => e.toString()).toList(),
       title: map['title'] as String,
       mediaLink: map['mediaLink'] as String,
