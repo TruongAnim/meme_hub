@@ -6,5 +6,7 @@ const postController = require("../app/controllers/post_controller");
 /* GET users listing. */
 router.post("/new-post", auth_passport, postController.newPost);
 router.get("/get-post/:tag", postController.getPost);
+router.post("/upvote", postController.upvote);
+router.post("/downvote", postController.downvote);
 
 module.exports = router;

@@ -2,12 +2,13 @@ import 'package:get/get.dart';
 import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/services/post_service.dart';
+import 'package:meme_hub/services/user_service.dart';
 
 enum PostStatus { initial, success, failure }
 
 class PostListController extends GetxController {
+  final User currentUser = UserService.instance.currentUser;
   final PostService _postService = PostService();
-  List<User> users = List.empty();
   RxList<Post> posts = RxList();
   Rx<PostStatus> status = Rx<PostStatus>(PostStatus.initial);
   RxBool hasReachedMax = RxBool(false);
@@ -43,9 +44,11 @@ class PostListController extends GetxController {
     }
   }
 
-  void updateUsers() {
-    for (Post item in posts) {
-      // item.u
-    }
+  void upvote(String id, bool isUpvote) {
+    _postService.upvote(id, currentUser.id, isUpvote);
+  }
+
+  void downvote(String id, bool isDownvote) {
+    _postService.downvote(id, currentUser.id, isDownvote);
   }
 }

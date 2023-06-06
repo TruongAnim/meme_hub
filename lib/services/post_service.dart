@@ -57,4 +57,54 @@ class PostService {
       return [];
     }
   }
+
+  Future<void> upvote(String postId, String userId, bool isUpvote) async {
+    String url = '${ApiConstants.baseUrl}/post/upvote';
+    try {
+      Map<String, dynamic> data = {
+        'postId': postId,
+        'userId': userId,
+        'isUpvote': isUpvote,
+      };
+      final response = await _dio.post(
+        url,
+        data: data,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${UserService.instance.currentUser.token}'
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        print('upvote successfully!');
+      } else {}
+    } catch (error, stackTrace) {
+      LogUtil.error('newPost', error, stackTrace);
+    }
+  }
+
+  Future<void> downvote(String postId, String userId, bool isDownvote) async {
+    String url = '${ApiConstants.baseUrl}/post/downvote';
+    try {
+      Map<String, dynamic> data = {
+        'postId': postId,
+        'userId': userId,
+        'isDownvote': isDownvote,
+      };
+      final response = await _dio.post(
+        url,
+        data: data,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${UserService.instance.currentUser.token}'
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        print('downvote successfully!');
+      } else {}
+    } catch (error, stackTrace) {
+      LogUtil.error('newPost', error, stackTrace);
+    }
+  }
 }

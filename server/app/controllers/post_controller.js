@@ -27,5 +27,54 @@ class PostController {
       next(err);
     }
   }
+  async upvote(req, res, next){
+    try {
+      console.log(req.body)
+      const postId = req.body['postId'];
+      const userId = req.body['userId'];
+      const isUpvote = req.body['isUpvote'];
+      var post = await Post.findById(postId);
+      if (isUpvote){
+        const indexToAdd = post.upVotes.indexOf(userId);
+        if(indexToAdd == -1){
+          post.upVotes.push(userId)
+        }
+      }else{
+        const indexToRemove = post.upVotes.indexOf(userId);
+        if (indexToRemove > -1) {
+          post.upVotes.splice(indexToRemove, 1);
+        }
+      }
+      post = await post.save();
+      res.json(post);
+    } catch (err) {
+      next(err);
+    }
+  }
+  async downvote(req, res, next){
+    try {
+      console.log(req.body)
+      const postId = req.body['postId'];
+      const userId = req.body['userId'];
+      const isDownvote = req.body['isDownvote'];
+      var post = await Post.findById(postId);
+      if (isDownvote){
+        const indexToAdd = post.downVotes.indexOf(userId);
+        if(indexToAdd == -1){
+          post.downVotes.push(userId)
+        }
+      }else{
+        const indexToRemove = post.downVotes.indexOf(userId);
+        if (indexToRemove > -1) {
+          post.downVotes.splice(indexToRemove, 1);
+        }
+      }
+      post = await post.save();
+      res.json(post);
+    } catch (err) {
+      console.log(err)
+      next(err);
+    }
+  }
 }
 module.exports = new PostController();

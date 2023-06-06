@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:meme_hub/controllers/post_list_controller.dart';
 import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/services/user_service.dart';
-
-enum VoteState { upvote, downvote, none }
 
 class ResponseItem extends StatefulWidget {
   Post post;
@@ -18,7 +18,7 @@ class ResponseItem extends StatefulWidget {
 
 class _ResponseItemState extends State<ResponseItem> {
   User currentUser = UserService.instance.currentUser;
-  VoteState voteState = VoteState.none;
+  PostListController controller = Get.find();
   int countUpvote = 0;
   int countDownvote = 0;
   int countComment = 0;
@@ -27,43 +27,31 @@ class _ResponseItemState extends State<ResponseItem> {
     countUpvote = widget.post.upVotes.length;
     countDownvote = widget.post.downVotes.length;
     countComment = widget.post.comments.length;
-    if (widget.post.upVotes.contains(currentUser.id)) {
-      voteState = VoteState.upvote;
-    }
-    if (widget.post.downVotes.contains(currentUser.id)) {
-      voteState = VoteState.downvote;
-    }
   }
 
   _upvote() {
     setState(() {
-      if (voteState == VoteState.downvote) {
-        voteState = VoteState.upvote;
-        countDownvote--;
-        countUpvote++;
-      } else if (voteState == VoteState.upvote) {
-        voteState = VoteState.none;
-        countUpvote--;
+      if (widget.post.upVotes.contains(currentUser.id)) {
+        widget.post.upVotes.remove(currentUser.id);
+        controller.upvote(widget.post.id, false);
       } else {
-        voteState = VoteState.upvote;
-        countUpvote++;
+        widget.post.upVotes.add(currentUser.id);
+        controller.upvote(widget.post.id, true);
       }
+      countUpvote = widget.post.upVotes.length;
     });
   }
 
   _downvote() {
     setState(() {
-      if (voteState == VoteState.downvote) {
-        voteState = VoteState.none;
-        countDownvote--;
-      } else if (voteState == VoteState.upvote) {
-        voteState = VoteState.downvote;
-        countDownvote++;
-        countUpvote--;
+      if (widget.post.downVotes.contains(currentUser.id)) {
+        widget.post.downVotes.remove(currentUser.id);
+        controller.downvote(widget.post.id, false);
       } else {
-        voteState = VoteState.downvote;
-        countDownvote++;
+        widget.post.downVotes.add(currentUser.id);
+        controller.downvote(widget.post.id, true);
       }
+      countDownvote = widget.post.downVotes.length;
     });
   }
 
@@ -86,7 +74,9 @@ class _ResponseItemState extends State<ResponseItem> {
             },
             icon: Icon(
               Icons.arrow_upward,
-              color: voteState == VoteState.upvote ? Colors.green : Colors.grey,
+              color: widget.post.upVotes.contains(currentUser.id)
+                  ? Colors.green
+                  : Colors.grey,
             ),
           ),
           Text(countUpvote.toString()),
@@ -95,8 +85,10 @@ class _ResponseItemState extends State<ResponseItem> {
               _downvote();
             },
             icon: Icon(
-              Icons.arrow_downward,
-              color: voteState == VoteState.downvote ? Colors.red : Colors.grey,
+              Icons.favorite,
+              color: widget.post.downVotes.contains(currentUser.id)
+                  ? Colors.red
+                  : Colors.grey,
             ),
           ),
           Text(countDownvote.toString()),
