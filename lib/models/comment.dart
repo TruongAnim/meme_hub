@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:meme_hub/models/user.dart';
+
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class Comment {
   String id;
-  String userId;
+  dynamic userId;
   List<String> upVotes;
   List<String> favourites;
   String content;
@@ -35,9 +37,13 @@ class Comment {
   }
 
   factory Comment.fromMap(Map<String, dynamic> map) {
+    dynamic user = map['userId'];
+    if (map['userId'] is Map) {
+      user = User.fromMap(map['userId']);
+    }
     return Comment(
       id: map['_id'] as String,
-      userId: map['userId'] as String,
+      userId: user,
       upVotes:
           (map['upVotes'] as List<dynamic>).map((e) => e.toString()).toList(),
       favourites: (map['favourites'] as List<dynamic>)

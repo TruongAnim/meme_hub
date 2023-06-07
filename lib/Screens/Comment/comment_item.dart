@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/controllers/comment_controller.dart';
 import 'package:meme_hub/models/comment.dart';
+import 'package:meme_hub/models/user.dart';
+import 'package:meme_hub/utils/temp_data.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class CommentItem extends StatelessWidget {
@@ -13,6 +15,11 @@ class CommentItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() {
       Comment comment = _controller.comments[index];
+      User user = TempData.getTempUser();
+      if (comment.userId is User) {
+        user = comment.userId;
+      }
+      print('rebuild comment');
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Row(
@@ -29,7 +36,7 @@ class CommentItem extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        'name',
+                        user.name,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0,

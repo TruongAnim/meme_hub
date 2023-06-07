@@ -10,7 +10,7 @@ class CommentController {
       var comment = new Comment({ userId, content, mediaLink, type });
       comment = await comment.save();
       var post = await Post.findById(postId);
-      post.comments.push(comment.id)
+      post.comments.push(comment.id);
       post = await post.save();
       res.json(comment);
     } catch (err) {
@@ -23,7 +23,9 @@ class CommentController {
       const { postId } = req.body;
       const post = await Post.findById(postId);
       const commentIds = post.comments;
-      const comments = await Comment.find({ _id: { $in: commentIds } });
+      const comments = await Comment.find({
+        _id: { $in: commentIds },
+      }).populate("userId");
       res.json(comments);
     } catch (err) {
       next(err);
