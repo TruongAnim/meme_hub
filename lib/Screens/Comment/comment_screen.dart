@@ -29,13 +29,15 @@ class _CommentScreenState extends State<CommentScreen> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
-              itemCount: _controller.comments.length + 1,
-              itemBuilder: (context, index) {
-                if (index == 0) return PostItem(post: post);
-                return CommentItem(index: index - 1);
-              },
-            ),
+            child: Obx(() {
+              return ListView.builder(
+                itemCount: _controller.comments.length + 1,
+                itemBuilder: (context, index) {
+                  if (index == 0) return PostItem(post: post);
+                  return CommentItem(comment: _controller.comments[index - 1]);
+                },
+              );
+            }),
           ),
           Container(
             padding: EdgeInsets.all(16),
