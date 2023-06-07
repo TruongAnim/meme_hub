@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/controllers/signup_controller.dart';
+import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
@@ -47,14 +48,15 @@ class _SignUpFormState extends State<SignUpForm> {
       String email = emailController.text;
       String password = passwordController.text;
 
-      // Call API or perform other operations with the form data
+      LoadingOverlay.show();
       bool result = await controller.signup(name, email, password);
-      // Reset the form fields
+      LoadingOverlay.hide();
       if (result) {
         usernameController.clear();
         emailController.clear();
         passwordController.clear();
         ToastMaker.showToast(content: 'Sign up successfully!!!');
+        controller.toLoginScreen();
       } else {
         ToastMaker.showToast(content: 'Sign up false!!!');
       }

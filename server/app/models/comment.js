@@ -8,13 +8,12 @@ const commentScheme = mongoose.Schema({
       require: true,
     },
   ],
-  downVotes: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      require: true,
-    },
-  ],
+  favourites: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    require: true,
+  }],
+  type: { type: String, require: true },
   content: { type: String, require: true },
   mediaLink: { type: String },
   createdAt: {

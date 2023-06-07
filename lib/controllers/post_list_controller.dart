@@ -53,7 +53,8 @@ class PostListController extends GetxController {
     _postService.favourite(id, currentUser.id, isDownvote);
   }
 
-  void comment(Post post) {
-    Get.toNamed(AppRoutes.comment, arguments: {'post': post});
+  void comment(Post post) async {
+    await Get.toNamed(AppRoutes.comment, arguments: {'post': post});
+    posts.refresh();
   }
 }

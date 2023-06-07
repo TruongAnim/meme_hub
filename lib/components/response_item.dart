@@ -19,15 +19,6 @@ class ResponseItem extends StatefulWidget {
 class _ResponseItemState extends State<ResponseItem> {
   User currentUser = UserService.instance.currentUser;
   PostListController controller = Get.find();
-  int countUpvote = 0;
-  int countDownvote = 0;
-  int countComment = 0;
-
-  _updateData() {
-    countUpvote = widget.post.upVotes.length;
-    countDownvote = widget.post.favourites.length;
-    countComment = widget.post.comments.length;
-  }
 
   _upvote() {
     setState(() {
@@ -38,7 +29,6 @@ class _ResponseItemState extends State<ResponseItem> {
         widget.post.upVotes.add(currentUser.id);
         controller.upvote(widget.post.id, true);
       }
-      countUpvote = widget.post.upVotes.length;
     });
   }
 
@@ -51,7 +41,6 @@ class _ResponseItemState extends State<ResponseItem> {
         widget.post.favourites.add(currentUser.id);
         controller.downvote(widget.post.id, true);
       }
-      countDownvote = widget.post.favourites.length;
     });
   }
 
@@ -62,7 +51,6 @@ class _ResponseItemState extends State<ResponseItem> {
   @override
   void initState() {
     super.initState();
-    _updateData();
   }
 
   @override
@@ -81,7 +69,7 @@ class _ResponseItemState extends State<ResponseItem> {
                   : Colors.grey,
             ),
           ),
-          Text(countUpvote.toString()),
+          Text(widget.post.upVotes.length.toString()),
           IconButton(
             onPressed: () {
               _downvote();
@@ -93,17 +81,18 @@ class _ResponseItemState extends State<ResponseItem> {
                   : Colors.grey,
             ),
           ),
-          Text(countDownvote.toString()),
+          Text(widget.post.favourites.length.toString()),
           IconButton(
             onPressed: () {
               _comment();
             },
             icon: Icon(
               Icons.comment,
-              color: countComment > 0 ? Colors.black : Colors.grey,
+              color:
+                  widget.post.comments.isNotEmpty ? Colors.black : Colors.grey,
             ),
           ),
-          Text(countComment.toString()),
+          Text(widget.post.comments.length.toString()),
         ],
       ),
     );

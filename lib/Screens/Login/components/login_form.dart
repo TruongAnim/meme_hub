@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/controllers/login_controller.dart';
+import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
 
 import '../../../components/already_have_an_account_acheck.dart';
@@ -39,9 +40,9 @@ class _LoginFormState extends State<LoginForm> {
       String email = _emailController.text;
       String password = _passwordController.text;
 
-      // Call API or perform other operations with the form data
+      LoadingOverlay.show();
       bool result = await controller.login(email, password);
-      // Reset the form fields
+      LoadingOverlay.hide();
       if (result) {
         _emailController.clear();
         _passwordController.clear();

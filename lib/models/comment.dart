@@ -5,17 +5,19 @@ class Comment {
   String id;
   String userId;
   List<String> upVotes;
-  List<String> downVotes;
+  List<String> favourites;
   String content;
   String mediaLink;
+  String type;
   DateTime createdAt;
   Comment({
     required this.id,
     required this.userId,
     required this.upVotes,
-    required this.downVotes,
+    required this.favourites,
     required this.content,
     required this.mediaLink,
+    required this.type,
     required this.createdAt,
   });
 
@@ -24,9 +26,10 @@ class Comment {
       '_id': id,
       'userId': userId,
       'upVotes': upVotes,
-      'downVotes': downVotes,
+      'favourites': favourites,
       'content': content,
       'mediaLink': mediaLink,
+      'type': type,
       'createdAt': createdAt.millisecondsSinceEpoch,
     };
   }
@@ -35,11 +38,15 @@ class Comment {
     return Comment(
       id: map['_id'] as String,
       userId: map['userId'] as String,
-      upVotes: List<String>.from(map['upVotes'] as List<String>),
-      downVotes: List<String>.from(map['downVotes'] as List<String>),
+      upVotes:
+          (map['upVotes'] as List<dynamic>).map((e) => e.toString()).toList(),
+      favourites: (map['favourites'] as List<dynamic>)
+          .map((e) => e.toString())
+          .toList(),
       content: map['content'] as String,
       mediaLink: map['mediaLink'] as String,
-      createdAt: DateTime.fromMillisecondsSinceEpoch(map['createdAt'] as int),
+      type: map['type'] as String,
+      createdAt: DateTime.parse(map['createdAt']).toLocal(),
     );
   }
 

@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meme_hub/controllers/new_post_controller.dart';
 import 'package:meme_hub/services/cloud_service.dart';
+import 'package:meme_hub/utils/loading_overlay.dart';
+import 'package:meme_hub/utils/toast_maker.dart';
 
 class NewPostScreen extends StatefulWidget {
   const NewPostScreen({super.key});
@@ -30,9 +32,17 @@ class _NewPostScreenState extends State<NewPostScreen> {
     });
   }
 
-  void _uploadImage() {
+  void _uploadImage() async {
     if (_image != null) {
-      _controller.post(_image!, _titleController.text);
+      LoadingOverlay.show();
+      bool result = await _controller.post(_image!, _titleController.text);
+      LoadingOverlay.hide();
+      if (result) {
+        ToastMaker.showToast(content: 'Your meme has been post!');
+        Get.back();
+      } else {
+        ToastMaker.showToast(content: 'Error!');
+      }
     }
   }
 

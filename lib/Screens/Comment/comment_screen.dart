@@ -1,13 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meme_hub/Screens/Comment/comment_box.dart';
+import 'package:meme_hub/Screens/Comment/comment_item.dart';
 import 'package:meme_hub/components/post_item.dart';
 import 'package:meme_hub/controllers/comment_controller.dart';
 import 'package:meme_hub/models/post.dart';
 
-class CommentScreen extends StatelessWidget {
+class CommentScreen extends StatefulWidget {
   CommentScreen({super.key});
-  CommentController _controller = Get.find();
+
+  @override
+  State<CommentScreen> createState() => _CommentScreenState();
+}
+
+class _CommentScreenState extends State<CommentScreen> {
+  final CommentController _controller = Get.find();
   Post post = Get.arguments['post'];
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.setPostId(post.id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,27 +30,17 @@ class CommentScreen extends StatelessWidget {
         children: [
           Expanded(
             child: ListView.builder(
-              itemCount: 10, // Replace with the actual number of comments
+              itemCount: _controller.comments.length + 1,
               itemBuilder: (context, index) {
                 if (index == 0) return PostItem(post: post);
-                return ListTile(
-                  title: Text('Comment $index'),
-                );
+                return CommentItem(index: index - 1);
               },
             ),
           ),
           Container(
             padding: EdgeInsets.all(16),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Add a comment...',
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.send),
-                  onPressed: () {
-                    // TODO: Handle comment submission
-                  },
-                ),
-              ),
+            child: CommentBox(
+              post: post,
             ),
           ),
         ],
