@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meme_hub/components/comment_response_item.dart';
 import 'package:meme_hub/controllers/comment_controller.dart';
 import 'package:meme_hub/models/comment.dart';
 import 'package:meme_hub/models/user.dart';
@@ -53,6 +54,7 @@ class CommentItem extends StatelessWidget {
                 Text(comment.content),
                 if (comment.mediaLink.isNotEmpty)
                   Image.network(comment.mediaLink),
+                CommentResponseItem(comment: comment),
               ],
             ),
           ),

@@ -7,7 +7,7 @@ import 'package:meme_hub/services/user_service.dart';
 
 enum PostStatus { initial, success, failure }
 
-class PostListController extends GetxController {
+class PostController extends GetxController {
   final User currentUser = UserService.instance.currentUser;
   final PostService _postService = PostService();
   RxList<Post> posts = RxList();
@@ -49,7 +49,7 @@ class PostListController extends GetxController {
     _postService.upvote(id, currentUser.id, isUpvote);
   }
 
-  void downvote(String id, bool isDownvote) {
+  void favourite(String id, bool isDownvote) {
     _postService.favourite(id, currentUser.id, isDownvote);
   }
 

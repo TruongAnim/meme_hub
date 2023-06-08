@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meme_hub/controllers/post_list_controller.dart';
+import 'package:meme_hub/controllers/post_controller.dart';
 import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/services/user_service.dart';
 
-class ResponseItem extends StatefulWidget {
+class PostResponseItem extends StatefulWidget {
   Post post;
-  ResponseItem({
+  PostResponseItem({
     Key? key,
     required this.post,
   }) : super(key: key);
 
   @override
-  State<ResponseItem> createState() => _ResponseItemState();
+  State<PostResponseItem> createState() => _PostResponseItemState();
 }
 
-class _ResponseItemState extends State<ResponseItem> {
+class _PostResponseItemState extends State<PostResponseItem> {
   User currentUser = UserService.instance.currentUser;
-  PostListController controller = Get.find();
+  PostController controller = Get.find();
 
   _upvote() {
     setState(() {
@@ -32,14 +32,14 @@ class _ResponseItemState extends State<ResponseItem> {
     });
   }
 
-  _downvote() {
+  _favourite() {
     setState(() {
       if (widget.post.favourites.contains(currentUser.id)) {
         widget.post.favourites.remove(currentUser.id);
-        controller.downvote(widget.post.id, false);
+        controller.favourite(widget.post.id, false);
       } else {
         widget.post.favourites.add(currentUser.id);
-        controller.downvote(widget.post.id, true);
+        controller.favourite(widget.post.id, true);
       }
     });
   }
@@ -72,7 +72,7 @@ class _ResponseItemState extends State<ResponseItem> {
           Text(widget.post.upVotes.length.toString()),
           IconButton(
             onPressed: () {
-              _downvote();
+              _favourite();
             },
             icon: Icon(
               Icons.favorite,

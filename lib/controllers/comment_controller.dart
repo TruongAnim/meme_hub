@@ -2,11 +2,15 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:meme_hub/models/comment.dart';
+import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/services/cloud_service.dart';
 import 'package:meme_hub/services/comment_service.dart';
+import 'package:meme_hub/services/user_service.dart';
 
 class CommentController extends GetxController {
   late String postId;
+  final CommentService _commentService = CommentService.instance;
+  User currentUser = UserService.instance.currentUser;
   RxList<Comment> comments = RxList();
 
   void setPostId(String postId) {
@@ -33,5 +37,13 @@ class CommentController extends GetxController {
     } catch (err) {
       return false;
     }
+  }
+
+  void upvote(String id, bool isUpvote) {
+    _commentService.upvote(id, currentUser.id, isUpvote);
+  }
+
+  void favourite(String id, bool isDownvote) {
+    _commentService.favourite(id, currentUser.id, isDownvote);
   }
 }

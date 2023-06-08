@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meme_hub/components/response_item.dart';
-import 'package:meme_hub/controllers/post_list_controller.dart';
+import 'package:meme_hub/components/post_response_item.dart';
+import 'package:meme_hub/controllers/post_controller.dart';
 import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -9,7 +9,7 @@ import 'package:timeago/timeago.dart' as timeago;
 class PostItem extends StatelessWidget {
   final Post post;
   late User user;
-  PostListController controller = Get.find();
+  PostController controller = Get.find();
 
   PostItem({super.key, required this.post}) {
     if (post.userId is User) {
@@ -62,7 +62,7 @@ class PostItem extends StatelessWidget {
               color: Colors.grey,
             ),
           ),
-          ResponseItem(post: post),
+          PostResponseItem(post: post),
         ],
       ),
     );

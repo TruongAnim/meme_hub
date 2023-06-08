@@ -58,4 +58,55 @@ class CommentService {
       return List.empty();
     }
   }
+
+  Future<void> upvote(String commentId, String userId, bool isUpvote) async {
+    String url = '${ApiConstants.baseUrl}/comment/upvote';
+    try {
+      Map<String, dynamic> data = {
+        'commentId': commentId,
+        'userId': userId,
+        'isUpvote': isUpvote,
+      };
+      final response = await _dio.post(
+        url,
+        data: data,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${UserService.instance.currentUser.token}'
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        print('upvote successfully!');
+      } else {}
+    } catch (error, stackTrace) {
+      LogUtil.error('upvote comment', error, stackTrace);
+    }
+  }
+
+  Future<void> favourite(
+      String commentId, String userId, bool isFavourite) async {
+    String url = '${ApiConstants.baseUrl}/comment/favourite';
+    try {
+      Map<String, dynamic> data = {
+        'commentId': commentId,
+        'userId': userId,
+        'isFavourite': isFavourite,
+      };
+      final response = await _dio.post(
+        url,
+        data: data,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${UserService.instance.currentUser.token}'
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        print('isFavourite successfully!');
+      } else {}
+    } catch (error, stackTrace) {
+      LogUtil.error('favourite comment', error, stackTrace);
+    }
+  }
 }
