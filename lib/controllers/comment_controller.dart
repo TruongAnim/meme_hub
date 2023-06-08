@@ -33,6 +33,7 @@ class CommentController extends GetxController {
           .newComment(commentText, mediaLink, 'image', postId);
       if (result) {
         updateData();
+        Get.focusScope?.unfocus();
       }
       return result;
     } catch (err) {

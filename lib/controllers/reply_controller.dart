@@ -14,6 +14,7 @@ class ReplyController extends GetxController {
   RxList<Comment> comments = RxList();
 
   void setCommentId(String commentId) {
+    print('set ${commentId}');
     this.commentId = commentId;
     updateData();
   }
@@ -31,6 +32,7 @@ class ReplyController extends GetxController {
       bool result = await CommentService.instance
           .newReply(commentText, mediaLink, 'image', commentId);
       if (result) {
+        Get.focusScope?.unfocus();
         updateData();
       }
       return result;

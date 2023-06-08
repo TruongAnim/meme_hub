@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meme_hub/components/comment_box.dart';
 import 'package:meme_hub/components/comment_item.dart';
 import 'package:meme_hub/components/reply_box.dart';
 import 'package:meme_hub/controllers/reply_controller.dart';
@@ -16,11 +15,22 @@ class ReplyScreen extends StatefulWidget {
 class _ReplyScreenState extends State<ReplyScreen> {
   final ReplyController _controller = Get.find();
   Comment comment = Get.arguments['comment'];
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     _controller.setCommentId(comment.id);
+  }
+
+  void _scrollTo(int index) {
+    if (index >= 0 && index <= _controller.comments.length) {
+      _scrollController.animateTo(
+        index * 500.0,
+        duration: Duration(milliseconds: 1000),
+        curve: Curves.ease,
+      );
+    }
   }
 
   @override
@@ -30,7 +40,9 @@ class _ReplyScreenState extends State<ReplyScreen> {
         children: [
           Expanded(
             child: Obx(() {
+              if (_controller.comments.isNotEmpty) _scrollTo(1);
               return ListView.builder(
+                controller: _scrollController,
                 itemCount: _controller.comments.length + 1,
                 itemBuilder: (context, index) {
                   if (index == 0) {

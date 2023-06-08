@@ -7,5 +7,7 @@ router.post("/new-comment", commentController.newComment);
 router.post("/new-reply", commentController.newReply);
 router.get("/get-comment", commentController.getComment);
 router.get("/get-reply", commentController.getReply);
+router.post("/upvote", commentController.upvote);
+router.post("/favourite", commentController.favourite);
 
 module.exports = router;

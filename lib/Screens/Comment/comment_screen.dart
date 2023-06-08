@@ -16,11 +16,22 @@ class CommentScreen extends StatefulWidget {
 class _CommentScreenState extends State<CommentScreen> {
   final CommentController _controller = Get.find();
   Post post = Get.arguments['post'];
+  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     _controller.setPostId(post.id);
+  }
+
+  void _scrollTo(int index) {
+    if (index >= 0 && index <= _controller.comments.length) {
+      _scrollController.animateTo(
+        index * 500.0,
+        duration: Duration(milliseconds: 1000),
+        curve: Curves.ease,
+      );
+    }
   }
 
   @override
@@ -30,7 +41,9 @@ class _CommentScreenState extends State<CommentScreen> {
         children: [
           Expanded(
             child: Obx(() {
+              if (_controller.comments.isNotEmpty) _scrollTo(1);
               return ListView.builder(
+                controller: _scrollController,
                 itemCount: _controller.comments.length + 1,
                 itemBuilder: (context, index) {
                   if (index == 0) return PostItem(post: post);

@@ -47,7 +47,6 @@ class _CommentResponseItemState extends State<CommentResponseItem> {
   }
 
   _comment() {
-    print('comment');
     controller.comment(widget.comment);
   }
 
