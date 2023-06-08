@@ -8,6 +8,7 @@ class Comment {
   dynamic userId;
   List<String> upVotes;
   List<String> favourites;
+  List<String> comments;
   String content;
   String mediaLink;
   String type;
@@ -17,6 +18,7 @@ class Comment {
     required this.userId,
     required this.upVotes,
     required this.favourites,
+    required this.comments,
     required this.content,
     required this.mediaLink,
     required this.type,
@@ -29,6 +31,7 @@ class Comment {
       'userId': userId,
       'upVotes': upVotes,
       'favourites': favourites,
+      'comments': comments,
       'content': content,
       'mediaLink': mediaLink,
       'type': type,
@@ -49,6 +52,8 @@ class Comment {
       favourites: (map['favourites'] as List<dynamic>)
           .map((e) => e.toString())
           .toList(),
+      comments:
+          (map['comments'] as List<dynamic>).map((e) => e.toString()).toList(),
       content: map['content'] as String,
       mediaLink: map['mediaLink'] as String,
       type: map['type'] as String,

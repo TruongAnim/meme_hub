@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/components/comment_box.dart';
 import 'package:meme_hub/components/comment_item.dart';
-import 'package:meme_hub/components/post_item.dart';
-import 'package:meme_hub/controllers/comment_controller.dart';
-import 'package:meme_hub/models/post.dart';
+import 'package:meme_hub/components/reply_box.dart';
+import 'package:meme_hub/controllers/reply_controller.dart';
+import 'package:meme_hub/models/comment.dart';
 
-class CommentScreen extends StatefulWidget {
-  CommentScreen({super.key});
+class ReplyScreen extends StatefulWidget {
+  ReplyScreen({super.key});
 
   @override
-  State<CommentScreen> createState() => _CommentScreenState();
+  State<ReplyScreen> createState() => _ReplyScreenState();
 }
 
-class _CommentScreenState extends State<CommentScreen> {
-  final CommentController _controller = Get.find();
-  Post post = Get.arguments['post'];
+class _ReplyScreenState extends State<ReplyScreen> {
+  final ReplyController _controller = Get.find();
+  Comment comment = Get.arguments['comment'];
 
   @override
   void initState() {
     super.initState();
-    _controller.setPostId(post.id);
+    _controller.setCommentId(comment.id);
   }
 
   @override
@@ -33,7 +33,7 @@ class _CommentScreenState extends State<CommentScreen> {
               return ListView.builder(
                 itemCount: _controller.comments.length + 1,
                 itemBuilder: (context, index) {
-                  if (index == 0) return PostItem(post: post);
+                  if (index == 0) return CommentItem(comment: comment);
                   return CommentItem(comment: _controller.comments[index - 1]);
                 },
               );
@@ -41,8 +41,8 @@ class _CommentScreenState extends State<CommentScreen> {
           ),
           Container(
             padding: EdgeInsets.all(16),
-            child: CommentBox(
-              postId: post.id,
+            child: ReplyBox(
+              commentId: comment.id,
             ),
           ),
         ],

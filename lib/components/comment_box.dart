@@ -4,13 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meme_hub/controllers/comment_controller.dart';
-import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
 
 class CommentBox extends StatefulWidget {
-  CommentBox({super.key, required this.post});
-  Post post;
+  CommentBox({super.key, required this.postId});
+  String postId;
 
   @override
   _CommentBoxState createState() => _CommentBoxState();
@@ -47,7 +46,7 @@ class _CommentBoxState extends State<CommentBox> {
         _selectedImages.map((image) => File(image.path)).toList();
     LoadingOverlay.show();
     bool result = await _controller.sendComment(
-        commentText, commentImages, widget.post.id);
+        commentText, commentImages, widget.postId);
     LoadingOverlay.hide();
     if (result) {
       ToastMaker.showToast(content: 'Comment posted!');

@@ -40,11 +40,60 @@ class CommentService {
     }
   }
 
-  Future<List<Comment>> getComment(String postId) async {
+  Future<bool> newReply(
+      String content, String mediaLink, String type, String commentId) async {
+    const url = '${ApiConstants.baseUrl}/comment/new-reply';
+    try {
+      final response = await _dio.post(
+        url,
+        data: {
+          'userId': UserService.instance.currentUser.id,
+          'content': content,
+          'mediaLink': mediaLink,
+          'type': type,
+          'commentId': commentId
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${UserService.instance.currentUser.token}'
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error, stackTrace) {
+      LogUtil.error('newReply', error, stackTrace);
+      return false;
+    }
+  }
+
+  Future<List<Comment>> getCommentFromPost(String postId) async {
     const url = '${ApiConstants.baseUrl}/comment/get-comment';
     final response = await _dio.get(
       url,
       data: {'postId': postId},
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer ${UserService.instance.currentUser.token}'
+        },
+      ),
+    );
+    if (response.statusCode == 200) {
+      List<dynamic> comments = response.data;
+      return comments.map((e) => Comment.fromMap(e)).toList();
+    } else {
+      return List.empty();
+    }
+  }
+
+  Future<List<Comment>> getCommentFromComment(String commentId) async {
+    const url = '${ApiConstants.baseUrl}/comment/get-reply';
+    final response = await _dio.get(
+      url,
+      data: {'commentId': commentId},
       options: Options(
         headers: {
           'Authorization': 'Bearer ${UserService.instance.currentUser.token}'

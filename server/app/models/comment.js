@@ -13,6 +13,11 @@ const commentScheme = mongoose.Schema({
     ref: "User",
     require: true,
   }],
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Comment",
+    require: true,
+  }],
   type: { type: String, require: true },
   content: { type: String, require: true },
   mediaLink: { type: String },

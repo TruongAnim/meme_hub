@@ -44,9 +44,9 @@ class _CommentResponseItemState extends State<CommentResponseItem> {
     });
   }
 
-  // _comment() {
-  //   controller.comment(widget.comment);
-  // }
+  _comment() {
+    controller.comment(widget.comment);
+  }
 
   @override
   void initState() {
@@ -82,17 +82,28 @@ class _CommentResponseItemState extends State<CommentResponseItem> {
             ),
           ),
           Text(widget.comment.favourites.length.toString()),
-          // IconButton(
-          //   onPressed: () {
-          //     _comment();
-          //   },
-          //   icon: Icon(
-          //     Icons.comment,
-          //     color:
-          //         widget.comment.comments.isNotEmpty ? Colors.black : Colors.grey,
-          //   ),
-          // ),
-          // Text(widget.comment.comments.length.toString()),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                InkWell(
+                  onTap: () {
+                    _comment();
+                  },
+                  child: Text(
+                    'Reply ${widget.comment.comments.length.toString()}',
+                    style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                )
+              ],
+            ),
+          ),
         ],
       ),
     );

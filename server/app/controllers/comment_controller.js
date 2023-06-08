@@ -18,11 +18,40 @@ class CommentController {
     }
   }
 
+  async newReply(req, res, next) {
+    try {
+      const { userId, content, mediaLink, type, commentId } = req.body;
+      console.log({ userId, content, mediaLink, type });
+      var comment = new Comment({ userId, content, mediaLink, type });
+      comment = await comment.save();
+      var post = await Comment.findById(commentId);
+      post.comments.push(comment.id);
+      post = await post.save();
+      res.json(comment);
+    } catch (err) {
+      next(err);
+    }
+  }
+
   async getComment(req, res, next) {
     try {
       const { postId } = req.body;
       const post = await Post.findById(postId);
       const commentIds = post.comments;
+      const comments = await Comment.find({
+        _id: { $in: commentIds },
+      }).populate("userId");
+      res.json(comments);
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  async getReply(req, res, next) {
+    try {
+      const { commentId } = req.body;
+      const comment = await Comment.findById(commentId);
+      const commentIds = comment.comments;
       const comments = await Comment.find({
         _id: { $in: commentIds },
       }).populate("userId");
