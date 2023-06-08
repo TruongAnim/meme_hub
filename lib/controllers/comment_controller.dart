@@ -20,7 +20,7 @@ class CommentController extends GetxController {
   }
 
   void updateData() async {
-    comments.value = await CommentService.instance.getCommentFromPost(postId);
+    comments.value = await CommentService.instance.getComment(postId);
   }
 
   Future<bool> sendComment(
@@ -49,7 +49,8 @@ class CommentController extends GetxController {
   }
 
   void comment(Comment comment) async {
-    await Get.toNamed(AppRoutes.reply, arguments: {'comment': comment});
+    await Get.toNamed(AppRoutes.reply,
+        arguments: {'comment': comment}, preventDuplicates: false);
     comments.refresh();
   }
 }

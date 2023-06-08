@@ -33,8 +33,16 @@ class _ReplyScreenState extends State<ReplyScreen> {
               return ListView.builder(
                 itemCount: _controller.comments.length + 1,
                 itemBuilder: (context, index) {
-                  if (index == 0) return CommentItem(comment: comment);
-                  return CommentItem(comment: _controller.comments[index - 1]);
+                  if (index == 0) {
+                    return CommentItem(
+                      comment: comment,
+                      type: CommentItemType.fullSize,
+                    );
+                  }
+                  return CommentItem(
+                    comment: _controller.comments[index - 1],
+                    type: CommentItemType.inReply,
+                  );
                 },
               );
             }),

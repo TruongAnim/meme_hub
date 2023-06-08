@@ -70,7 +70,7 @@ class CommentService {
     }
   }
 
-  Future<List<Comment>> getCommentFromPost(String postId) async {
+  Future<List<Comment>> getComment(String postId) async {
     const url = '${ApiConstants.baseUrl}/comment/get-comment';
     final response = await _dio.get(
       url,
@@ -89,7 +89,7 @@ class CommentService {
     }
   }
 
-  Future<List<Comment>> getCommentFromComment(String commentId) async {
+  Future<List<Comment>> getReply(String commentId) async {
     const url = '${ApiConstants.baseUrl}/comment/get-reply';
     final response = await _dio.get(
       url,

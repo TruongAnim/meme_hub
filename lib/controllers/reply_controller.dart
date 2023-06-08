@@ -19,8 +19,7 @@ class ReplyController extends GetxController {
   }
 
   void updateData() async {
-    comments.value =
-        await CommentService.instance.getCommentFromComment(commentId);
+    comments.value = await CommentService.instance.getReply(commentId);
   }
 
   Future<bool> sendComment(

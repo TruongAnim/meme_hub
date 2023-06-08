@@ -34,7 +34,10 @@ class _CommentScreenState extends State<CommentScreen> {
                 itemCount: _controller.comments.length + 1,
                 itemBuilder: (context, index) {
                   if (index == 0) return PostItem(post: post);
-                  return CommentItem(comment: _controller.comments[index - 1]);
+                  return CommentItem(
+                    comment: _controller.comments[index - 1],
+                    type: CommentItemType.inPost,
+                  );
                 },
               );
             }),

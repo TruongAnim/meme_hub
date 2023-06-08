@@ -60,5 +60,52 @@ class CommentController {
       next(err);
     }
   }
+  async upvote(req, res, next){
+    try {
+      const commentId = req.body['commentId'];
+      const userId = req.body['userId'];
+      const isUpvote = req.body['isUpvote'];
+      var comment = await Comment.findById(commentId);
+      if (isUpvote){
+        const indexToAdd = comment.upVotes.indexOf(userId);
+        if(indexToAdd == -1){
+          comment.upVotes.push(userId)
+        }
+      }else{
+        const indexToRemove = comment.upVotes.indexOf(userId);
+        if (indexToRemove > -1) {
+          comment.upVotes.splice(indexToRemove, 1);
+        }
+      }
+      comment = await comment.save();
+      res.json(comment);
+    } catch (err) {
+      next(err);
+    }
+  }
+  async favourite(req, res, next){
+    try {
+      const commentId = req.body['commentId'];
+      const userId = req.body['userId'];
+      const isFavourite = req.body['isFavourite'];
+      var comment = await Comment.findById(commentId);
+      if (isFavourite){
+        const indexToAdd = comment.favourites.indexOf(userId);
+        if(indexToAdd == -1){
+          comment.favourites.push(userId)
+        }
+      }else{
+        const indexToRemove = comment.favourites.indexOf(userId);
+        if (indexToRemove > -1) {
+          comment.favourites.splice(indexToRemove, 1);
+        }
+      }
+      comment = await comment.save();
+      res.json(comment);
+    } catch (err) {
+      console.log(err)
+      next(err);
+    }
+  }
 }
 module.exports = new CommentController();

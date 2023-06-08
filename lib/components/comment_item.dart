@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:meme_hub/components/comment_response_item.dart';
-import 'package:meme_hub/controllers/comment_controller.dart';
 import 'package:meme_hub/models/comment.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/utils/temp_data.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
+enum CommentItemType { inPost, fullSize, inReply }
+
 class CommentItem extends StatelessWidget {
-  CommentItem({super.key, required this.comment});
-  final CommentController _controller = Get.find();
+  CommentItem({super.key, required this.comment, required this.type});
   Comment comment;
+  CommentItemType type;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +54,9 @@ class CommentItem extends StatelessWidget {
                 Text(comment.content),
                 if (comment.mediaLink.isNotEmpty)
                   Image.network(comment.mediaLink),
-                CommentResponseItem(comment: comment),
+                CommentResponseItem(
+                    comment: comment,
+                    showReply: type == CommentItemType.inPost),
               ],
             ),
           ),

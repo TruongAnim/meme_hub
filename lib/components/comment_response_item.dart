@@ -7,9 +7,11 @@ import 'package:meme_hub/services/user_service.dart';
 
 class CommentResponseItem extends StatefulWidget {
   Comment comment;
+  bool showReply;
   CommentResponseItem({
     Key? key,
     required this.comment,
+    required this.showReply,
   }) : super(key: key);
 
   @override
@@ -45,6 +47,7 @@ class _CommentResponseItemState extends State<CommentResponseItem> {
   }
 
   _comment() {
+    print('comment');
     controller.comment(widget.comment);
   }
 
@@ -82,28 +85,29 @@ class _CommentResponseItemState extends State<CommentResponseItem> {
             ),
           ),
           Text(widget.comment.favourites.length.toString()),
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                InkWell(
-                  onTap: () {
-                    _comment();
-                  },
-                  child: Text(
-                    'Reply ${widget.comment.comments.length.toString()}',
-                    style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14),
+          if (widget.showReply)
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      _comment();
+                    },
+                    child: Text(
+                      'Reply ${widget.comment.comments.length.toString()}',
+                      style: TextStyle(
+                          color: Colors.blue,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: 10,
-                )
-              ],
+                  SizedBox(
+                    width: 10,
+                  )
+                ],
+              ),
             ),
-          ),
         ],
       ),
     );
