@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:photo_view/photo_view.dart';
 
-import 'package:meme_hub/controllers/image_view_controller.dart';
+import 'package:meme_hub/controllers/media_controller.dart';
 
 class ImageViewScreen extends StatefulWidget {
   ImageViewScreen();
@@ -14,7 +14,7 @@ class ImageViewScreen extends StatefulWidget {
 }
 
 class _ImageViewScreenState extends State<ImageViewScreen> {
-  final ImageViewController _controller = Get.find();
+  final MediaController _controller = Get.find();
   final DateFormat formatter = DateFormat('HH:mm:ss dd-MM-yyyy');
   late String name;
   late DateTime time;

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/components/comment_response_item.dart';
 import 'package:meme_hub/controllers/comment_controller.dart';
+import 'package:meme_hub/controllers/media_controller.dart';
 import 'package:meme_hub/models/comment.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/utils/temp_data.dart';
@@ -56,7 +57,7 @@ class CommentItem extends StatelessWidget {
                 Text(comment.content),
                 if (comment.type == 'image')
                   GestureDetector(
-                      onTap: () => Get.find<CommentController>().viewMedia(
+                      onTap: () => Get.find<MediaController>().viewMedia(
                           type: comment.type,
                           name: user.name,
                           time: comment.createdAt,

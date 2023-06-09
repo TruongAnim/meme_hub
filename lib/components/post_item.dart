@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/components/post_response_item.dart';
+import 'package:meme_hub/controllers/media_controller.dart';
 import 'package:meme_hub/controllers/post_controller.dart';
 import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/models/user.dart';
@@ -44,7 +45,7 @@ class PostItem extends StatelessWidget {
           const SizedBox(height: 8),
           if (post.type == 'image')
             GestureDetector(
-              onTap: () => controller.viewMedia(
+              onTap: () => Get.find<MediaController>().viewMedia(
                   type: post.type,
                   name: user.name,
                   time: post.createdAt,

@@ -33,16 +33,15 @@ class _NewPostScreenState extends State<NewPostScreen> {
   }
 
   void _uploadImage() async {
-    if (_image != null) {
-      LoadingOverlay.show();
-      bool result = await _controller.post(_image!, _titleController.text);
-      LoadingOverlay.hide();
-      if (result) {
-        ToastMaker.showToast(content: 'Your meme has been post!');
-        Get.back();
-      } else {
-        ToastMaker.showToast(content: 'Error!');
-      }
+    LoadingOverlay.show();
+    bool result =
+        await _controller.post(_image, _titleController.text, ['hello']);
+    LoadingOverlay.hide();
+    if (result) {
+      ToastMaker.showToast(content: 'Your meme has been post!');
+      Get.back();
+    } else {
+      ToastMaker.showToast(content: 'Error!');
     }
   }
 

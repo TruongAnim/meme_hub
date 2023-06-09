@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:meme_hub/controllers/media_controller.dart';
 import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/routes/app_routes.dart';
@@ -9,7 +10,7 @@ enum PostStatus { initial, success, failure }
 
 class PostController extends GetxController {
   final User currentUser = UserService.instance.currentUser;
-  final PostService _postService = PostService();
+  final PostService _postService = PostService.instance;
   RxList<Post> posts = RxList();
   Rx<PostStatus> status = Rx<PostStatus>(PostStatus.initial);
   RxBool hasReachedMax = RxBool(false);
@@ -54,12 +55,5 @@ class PostController extends GetxController {
   void comment(Post post) async {
     await Get.toNamed(AppRoutes.comment, arguments: {'post': post});
     posts.refresh();
-  }
-
-  void viewMedia({required type, required name, required time, required url}) {
-    if (type == 'image') {
-      Get.toNamed(AppRoutes.imageView,
-          arguments: {'name': name, 'time': time, 'url': url});
-    }
   }
 }

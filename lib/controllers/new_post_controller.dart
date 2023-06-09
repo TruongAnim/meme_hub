@@ -6,6 +6,7 @@ import 'package:meme_hub/routes/app_routes.dart';
 import 'package:meme_hub/services/cloud_service.dart';
 import 'package:meme_hub/services/post_service.dart';
 import 'package:meme_hub/utils/LogUtil.dart';
+import 'package:mime/mime.dart';
 
 class NewPostController extends GetxController {
   Uint8List? _imageBytes;
@@ -15,13 +16,18 @@ class NewPostController extends GetxController {
     super.onInit();
   }
 
-  Future<bool> post(File image, String title) async {
+  Future<bool> post(File? image, String title, List<String> tags) async {
     try {
-      String mediaLink = await CloudService.instance.uploadImage(image);
-      PostService postService = PostService();
-      return await postService.newPost(title, mediaLink, ['image', 'hello']);
+      String type = 'text';
+      String mediaLink = '';
+      if (image != null) {
+        String? mimeType = lookupMimeType(image.path);
+        type = mimeType!.split('/')[0];
+        mediaLink = await CloudService.instance.uploadImage(image);
+      }
+      return await PostService.instance.newPost(title, mediaLink, type, tags);
     } catch (error, stackTrace) {
-      LogUtil.error('login', error, stackTrace);
+      LogUtil.error('new post', error, stackTrace);
       return false;
     }
   }

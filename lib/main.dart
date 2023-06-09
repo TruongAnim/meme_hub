@@ -3,10 +3,12 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:meme_hub/constants.dart';
+import 'package:meme_hub/controllers/media_controller.dart';
 import 'package:meme_hub/routes/app_routes.dart';
 
 void main() {
   runApp(const MyApp());
+  Get.put(MediaController());
 }
 
 class MyApp extends StatelessWidget {

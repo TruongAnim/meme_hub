@@ -5,15 +5,23 @@ import 'package:meme_hub/utils/LogUtil.dart';
 import 'package:meme_hub/utils/api_constants.dart';
 
 class PostService {
+  PostService._();
+  static final PostService _instance = PostService._();
+  static PostService get instance => _instance;
   final Dio _dio = Dio();
 
   Future<bool> newPost(
-      String title, String mediaLink, List<String> tags) async {
+      String title, String mediaLink, String type, List<String> tags) async {
     const url = '${ApiConstants.baseUrl}/post/new-post';
     try {
       final response = await _dio.post(
         url,
-        data: {'title': title, 'mediaLink': mediaLink, 'tags': tags},
+        data: {
+          'title': title,
+          'mediaLink': mediaLink,
+          'type': type,
+          'tags': tags
+        },
         options: Options(
           headers: {
             'Authorization': 'Bearer ${UserService.instance.currentUser.token}'
