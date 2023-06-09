@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:path/path.dart' as path;
 
 class DownloadService {
   DownloadService._();
@@ -18,12 +19,11 @@ class DownloadService {
         if (savePath == null) {
           return 'Can not get download folder!';
         }
-        print('save path: ${savePath}');
-        await _dio.download(url, savePath + '/image1.webp',
+        savePath += '/${path.basename(url)}';
+        await _dio.download(url, savePath,
             onReceiveProgress: (received, total) {
           if (total != -1) {
             double progress = (received / total * 100);
-            print('Download progress: ${progress.toStringAsFixed(2)}%');
           }
         });
         return 'File downloaded to: $savePath';

@@ -54,4 +54,11 @@ class CommentController extends GetxController {
         arguments: {'comment': comment}, preventDuplicates: false);
     comments.refresh();
   }
+
+  void viewMedia({required type, required name, required time, required url}) {
+    if (type == 'image') {
+      Get.toNamed(AppRoutes.imageView,
+          arguments: {'name': name, 'time': time, 'url': url});
+    }
+  }
 }
