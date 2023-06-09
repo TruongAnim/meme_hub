@@ -47,8 +47,14 @@ class _NewPostScreenState extends State<NewPostScreen> {
 
   void _uploadImage() async {
     LoadingOverlay.show();
-    bool result =
-        await _controller.post(_mediaFile, _titleController.text, ['hello']);
+    String postType = 'text';
+    if (type == MediaType.image) {
+      postType = 'image';
+    } else if (type == MediaType.video) {
+      postType = 'video';
+    }
+    bool result = await _controller
+        .post(_mediaFile, _titleController.text, postType, ['hello']);
     LoadingOverlay.hide();
     if (result) {
       ToastMaker.showToast(content: 'Your meme has been post!');

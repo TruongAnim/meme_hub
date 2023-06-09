@@ -16,7 +16,8 @@ class NewPostController extends GetxController {
     super.onInit();
   }
 
-  Future<bool> post(File? image, String title, List<String> tags) async {
+  Future<bool> post(
+      File? image, String title, String type, List<String> tags) async {
     try {
       String type = 'text';
       String mediaLink = '';

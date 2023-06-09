@@ -10,21 +10,22 @@ class CloudService {
   static const String _keyPath = 'assets/keys/credentials.json';
   static CloudService get instance => _instance;
 
-  CloudService._() {
-    rootBundle.loadString(_keyPath).then((json) {
+  CloudService._();
+
+  Future<void> _initCredentials() async {
+    if (_credentials == null) {
+      String json = await rootBundle.loadString(_keyPath);
       _credentials = auth.ServiceAccountCredentials.fromJson(json);
-    });
+    }
   }
+
   final String _bucketName = 'meme_hub';
-  late auth.ServiceAccountCredentials _credentials;
+  auth.ServiceAccountCredentials? _credentials;
   auth.AutoRefreshingAuthClient? _client;
 
   Future<String> save(String name, Uint8List imgBytes) async {
-    // Create a client
     _client ??=
-        await auth.clientViaServiceAccount(_credentials, Storage.SCOPES);
-
-    // Instantiate objects to cloud storage
+        await auth.clientViaServiceAccount(_credentials!, Storage.SCOPES);
     var storage = Storage(_client!, 'Test project');
     var bucket = storage.bucket(_bucketName);
 
@@ -45,6 +46,7 @@ class CloudService {
   }
 
   Future<String> uploadImage(File image) async {
+    await _initCredentials();
     Uint8List imageBytes = image.readAsBytesSync();
     String imageName = image.path.split('/').last;
     return await CloudService.instance.save(imageName, imageBytes);

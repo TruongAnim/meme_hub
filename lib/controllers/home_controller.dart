@@ -6,7 +6,7 @@ class HomeController extends GetxController {
     Get.toNamed(AppRoutes.user);
   }
 
-  void toUploadScreen() {
-    Get.toNamed(AppRoutes.upload);
+  void toUploadScreen() async {
+    await Get.toNamed(AppRoutes.upload);
   }
 }

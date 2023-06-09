@@ -49,22 +49,28 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Stack(
       children: [
-        SizedBox(
-          width: double.infinity,
-          child: _controller.value.isInitialized
-              ? AspectRatio(
-                  aspectRatio: _controller.value.aspectRatio,
-                  child: VideoPlayer(_controller),
-                )
-              : Container(),
-        ),
-        IconButton(
-          icon: Icon(
-            _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+        _controller.value.isInitialized
+            ? AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: VideoPlayer(_controller),
+              )
+            : Container(),
+        Positioned.fill(
+          child: GestureDetector(
+            onTap: _togglePlayPause,
+            child: Container(
+              color: Colors.transparent,
+              child: Center(
+                child: Icon(
+                  _controller.value.isPlaying ? Icons.pause : Icons.play_arrow,
+                  size: 80,
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ),
-          onPressed: _togglePlayPause,
         ),
       ],
     );
