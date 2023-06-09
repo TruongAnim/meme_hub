@@ -45,9 +45,6 @@ class PostService {
       );
       if (response.statusCode == 200) {
         List<dynamic> data = response.data;
-        data.forEach((element) {
-          print(element);
-        });
         return data.map((e) => Post.fromMap(e)).toList();
       } else {
         return [];
@@ -76,7 +73,6 @@ class PostService {
         ),
       );
       if (response.statusCode == 200) {
-        print('upvote successfully!');
       } else {}
     } catch (error, stackTrace) {
       LogUtil.error('newPost', error, stackTrace);
@@ -101,7 +97,6 @@ class PostService {
         ),
       );
       if (response.statusCode == 200) {
-        print('isFavourite successfully!');
       } else {}
     } catch (error, stackTrace) {
       LogUtil.error('newPost', error, stackTrace);

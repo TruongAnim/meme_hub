@@ -10,6 +10,7 @@ class Post {
   List<String> favourites;
   List<String> tags;
   String title;
+  String type;
   String mediaLink;
   DateTime createdAt;
 
@@ -21,6 +22,7 @@ class Post {
     required this.favourites,
     required this.tags,
     required this.title,
+    required this.type,
     required this.mediaLink,
     required this.createdAt,
   });
@@ -34,6 +36,7 @@ class Post {
       'favourites': favourites,
       'tags': tags,
       'title': title,
+      'type': type,
       'mediaLink': mediaLink,
       'createdAt': createdAt.millisecondsSinceEpoch,
     };
@@ -56,6 +59,7 @@ class Post {
           .toList(),
       tags: (map['tags'] as List<dynamic>).map((e) => e.toString()).toList(),
       title: map['title'] as String,
+      type: map['type'] as String,
       mediaLink: map['mediaLink'] as String,
       createdAt: DateTime.parse(map['createdAt']).toLocal(),
     );

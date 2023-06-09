@@ -16,9 +16,7 @@ class PostController extends GetxController {
 
   @override
   void onReady() {
-    // Perform operations after the controller is ready
     super.onReady();
-    print('onReady');
     _onPostFetched();
   }
 
@@ -56,5 +54,12 @@ class PostController extends GetxController {
   void comment(Post post) async {
     await Get.toNamed(AppRoutes.comment, arguments: {'post': post});
     posts.refresh();
+  }
+
+  void viewMedia({required type, required name, required time, required url}) {
+    if (type == 'image') {
+      Get.toNamed(AppRoutes.imageView,
+          arguments: {'name': name, 'time': time, 'url': url});
+    }
   }
 }

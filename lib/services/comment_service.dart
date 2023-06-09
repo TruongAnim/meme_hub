@@ -126,7 +126,6 @@ class CommentService {
         ),
       );
       if (response.statusCode == 200) {
-        print('upvote successfully!');
       } else {}
     } catch (error, stackTrace) {
       LogUtil.error('upvote comment', error, stackTrace);
@@ -152,7 +151,6 @@ class CommentService {
         ),
       );
       if (response.statusCode == 200) {
-        print('isFavourite successfully!');
       } else {}
     } catch (error, stackTrace) {
       LogUtil.error('favourite comment', error, stackTrace);

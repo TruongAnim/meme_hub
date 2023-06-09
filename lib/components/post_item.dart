@@ -42,11 +42,19 @@ class PostItem extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          Image.network(
-            post.mediaLink,
-            width: double.infinity,
-            fit: BoxFit.contain,
-          ),
+          if (post.type == 'image')
+            GestureDetector(
+              onTap: () => controller.viewMedia(
+                  type: post.type,
+                  name: user.name,
+                  time: post.createdAt,
+                  url: post.mediaLink),
+              child: Image.network(
+                post.mediaLink,
+                width: double.infinity,
+                fit: BoxFit.contain,
+              ),
+            ),
           const SizedBox(height: 8),
           Text(
             post.title,

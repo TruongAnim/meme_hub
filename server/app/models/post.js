@@ -21,6 +21,7 @@ const postScheme = mongoose.Schema({
     require: true,
   },
   title: { type: String, require: true},
+  type: { type: String, default: 'text'},
   mediaLink: { type: String, require: true},
   createdAt: {
     type: Date,
