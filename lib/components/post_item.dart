@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/components/post_response_item.dart';
+import 'package:meme_hub/components/video_player_widget.dart';
 import 'package:meme_hub/controllers/media_controller.dart';
 import 'package:meme_hub/controllers/post_controller.dart';
 import 'package:meme_hub/models/post.dart';
@@ -16,6 +17,14 @@ class PostItem extends StatelessWidget {
     if (post.userId is User) {
       user = post.userId;
     }
+  }
+
+  void _viewMedia() {
+    Get.find<MediaController>().viewMedia(
+        type: post.type,
+        name: user.name,
+        time: post.createdAt,
+        url: post.mediaLink);
   }
 
   @override
@@ -45,17 +54,17 @@ class PostItem extends StatelessWidget {
           const SizedBox(height: 8),
           if (post.type == 'image')
             GestureDetector(
-              onTap: () => Get.find<MediaController>().viewMedia(
-                  type: post.type,
-                  name: user.name,
-                  time: post.createdAt,
-                  url: post.mediaLink),
+              onTap: _viewMedia,
               child: Image.network(
                 post.mediaLink,
                 width: double.infinity,
                 fit: BoxFit.contain,
               ),
             ),
+          if (post.type == 'video')
+            GestureDetector(
+                onTap: _viewMedia,
+                child: VideoPlayerWidget(source: post.mediaLink)),
           const SizedBox(height: 8),
           Text(
             post.title,
