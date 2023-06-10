@@ -1,6 +1,4 @@
-const User = require("../models/user");
 const Post = require("../models/post");
-const Comment = require("../models/comment");
 
 class PostController {
   async newPost(req, res, next) {

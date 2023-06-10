@@ -1,19 +1,20 @@
 import 'dart:io';
 
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:meme_hub/routes/app_routes.dart';
+import 'package:meme_hub/models/tag.dart';
 import 'package:meme_hub/services/cloud_service.dart';
 import 'package:meme_hub/services/post_service.dart';
+import 'package:meme_hub/services/tag_service.dart';
 import 'package:meme_hub/utils/LogUtil.dart';
 import 'package:mime/mime.dart';
 
 class NewPostController extends GetxController {
-  Uint8List? _imageBytes;
-  String? _imageName;
+  RxList<Tag> tags = RxList();
+
   @override
   void onInit() {
     super.onInit();
+    loadingTags();
   }
 
   Future<bool> post(
@@ -33,7 +34,7 @@ class NewPostController extends GetxController {
     }
   }
 
-  void toUserScreen() {
-    Get.toNamed(AppRoutes.user);
+  void loadingTags() async {
+    tags.value = await TagService.instance.getTags();
   }
 }

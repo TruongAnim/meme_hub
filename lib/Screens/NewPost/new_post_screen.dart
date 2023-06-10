@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meme_hub/components/empty_image_holder.dart';
+import 'package:meme_hub/components/tags_dropdown.dart';
 import 'package:meme_hub/components/video_player_widget.dart';
 import 'package:meme_hub/controllers/new_post_controller.dart';
 import 'package:meme_hub/utils/loading_overlay.dart';
@@ -123,11 +124,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                 ),
               ),
               const SizedBox(height: 16.0),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Tags',
-                ),
-              ),
+              TagsDropdown(),
               const SizedBox(height: 16.0),
               if (type == MediaType.image)
                 Image.file(
