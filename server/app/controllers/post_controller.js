@@ -1,14 +1,22 @@
 const Post = require("../models/post");
+const Tag = require("../models/tag");
 
 class PostController {
   async newPost(req, res, next) {
     try {
-      const { tags, title, mediaLink } = req.body;
-      console.log({ userId: req.user.id, tags, title, mediaLink });
-      var post = new Post({ userId: req.user.id, tags, title, mediaLink });
+      const { tags, title, type, mediaLink } = req.body;
+      console.log({ userId: req.user.id, tags, title, type, mediaLink });
+      var post = new Post({ userId: req.user.id, tags, title, type, mediaLink });
+      for (var i in tags){
+        var tag = await Tag.findById(tags[i])
+        console.log(tag)
+        tag.posts.push(post.id)
+        await tag.save()
+      }
       post = await post.save();
       res.json(post);
     } catch (err) {
+      console.log(err)
       next(err);
     }
   }

@@ -13,6 +13,7 @@ class PostService {
   Future<bool> newPost(
       String title, String mediaLink, String type, List<String> tags) async {
     const url = '${ApiConstants.baseUrl}/post/new-post';
+    print('type2 $type');
     try {
       final response = await _dio.post(
         url,

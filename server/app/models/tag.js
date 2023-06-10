@@ -8,6 +8,7 @@ const tagScheme = mongoose.Schema({
       require: true,
     },
   ],
+  icon: { type: String, require: true },
 });
 const Tag = mongoose.model("Tag", tagScheme);
 module.exports = Tag;

@@ -47,6 +47,7 @@ class Post {
     if (map['userId'] is Map) {
       user = User.fromMap(map['userId']);
     }
+    print(map);
     return Post(
       id: map['_id'] as String,
       userId: user,

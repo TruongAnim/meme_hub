@@ -17,8 +17,7 @@ class NewPostController extends GetxController {
     loadingTags();
   }
 
-  Future<bool> post(
-      File? image, String title, String type, List<String> tags) async {
+  Future<bool> post(File? image, String title, List<String> tags) async {
     try {
       String type = 'text';
       String mediaLink = '';

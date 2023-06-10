@@ -7,6 +7,7 @@ import 'package:meme_hub/components/empty_image_holder.dart';
 import 'package:meme_hub/components/tags_dropdown.dart';
 import 'package:meme_hub/components/video_player_widget.dart';
 import 'package:meme_hub/controllers/new_post_controller.dart';
+import 'package:meme_hub/models/tag.dart';
 import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
 
@@ -23,6 +24,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
   final NewPostController _controller = Get.find();
   File? _mediaFile;
   MediaType type = MediaType.none;
+  List<Tag> selectedTags = List.empty(growable: true);
   final _picker = ImagePicker();
   final TextEditingController _titleController = TextEditingController();
 
@@ -33,6 +35,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
         type = MediaType.image;
         _mediaFile = File(pickedImage.path);
       });
+      print(type);
     }
   }
 
@@ -43,19 +46,14 @@ class _NewPostScreenState extends State<NewPostScreen> {
         type = MediaType.video;
         _mediaFile = File(pickedVideo.path);
       });
+      print(type);
     }
   }
 
   void _uploadImage() async {
     LoadingOverlay.show();
-    String postType = 'text';
-    if (type == MediaType.image) {
-      postType = 'image';
-    } else if (type == MediaType.video) {
-      postType = 'video';
-    }
-    bool result = await _controller
-        .post(_mediaFile, _titleController.text, postType, ['hello']);
+    bool result = await _controller.post(_mediaFile, _titleController.text,
+        selectedTags.map((e) => e.id).toList());
     LoadingOverlay.hide();
     if (result) {
       ToastMaker.showToast(content: 'Your meme has been post!');
@@ -124,7 +122,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                 ),
               ),
               const SizedBox(height: 16.0),
-              TagsDropdown(),
+              TagsDropdown(selectedTags: selectedTags),
               const SizedBox(height: 16.0),
               if (type == MediaType.image)
                 Image.file(

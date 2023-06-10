@@ -16,12 +16,13 @@ const postScheme = mongoose.Schema({
     ref: "User",
     require: true,
   }],
-  tags: {
-    type: [String],
+  tags: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Tag",
     require: true,
-  },
+  }],
   title: { type: String, require: true},
-  type: { type: String, default: 'text'},
+  type: { type: String, require: true},
   mediaLink: { type: String, require: true},
   createdAt: {
     type: Date,
