@@ -20,7 +20,6 @@ class HomeController extends GetxController {
     List<Tag> temp = [TempData.getTempTag()];
     temp.addAll(await _tagService.getTags());
     tags.value = temp;
-    print(tags.length);
   }
 
   void toUserScreen() {
@@ -34,8 +33,6 @@ class HomeController extends GetxController {
   void selectItem(int index) {
     current.value = index;
     PostController postController = Get.find();
-    print(postController.currentTag.name);
     postController.updateTag(tags[index]);
-    print(postController.currentTag.name);
   }
 }

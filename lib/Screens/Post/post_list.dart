@@ -1,23 +1,62 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:meme_hub/Screens/Post/bottom_loader.dart';
 import 'package:meme_hub/components/post_item.dart';
 import 'package:meme_hub/controllers/post_controller.dart';
 import 'package:meme_hub/models/post.dart';
 
-class PostList extends StatelessWidget {
+class PostList extends StatefulWidget {
   PostList({super.key});
+
+  @override
+  State<PostList> createState() => _PostListState();
+}
+
+class _PostListState extends State<PostList> {
   PostController controller = Get.put(PostController());
+
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      List<Post> listPost = controller.posts.value;
+      List<Post> listPost = controller.posts;
       return ListView.builder(
-        itemCount: listPost.length,
+        controller: _scrollController,
+        itemCount: controller.hasReachedMax.value
+            ? listPost.length
+            : listPost.length + 1,
         itemBuilder: (context, index) {
-          return PostItem(post: listPost[index]);
+          return index >= listPost.length
+              ? const BottomLoader()
+              : PostItem(post: listPost[index]);
         },
       );
     });
+  }
+
+  @override
+  void dispose() {
+    _scrollController
+      ..removeListener(_onScroll)
+      ..dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_isBottom) controller.triggerEvent();
+  }
+
+  bool get _isBottom {
+    if (!_scrollController.hasClients) return false;
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.offset;
+    return currentScroll >= (maxScroll * 0.9);
   }
 }

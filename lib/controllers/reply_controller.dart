@@ -14,7 +14,6 @@ class ReplyController extends GetxController {
   RxList<Comment> comments = RxList();
 
   void setCommentId(String commentId) {
-    print('set ${commentId}');
     this.commentId = commentId;
     updateData();
   }

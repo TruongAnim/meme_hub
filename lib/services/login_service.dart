@@ -21,9 +21,6 @@ class LoginService {
       );
 
       if (response.statusCode == 200) {
-        // Login successful, extract and return the token
-        print(response.data);
-
         final token = response.data['token'] as String;
         UserService.instance.currentUser = User.fromMap(response.data);
         bool isTokenSaved = await saveTokenToSharedPreferences(token);

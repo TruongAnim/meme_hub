@@ -13,7 +13,6 @@ class PostService {
   Future<bool> newPost(
       String title, String mediaLink, String type, List<String> tags) async {
     const url = '${ApiConstants.baseUrl}/post/new-post';
-    print('type2 $type');
     try {
       final response = await _dio.post(
         url,
@@ -41,11 +40,12 @@ class PostService {
   }
 
   Future<List<Post>> fetchPosts(
-      {String tag = 'all', int startIndex = 0}) async {
+      {String tag = 'all', int start = 0, int limit = 100}) async {
     String url = '${ApiConstants.baseUrl}/post/get-post/$tag';
     try {
       final response = await _dio.get(
         url,
+        data: {'start': start, 'limit': limit},
         options: Options(
           headers: {
             'Authorization': 'Bearer ${UserService.instance.currentUser.token}'

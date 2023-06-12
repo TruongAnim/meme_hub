@@ -35,7 +35,6 @@ class _NewPostScreenState extends State<NewPostScreen> {
         type = MediaType.image;
         _mediaFile = File(pickedImage.path);
       });
-      print(type);
     }
   }
 
@@ -46,7 +45,6 @@ class _NewPostScreenState extends State<NewPostScreen> {
         type = MediaType.video;
         _mediaFile = File(pickedVideo.path);
       });
-      print(type);
     }
   }
 

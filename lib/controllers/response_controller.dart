@@ -18,9 +18,7 @@ class ResponseController extends GetxController {
   ResponseController(
       {required this.upvotes,
       required this.downvotes,
-      required this.comments}) {
-    print('create new response');
-  }
+      required this.comments}) {}
 
   @override
   void onReady() {
@@ -47,7 +45,6 @@ class ResponseController extends GetxController {
       isDownvote.value = false;
       countDownvote.value -= 1;
     }
-    print('onUpvote ${countUpvote}');
   }
 
   void onDownvote() {

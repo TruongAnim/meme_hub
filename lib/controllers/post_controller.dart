@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/models/tag.dart';
@@ -16,30 +18,55 @@ class PostController extends GetxController {
   RxList<Post> posts = RxList();
   Rx<PostStatus> status = Rx<PostStatus>(PostStatus.initial);
   RxBool hasReachedMax = RxBool(false);
+  bool _isThrottled = false;
 
   @override
   void onReady() {
     super.onReady();
-    _onPostFetched();
+    onPostFetched();
   }
 
-  void updateTag(Tag tag) async {
+  void updateTag(Tag tag) {
     currentTag = tag;
-    await _onPostFetched();
-    print('list post $posts');
+    status.value = PostStatus.initial;
+    onPostFetched();
   }
 
   Future<List<Post>> _fetchPosts() async {
     if (currentTag.id.isNotEmpty) {
-      return _postService.fetchPosts(tag: currentTag.id);
+      return _postService.fetchPosts(
+          tag: currentTag.id,
+          start: status.value == PostStatus.initial ? 0 : posts.length,
+          limit: 2);
     } else {
-      return _postService.fetchPosts();
+      return _postService.fetchPosts(start: posts.length, limit: 2);
     }
   }
 
-  Future<void> _onPostFetched() async {
-    print('_onPostFetched');
-    // if (hasReachedMax.value) return;
+  void throttle(Function callback, Duration interval) {
+    // Execute the callback function immediately if it's not throttled
+    if (!_isThrottled) {
+      _isThrottled = true;
+      callback();
+
+      // Reset the throttle after the specified interval
+      Timer(interval, () {
+        _isThrottled = false;
+      });
+    }
+  }
+
+  void triggerEvent() {
+    print('Event triggered');
+
+    // Throttle the function to execute once within the specified interval
+    throttle(onPostFetched, Duration(seconds: 1));
+  }
+
+  Future<void> onPostFetched() async {
+    print('onPostFetched');
+    await Future.delayed(Duration(seconds: 2));
+    if (hasReachedMax.value) return;
     try {
       if (status.value == PostStatus.initial) {
         this.posts.value = await _fetchPosts();
@@ -52,9 +79,9 @@ class PostController extends GetxController {
         hasReachedMax.value = true;
       } else {
         status.value = PostStatus.success;
-        // this.posts.value.addAll(posts);
-        this.posts.value = posts;
-        hasReachedMax.value = true;
+        this.posts.addAll(posts);
+        // this.posts.value = posts;
+        hasReachedMax.value = false;
       }
     } catch (_) {
       status.value = PostStatus.failure;
