@@ -24,7 +24,7 @@ class PostController {
     try {
       const tag = req.params.tag;
       console.log("get post: " + tag);
-      const query = tag == "all" ? {} : { tags: tag };
+      const query = tag == "all" ? {} : { tags: { $in: [tag] } };
       const posts = await Post.find(query)
         .populate("userId")
         .sort({ createdAt: -1 }); // -1 for descending order, 1 for ascending order

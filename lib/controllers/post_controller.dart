@@ -1,16 +1,18 @@
 import 'package:get/get.dart';
-import 'package:meme_hub/controllers/media_controller.dart';
 import 'package:meme_hub/models/post.dart';
+import 'package:meme_hub/models/tag.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/routes/app_routes.dart';
 import 'package:meme_hub/services/post_service.dart';
 import 'package:meme_hub/services/user_service.dart';
+import 'package:meme_hub/utils/temp_data.dart';
 
 enum PostStatus { initial, success, failure }
 
 class PostController extends GetxController {
   final User currentUser = UserService.instance.currentUser;
   final PostService _postService = PostService.instance;
+  Tag currentTag = TempData.getTempTag();
   RxList<Post> posts = RxList();
   Rx<PostStatus> status = Rx<PostStatus>(PostStatus.initial);
   RxBool hasReachedMax = RxBool(false);
@@ -21,22 +23,37 @@ class PostController extends GetxController {
     _onPostFetched();
   }
 
+  void updateTag(Tag tag) async {
+    currentTag = tag;
+    await _onPostFetched();
+    print('list post $posts');
+  }
+
+  Future<List<Post>> _fetchPosts() async {
+    if (currentTag.id.isNotEmpty) {
+      return _postService.fetchPosts(tag: currentTag.id);
+    } else {
+      return _postService.fetchPosts();
+    }
+  }
+
   Future<void> _onPostFetched() async {
-    if (hasReachedMax.value) return;
+    print('_onPostFetched');
+    // if (hasReachedMax.value) return;
     try {
       if (status.value == PostStatus.initial) {
-        final posts = await _postService.fetchPosts();
-        this.posts.value = posts;
+        this.posts.value = await _fetchPosts();
         status.value = PostStatus.success;
         hasReachedMax.value = false;
         return;
       }
-      final posts = await _postService.fetchPosts();
+      final posts = await _fetchPosts();
       if (posts.isEmpty) {
         hasReachedMax.value = true;
       } else {
         status.value = PostStatus.success;
-        this.posts.value.addAll(posts);
+        // this.posts.value.addAll(posts);
+        this.posts.value = posts;
         hasReachedMax.value = true;
       }
     } catch (_) {
