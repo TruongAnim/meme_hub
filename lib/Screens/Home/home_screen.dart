@@ -16,15 +16,33 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final controller = Get.find<HomeController>();
 
+  String getTagName() {
+    if (controller.tags.isEmpty) {
+      return 'Meme Hub';
+    } else {
+      return controller.tags[controller.current.value].name;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SliderDrawer(
-            appBar: const SliderAppBar(
-                appBarColor: Colors.white,
-                title: Text('hello',
-                    style:
-                        TextStyle(fontSize: 22, fontWeight: FontWeight.w700))),
+            appBar: SliderAppBar(
+              title: Obx(
+                () => Text(getTagName(),
+                    style: const TextStyle(
+                        fontSize: 22, fontWeight: FontWeight.w700)),
+              ),
+              trailing: GestureDetector(
+                onTap: () {
+                  controller.toUserScreen();
+                },
+                child: const CircleAvatar(
+                  backgroundImage: NetworkImage('https://i.pravatar.cc/300'),
+                ),
+              ),
+            ),
             slider: DrawerWidget(),
             child: PostList()),
         floatingActionButton: FloatingActionButton(
