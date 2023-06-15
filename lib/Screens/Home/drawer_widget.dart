@@ -9,7 +9,7 @@ class DrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
+    return Drawer(child: Obx(() {
       return _controller.tags.isEmpty
           ? Container()
           : ListView.builder(
@@ -18,6 +18,6 @@ class DrawerWidget extends StatelessWidget {
                 return DrawerItem(index: index);
               },
             );
-    });
+    }));
   }
 }

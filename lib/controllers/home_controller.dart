@@ -31,8 +31,11 @@ class HomeController extends GetxController {
   }
 
   void selectItem(int index) {
-    current.value = index;
-    PostController postController = Get.find();
-    postController.updateTag(tags[index]);
+    if (index != current.value) {
+      current.value = index;
+      PostController postController = Get.find();
+      postController.updateTag(tags[index]);
+      Get.back();
+    }
   }
 }

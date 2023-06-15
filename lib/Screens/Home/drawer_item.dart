@@ -10,7 +10,7 @@ class DrawerItem extends StatelessWidget {
     required this.index,
   });
   int index;
-  HomeController _controller = Get.find();
+  final HomeController _controller = Get.find();
 
   @override
   Widget build(BuildContext context) {

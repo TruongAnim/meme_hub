@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/Screens/Post/bottom_loader.dart';
@@ -27,6 +28,13 @@ class _PostListState extends State<PostList> {
   Widget build(BuildContext context) {
     return Obx(() {
       List<Post> listPost = controller.posts;
+      if (controller.status == PostStatus.initial) {
+        return Container(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              children: [CircularProgressIndicator(), Text('Fetching post...')],
+            ));
+      }
       return ListView.builder(
         controller: _scrollController,
         itemCount: controller.hasReachedMax.value
