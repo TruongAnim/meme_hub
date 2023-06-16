@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/Screens/Home/drawer_widget.dart';
-import 'package:meme_hub/Screens/Home/home_appbar.dart';
 import 'package:meme_hub/Screens/Home/slider_widget.dart';
 import 'package:meme_hub/Screens/Post/post_list.dart';
 import 'package:meme_hub/controllers/home_controller.dart';
