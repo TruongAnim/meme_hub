@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/routes/app_routes.dart';
+import 'package:meme_hub/services/user_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Menu {
@@ -13,6 +15,7 @@ class Menu {
 
 class SliderController extends GetxController {
   late List<Menu> menu;
+  late User currentUser;
 
   @override
   void onInit() {
@@ -25,11 +28,14 @@ class SliderController extends GetxController {
       Menu(Icons.settings, 'Setting', onSettingTap),
       Menu(Icons.arrow_back_ios, 'LogOut', onLogoutTap)
     ];
+    currentUser = UserService.instance.currentUser;
   }
 
   void onMyCollectionTap() {}
 
-  void onUpdateInfoTap() {}
+  void onUpdateInfoTap() {
+    Get.toNamed(AppRoutes.updateInfo);
+  }
 
   void onNotificationTap() {}
 
@@ -38,7 +44,6 @@ class SliderController extends GetxController {
   void onSettingTap() {}
 
   void onLogoutTap() async {
-    print('log out');
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove('token');
     Get.offAllNamed(AppRoutes.welcome);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meme_hub/controllers/home_controller.dart';
+import 'package:meme_hub/Screens/Home/controllers/home_controller.dart';
 import 'package:meme_hub/models/tag.dart';
 import 'package:meme_hub/utils/api_constants.dart';
 

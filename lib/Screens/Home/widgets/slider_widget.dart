@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meme_hub/Screens/Home/slider_menu_item.dart';
-import 'package:meme_hub/controllers/slider_controller.dart';
+import 'package:meme_hub/Screens/Home/widgets/slider_menu_item.dart';
+import 'package:meme_hub/Screens/Home/controllers/slider_controller.dart';
 
 class SliderWidget extends StatelessWidget {
   SliderWidget({super.key});
@@ -31,8 +31,8 @@ class SliderWidget extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          const Text(
-            'Nick',
+          Text(
+            _controller.currentUser.name,
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.black,

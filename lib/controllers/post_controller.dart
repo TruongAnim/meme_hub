@@ -57,8 +57,6 @@ class PostController extends GetxController {
   }
 
   void triggerEvent() {
-    print('Event triggered');
-
     throttle(onPostFetched, const Duration(seconds: 1));
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meme_hub/Screens/Home/drawer_item.dart';
-import 'package:meme_hub/controllers/home_controller.dart';
+import 'package:meme_hub/Screens/Home/widgets/drawer_item.dart';
+import 'package:meme_hub/Screens/Home/controllers/home_controller.dart';
 
 class DrawerWidget extends StatelessWidget {
   DrawerWidget({super.key});
