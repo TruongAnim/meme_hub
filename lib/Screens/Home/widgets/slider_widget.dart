@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/Screens/Home/widgets/slider_menu_item.dart';
 import 'package:meme_hub/Screens/Home/controllers/slider_controller.dart';
+import 'package:meme_hub/core/helpers/assets_helper.dart';
+import 'package:meme_hub/core/helpers/image_helper.dart';
 
 class SliderWidget extends StatelessWidget {
   SliderWidget({super.key});
@@ -15,29 +17,29 @@ class SliderWidget extends StatelessWidget {
       padding: const EdgeInsets.only(top: 30),
       child: ListView(
         children: <Widget>[
-          const SizedBox(
-            height: 30,
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              ImageHelper.loadFromAsset(AssetsHelper.background_avatar,
+                  width: 220, height: 220),
+              Obx(
+                () => CircleAvatar(
+                  radius: 72,
+                  backgroundImage:
+                      NetworkImage(_controller.currentUser.value.avatar),
+                ),
+              ),
+            ],
           ),
-          CircleAvatar(
-            radius: 65,
-            backgroundColor: Colors.grey,
-            child: CircleAvatar(
-              radius: 60,
-              backgroundImage: Image.network(
-                      'https://nikhilvadoliya.github.io/assets/images/nikhil_1.webp')
-                  .image,
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          Text(
-            _controller.currentUser.name,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
+          Obx(
+            () => Text(
+              _controller.currentUser.value.name,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 30,
+              ),
             ),
           ),
           const SizedBox(

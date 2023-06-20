@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/routes/app_routes.dart';
 import 'package:meme_hub/services/user_service.dart';
+import 'package:meme_hub/utils/task_result.dart';
+import 'package:meme_hub/utils/temp_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Menu {
@@ -15,7 +17,7 @@ class Menu {
 
 class SliderController extends GetxController {
   late List<Menu> menu;
-  late User currentUser;
+  Rx<User> currentUser = Rx(TempData.getTempUser());
 
   @override
   void onInit() {
@@ -28,13 +30,18 @@ class SliderController extends GetxController {
       Menu(Icons.settings, 'Setting', onSettingTap),
       Menu(Icons.arrow_back_ios, 'LogOut', onLogoutTap)
     ];
-    currentUser = UserService.instance.currentUser;
+    currentUser.value = UserService.instance.currentUser;
   }
 
   void onMyCollectionTap() {}
 
-  void onUpdateInfoTap() {
-    Get.toNamed(AppRoutes.updateInfo);
+  void onUpdateInfoTap() async {
+    TaskResult? result = await Get.toNamed(AppRoutes.updateInfo) as TaskResult?;
+    print(result);
+    if (result != null && result.isSuccess) {
+      currentUser.value = UserService.instance.currentUser;
+      print('update');
+    }
   }
 
   void onNotificationTap() {}

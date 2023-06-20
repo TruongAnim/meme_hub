@@ -30,6 +30,7 @@ class UserService {
 
         if (response.statusCode == 200) {
           Map<String, dynamic> data = response.data;
+          print('new user');
           currentUser = User(
               id: data['_id'],
               name: data['name'],
@@ -62,12 +63,13 @@ class UserService {
             headers: {'Authorization': 'Bearer ${currentUser.token}'},
           ),
         );
-
         if (response.statusCode == 200) {
           Map<String, dynamic> data = response.data;
+          await getUser();
           return TaskResult(isSuccess: true, title: 'Update successfully');
         }
       }
+
       return TaskResult(
           isSuccess: false,
           title: 'Update Failed',

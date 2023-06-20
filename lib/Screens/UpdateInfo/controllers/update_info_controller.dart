@@ -17,7 +17,6 @@ class UpdateInfoController extends GetxController {
     }
     TaskResult update =
         await UserService.instance.updateUserInfo(name, description, url);
-
     return update;
   }
 }

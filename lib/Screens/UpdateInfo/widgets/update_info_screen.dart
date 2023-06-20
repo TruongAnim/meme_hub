@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:meme_hub/Screens/UpdateInfo/controllers/update_info_controller.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/utils/api_constants.dart';
+import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:meme_hub/utils/snackbar_utils.dart';
 import 'package:meme_hub/utils/task_result.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
@@ -48,11 +49,13 @@ class _UpdateInfoScreenState extends State<UpdateInfoScreen> {
   Future<void> updateUser() async {
     final String name = nameController.text;
     final String description = descriptionController.text;
+    LoadingOverlay.show();
     TaskResult result =
         await _controller.updateUser(name, description, avatarImage);
+    LoadingOverlay.hide();
     if (result.isSuccess) {
       ToastMaker.showToast(content: result.title!);
-      Get.back();
+      Get.back(result: TaskResult(isSuccess: true));
     } else {
       SnackbarUtils.showError(result.title, result.message);
     }
