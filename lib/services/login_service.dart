@@ -12,7 +12,7 @@ class LoginService {
 
   Future<bool> login(String email, String password) async {
     const url =
-        '${ApiConstants.baseUrl}/login'; // Replace with your login endpoint
+        '${ApiConstants.baseUrl}/user/login'; // Replace with your login endpoint
 
     try {
       final response = await _dio.post(

@@ -26,7 +26,7 @@ class ReplyController extends GetxController {
       String commentText, List<File> commentImages, String commentId) async {
     try {
       String mediaLink = commentImages.isNotEmpty
-          ? await CloudService.instance.uploadImage(commentImages[0])
+          ? await CloudService.instance.uploadMedia(commentImages[0])
           : '';
       bool result = await CommentService.instance
           .newReply(commentText, mediaLink, 'image', commentId);

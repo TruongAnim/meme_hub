@@ -45,5 +45,34 @@ class AuthController {
       next(err);
     }
   }
+  async updateUserInfo(req, res, next) {
+    try {
+      const { name, description, avatar } = req.body;
+      console.log(`/api/update-user-info ${name}, ${description}, ${avatar}`);
+      const id = req.user.id;
+      var user = await User.findById(id);
+      if (name && name.length > 0) {
+        user.name = name;
+      }
+      if (description && description.length > 0) {
+        user.description = description;
+      }
+      if (avatar && avatar.length > 0) {
+        user.avatar = avatar;
+      }
+      await user.save();
+      res.status(200).json({
+        success: true,
+        message: "Information updated successfully",
+        data: {
+          name,
+          description,
+          avatar,
+        },
+      });
+    } catch (err) {
+      next(err);
+    }
+  }
 }
 module.exports = new AuthController();

@@ -23,7 +23,7 @@ class CloudService {
   auth.ServiceAccountCredentials? _credentials;
   auth.AutoRefreshingAuthClient? _client;
 
-  Future<String> save(String name, Uint8List imgBytes) async {
+  Future<String> save(String name, String path, Uint8List imgBytes) async {
     _client ??=
         await auth.clientViaServiceAccount(_credentials!, Storage.SCOPES);
     var storage = Storage(_client!, 'Test project');
@@ -33,7 +33,7 @@ class CloudService {
     final now = DateTime.now();
     final timestamp = now.millisecondsSinceEpoch;
     final type = lookupMimeType(name);
-    final newName = '${timestamp}_${name}';
+    final newName = '$path/${timestamp}_$name';
     final ObjectInfo objectInfo = await bucket.writeBytes(newName, imgBytes,
         metadata: ObjectMetadata(
           contentType: type,
@@ -42,13 +42,20 @@ class CloudService {
           },
         ));
     // String downloadLink = objectInfo.downloadLink.toString();
-    return 'https://storage.googleapis.com/${_bucketName}/${newName}';
+    return 'https://storage.googleapis.com/$_bucketName/$newName';
   }
 
-  Future<String> uploadImage(File image) async {
+  Future<String> uploadMedia(File image) async {
     await _initCredentials();
     Uint8List imageBytes = image.readAsBytesSync();
     String imageName = image.path.split('/').last;
-    return await CloudService.instance.save(imageName, imageBytes);
+    return await CloudService.instance.save(imageName, 'media', imageBytes);
+  }
+
+  Future<String> uploadAvatar(File image) async {
+    await _initCredentials();
+    Uint8List imageBytes = image.readAsBytesSync();
+    String imageName = image.path.split('/').last;
+    return await CloudService.instance.save(imageName, 'avatars', imageBytes);
   }
 }

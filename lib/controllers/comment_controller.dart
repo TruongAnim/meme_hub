@@ -29,7 +29,7 @@ class CommentController extends GetxController {
       String commentType = 'text';
       String mediaLink = '';
       if (commentImages.isNotEmpty) {
-        mediaLink = await CloudService.instance.uploadImage(commentImages[0]);
+        mediaLink = await CloudService.instance.uploadMedia(commentImages[0]);
         commentType = 'image';
       }
       bool result = await CommentService.instance

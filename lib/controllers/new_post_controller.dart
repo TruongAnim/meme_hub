@@ -24,7 +24,7 @@ class NewPostController extends GetxController {
       if (image != null) {
         String? mimeType = lookupMimeType(image.path);
         type = mimeType!.split('/')[0];
-        mediaLink = await CloudService.instance.uploadImage(image);
+        mediaLink = await CloudService.instance.uploadMedia(image);
       }
       return await PostService.instance.newPost(title, mediaLink, type, tags);
     } catch (error, stackTrace) {

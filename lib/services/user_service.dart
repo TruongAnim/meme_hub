@@ -1,9 +1,8 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/utils/LogUtil.dart';
 import 'package:meme_hub/utils/api_constants.dart';
+import 'package:meme_hub/utils/task_result.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserService {
@@ -20,7 +19,7 @@ class UserService {
 
       if (token != null) {
         const url =
-            '${ApiConstants.baseUrl}/get-user'; // Replace with your user endpoint
+            '${ApiConstants.baseUrl}/user/get-user'; // Replace with your user endpoint
 
         final response = await _dio.get(
           url,
@@ -35,6 +34,8 @@ class UserService {
               id: data['_id'],
               name: data['name'],
               email: data['email'],
+              avatar: data['avatar'],
+              description: data['description'],
               token: token);
           return true;
         }
@@ -44,6 +45,38 @@ class UserService {
     } catch (error, stackTrace) {
       LogUtil.error('login', error, stackTrace);
       return false;
+    }
+  }
+
+  Future<TaskResult> updateUserInfo(
+      String? name, String? description, String? avatar) async {
+    try {
+      if (currentUser.token != null) {
+        const url =
+            '${ApiConstants.baseUrl}/user/update-user-info'; // Replace with your user endpoint
+
+        final response = await _dio.post(
+          url,
+          data: {'name': name, 'description': description, 'avatar': avatar},
+          options: Options(
+            headers: {'Authorization': 'Bearer ${currentUser.token}'},
+          ),
+        );
+
+        if (response.statusCode == 200) {
+          Map<String, dynamic> data = response.data;
+          return TaskResult(isSuccess: true, title: 'Update successfully');
+        }
+      }
+      return TaskResult(
+          isSuccess: false,
+          title: 'Update Failed',
+          message: 'Token null'); // No token or request failed
+    } catch (error, stackTrace) {
+      LogUtil.error('login', error, stackTrace);
+      return TaskResult(
+          isSuccess: false, title: 'Update Failed', message: error.toString());
+      ;
     }
   }
 }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class ToastMaker {
-  static void showToast({required content, length = Toast.LENGTH_SHORT}) {
+  static void showToast(
+      {required String content, length = Toast.LENGTH_SHORT}) {
     Fluttertoast.showToast(
       msg: content,
       toastLength: length,
