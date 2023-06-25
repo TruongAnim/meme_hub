@@ -30,7 +30,6 @@ class UserService {
 
         if (response.statusCode == 200) {
           Map<String, dynamic> data = response.data;
-          print('new user');
           currentUser = User(
               id: data['_id'],
               name: data['name'],
@@ -46,6 +45,30 @@ class UserService {
     } catch (error, stackTrace) {
       LogUtil.error('login', error, stackTrace);
       return false;
+    }
+  }
+
+  Future<TaskResult> getUserInfo(String id) async {
+    try {
+      const url =
+          '${ApiConstants.baseUrl}/user/get-user-info'; // Replace with your user endpoint
+
+      final response = await _dio.get(
+        url,
+        options: Options(
+          headers: {'Authorization': 'Bearer ${currentUser.token}'},
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = response.data;
+        return TaskResult(isSuccess: true, data: User.fromMap(data));
+      }
+
+      return TaskResult(isSuccess: false);
+    } catch (error, stackTrace) {
+      LogUtil.error('login', error, stackTrace);
+      return TaskResult(isSuccess: false);
     }
   }
 

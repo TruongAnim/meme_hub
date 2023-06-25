@@ -8,6 +8,7 @@ import 'package:meme_hub/Screens/Signup/signup_screen.dart';
 import 'package:meme_hub/Screens/NewPost/new_post_screen.dart';
 import 'package:meme_hub/Screens/UpdateInfo/bindings/update_info_binding.dart';
 import 'package:meme_hub/Screens/UpdateInfo/widgets/update_info_screen.dart';
+import 'package:meme_hub/Screens/User/bindings/user_binding.dart';
 import 'package:meme_hub/Screens/User/user_screen.dart';
 import 'package:meme_hub/Screens/Welcome/welcome_screen.dart';
 import 'package:meme_hub/bindings/comment_binding.dart';
@@ -17,7 +18,6 @@ import 'package:meme_hub/bindings/login_binding.dart';
 import 'package:meme_hub/bindings/reply_binding.dart';
 import 'package:meme_hub/bindings/signup_binding.dart';
 import 'package:meme_hub/bindings/upload_binding.dart';
-import 'package:meme_hub/bindings/user_binding.dart';
 import 'package:meme_hub/bindings/welcome_binding.dart';
 
 class AppRoutes {

@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meme_hub/routes/app_routes.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:meme_hub/Screens/User/controllers/user_controller.dart';
 
-class UserScreen extends StatefulWidget {
+class UserScreen extends StatelessWidget {
   UserScreen({
     super.key,
   });
+  final UserController _controller =
+      Get.put(UserController(userId: Get.arguments['userId']));
 
-  @override
-  _UserScreenState createState() => _UserScreenState();
-}
-
-class _UserScreenState extends State<UserScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

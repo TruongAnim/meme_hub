@@ -33,14 +33,15 @@ class SliderController extends GetxController {
     currentUser.value = UserService.instance.currentUser;
   }
 
-  void onMyCollectionTap() {}
+  void onMyCollectionTap() async {
+    await Get.toNamed(AppRoutes.user,
+        arguments: {'userId': currentUser.value.id});
+  }
 
   void onUpdateInfoTap() async {
     TaskResult? result = await Get.toNamed(AppRoutes.updateInfo) as TaskResult?;
-    print(result);
     if (result != null && result.isSuccess) {
       currentUser.value = UserService.instance.currentUser;
-      print('update');
     }
   }
 

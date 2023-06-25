@@ -37,10 +37,20 @@ class AuthController {
       next(err);
     }
   }
-  getUser(req, res, next) {
+  async getUser(req, res, next) {
     console.log("/api/get-user");
     try {
-      res.json(req.user);
+      var user = await User.findById(req.user._id);
+      res.json(user);
+    } catch (err) {
+      next(err);
+    }
+  }
+  async getUserInfo(req, res, next) {
+    console.log("/api/get-user-info");
+    try {
+      var user = await User.findById(req.body['userId']);
+      res.json(user);
     } catch (err) {
       next(err);
     }
