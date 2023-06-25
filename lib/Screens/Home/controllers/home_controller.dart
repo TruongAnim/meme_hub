@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:meme_hub/controllers/post_controller.dart';
+import 'package:meme_hub/Screens/Post/controllers/post_controller.dart';
 import 'package:meme_hub/models/tag.dart';
 import 'package:meme_hub/routes/app_routes.dart';
 import 'package:meme_hub/services/tag_service.dart';

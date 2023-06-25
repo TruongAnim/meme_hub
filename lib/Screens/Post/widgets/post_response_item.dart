@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meme_hub/controllers/post_controller.dart';
+import 'package:meme_hub/Screens/Post/controllers/post_controller.dart';
 import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/services/user_service.dart';

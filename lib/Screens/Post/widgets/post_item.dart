@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meme_hub/components/post_response_item.dart';
+import 'package:meme_hub/Screens/Post/widgets/post_response_item.dart';
 import 'package:meme_hub/components/video_player_widget.dart';
 import 'package:meme_hub/controllers/media_controller.dart';
-import 'package:meme_hub/controllers/post_controller.dart';
+import 'package:meme_hub/Screens/Post/controllers/post_controller.dart';
 import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/models/user.dart';
+import 'package:meme_hub/utils/url_utils.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class PostItem extends StatelessWidget {
@@ -33,13 +34,12 @@ class PostItem extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        // mainAxisAlignment: MainAxisAlignment.s,
         children: [
           Row(
             children: [
-              const CircleAvatar(
-                backgroundImage: NetworkImage(
-                    'https://i.pravatar.cc/300'), // Provide the user avatar URL here
+              CircleAvatar(
+                backgroundImage:
+                    NetworkImage(UrlUtils.addPublicIfNeeded(user.avatar)),
               ),
               const SizedBox(width: 8),
               Text(

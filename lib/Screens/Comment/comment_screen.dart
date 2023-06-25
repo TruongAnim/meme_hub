@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meme_hub/Screens/Post/widgets/post_item.dart';
 import 'package:meme_hub/components/comment_box.dart';
 import 'package:meme_hub/components/comment_item.dart';
-import 'package:meme_hub/components/post_item.dart';
 import 'package:meme_hub/controllers/comment_controller.dart';
 import 'package:meme_hub/models/post.dart';
 

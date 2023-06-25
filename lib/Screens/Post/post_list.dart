@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:meme_hub/Screens/Post/bottom_loader.dart';
-import 'package:meme_hub/components/post_item.dart';
-import 'package:meme_hub/controllers/post_controller.dart';
+import 'package:meme_hub/Screens/Post/widgets/post_item.dart';
+import 'package:meme_hub/Screens/Post/controllers/post_controller.dart';
 import 'package:meme_hub/models/post.dart';
+import 'package:meme_hub/Screens/Post/widgets/bottom_loader.dart';
 
 class PostList extends StatefulWidget {
   PostList({super.key});
