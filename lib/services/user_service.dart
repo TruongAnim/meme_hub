@@ -55,6 +55,7 @@ class UserService {
 
       final response = await _dio.get(
         url,
+        data: {'userId': id},
         options: Options(
           headers: {'Authorization': 'Bearer ${currentUser.token}'},
         ),
