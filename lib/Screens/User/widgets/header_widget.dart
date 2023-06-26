@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:meme_hub/Screens/User/controllers/user_controller.dart';
 import 'package:meme_hub/core/helpers/assets_helper.dart';
 import 'package:meme_hub/core/helpers/image_helper.dart';
-import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/utils/url_utils.dart';
 
 class HeaderWidget extends StatelessWidget {
@@ -15,6 +14,7 @@ class HeaderWidget extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.all(16.0),
+      height: 500,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -47,9 +47,8 @@ class HeaderWidget extends StatelessWidget {
             () => Text(
               _controller.user.description,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
+              style: TextStyle(
+                color: Colors.grey[600],
                 fontSize: 16,
               ),
             ),
