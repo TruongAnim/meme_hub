@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:meme_hub/constants.dart';
 import 'package:meme_hub/controllers/media_controller.dart';
+import 'package:meme_hub/observers/app_navigator_observer.dart';
 import 'package:meme_hub/routes/app_routes.dart';
 
 void main() {
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Auth',
+        navigatorObservers: [AppNavigatorObserver()],
         initialRoute: AppRoutes.welcome,
         getPages: AppRoutes.pages,
         theme: ThemeData(

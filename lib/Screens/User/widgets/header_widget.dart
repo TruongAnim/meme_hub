@@ -28,7 +28,8 @@ class HeaderWidget extends StatelessWidget {
                 FadedScaleAnimation(
                   child: CircleAvatar(
                     radius: 28.0,
-                    backgroundImage: NetworkImage(_controller.user.avatar),
+                    backgroundImage: NetworkImage(
+                        UrlUtils.addPublicIfNeeded(_controller.user.avatar)),
                   ),
                 ),
                 Spacer(),

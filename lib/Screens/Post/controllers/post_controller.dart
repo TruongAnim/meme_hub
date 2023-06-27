@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
+import 'package:meme_hub/Screens/User/controllers/user_controller.dart';
 import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/models/tag.dart';
 import 'package:meme_hub/models/user.dart';
@@ -83,6 +84,11 @@ class PostController extends GetxController {
     } catch (_) {
       status.value = PostStatus.failure;
     }
+  }
+
+  void toUserInfo(String userId) async {
+    await Get.toNamed(AppRoutes.user,
+        arguments: {'userId': userId}, preventDuplicates: false);
   }
 
   void upvote(String id, bool isUpvote) {

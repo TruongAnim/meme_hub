@@ -7,7 +7,6 @@ import 'package:meme_hub/Screens/User/widgets/sliver_app_delegate.dart';
 import 'package:meme_hub/Screens/User/widgets/tab_grid.dart';
 import 'package:meme_hub/Theme/colors.dart';
 import 'package:meme_hub/core/helpers/assets_helper.dart';
-import 'package:meme_hub/utils/common_utils.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({super.key});
@@ -21,15 +20,14 @@ class UserScreen extends StatelessWidget {
 
 class UserScreenBody extends StatefulWidget {
   final String uid;
-
   const UserScreenBody({super.key, required this.uid});
+
   @override
   _UserScreenBodyState createState() => _UserScreenBodyState();
 }
 
 class _UserScreenBodyState extends State<UserScreenBody> {
-  final UserController _controller =
-      Get.put(UserController(userId: Get.arguments['userId']));
+  late UserController _controller;
 
   var followText;
   final key = UniqueKey();
@@ -37,6 +35,8 @@ class _UserScreenBodyState extends State<UserScreenBody> {
   @override
   void initState() {
     super.initState();
+    _controller = Get.find();
+    _controller.addUserId(widget.uid);
   }
 
   @override
@@ -106,7 +106,6 @@ class _UserScreenBodyState extends State<UserScreenBody> {
               children: <Widget>[
                 GetBuilder<UserController>(
                     builder: (UserController controller) {
-                  print('hello');
                   if (controller.upvotePost.isEmpty) {
                     return Container();
                   }
@@ -117,7 +116,6 @@ class _UserScreenBodyState extends State<UserScreenBody> {
                 }),
                 GetBuilder<UserController>(
                     builder: (UserController controller) {
-                  print('hello');
                   if (controller.upvotePost.isEmpty) {
                     return Container();
                   }

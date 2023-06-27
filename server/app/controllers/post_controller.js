@@ -46,6 +46,7 @@ class PostController {
   async getUserPost(req, res, next) {
     try {
       const userId = req.body.userId;
+      console.log(req.body)
       const posts = await Post.find({ userId: userId })
         .populate("userId")
         .sort({ createdAt: -1 }); // -1 for descending order, 1 for ascending order
