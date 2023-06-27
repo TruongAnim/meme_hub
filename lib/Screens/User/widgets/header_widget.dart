@@ -1,8 +1,11 @@
+import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/Screens/User/controllers/user_controller.dart';
+import 'package:meme_hub/Theme/colors.dart';
 import 'package:meme_hub/core/helpers/assets_helper.dart';
 import 'package:meme_hub/core/helpers/image_helper.dart';
+import 'package:meme_hub/utils/common_utils.dart';
 import 'package:meme_hub/utils/url_utils.dart';
 
 class HeaderWidget extends StatelessWidget {
@@ -11,50 +14,128 @@ class HeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.all(16.0),
-      height: 500,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              ImageHelper.loadFromAsset(AssetsHelper.background_avatar,
-                  width: 220, height: 220),
-              Obx(
-                () => CircleAvatar(
-                  radius: 72,
-                  backgroundImage: NetworkImage(
-                      UrlUtils.addPublicIfNeeded(_controller.user.avatar)),
+    return GetBuilder<UserController>(
+        id: 'HeaderWidget',
+        builder: (UserController controller) {
+          if (_controller.user.name == 'unknown') {
+            return Container();
+          }
+          return FlexibleSpaceBar(
+            centerTitle: true,
+            title: Column(
+              children: <Widget>[
+                Spacer(flex: 10),
+                FadedScaleAnimation(
+                  child: CircleAvatar(
+                    radius: 28.0,
+                    backgroundImage: NetworkImage(_controller.user.avatar),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Obx(
-            () => Text(
-              _controller.user.name,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
-              ),
+                Spacer(),
+                Row(
+                  children: [
+                    Spacer(flex: 12),
+                    Text(
+                      _controller.user.name,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    Spacer(),
+                    Image.asset(
+                      AssetsHelper.icon_verified,
+                      scale: 4,
+                    ),
+                    Spacer(flex: 8),
+                  ],
+                ),
+                Text(
+                  '@${CommonUtils.getUsernameFromEmail(controller.user.email)}',
+                  style: TextStyle(fontSize: 10, color: disabledTextColor),
+                ),
+                Spacer(),
+                FadedScaleAnimation(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      ImageIcon(
+                        AssetImage(
+                          AssetsHelper.icon_fb,
+                        ),
+                        color: secondaryColor,
+                        size: 10,
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      ImageIcon(
+                        AssetImage(AssetsHelper.icon_twt),
+                        color: secondaryColor,
+                        size: 10,
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      ImageIcon(
+                        AssetImage(AssetsHelper.icon_insta),
+                        color: secondaryColor,
+                        size: 10,
+                      ),
+                    ],
+                  ),
+                ),
+                Spacer(),
+                Text(
+                  _controller.user.description,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+                ),
+                Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  // children: <Widget>[
+                  //   ProfilePageButton(
+                  //       locale.message,
+                  //       () => Navigator.pushNamed(
+                  //           context, PageRoutes.chatPage)),
+                  //   SizedBox(width: 16),
+                  //   _profileController.user['isFollowing']
+                  //       ? ProfilePageButton(locale.following, () {
+                  //           _profileController.followUser();
+                  //         })
+                  //       : ProfilePageButton(
+                  //           locale.follow,
+                  //           () {
+                  //             _profileController.followUser();
+                  //           },
+                  //           color: mainColor,
+                  //           textColor: secondaryColor,
+                  //         ),
+                  // ],
+                ),
+                Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  // children: <Widget>[
+                  //   RowItem(
+                  //       _profileController.user['likes'],
+                  //       locale.liked,
+                  //       Scaffold(
+                  //         appBar: AppBar(
+                  //           title: const Text('Liked'),
+                  //         ),
+                  //         body: TabGrid(
+                  //           _profileController.user['videos'],
+                  //           showView: false,
+                  //         ),
+                  //       )),
+                  //   RowItem(_profileController.user['followers'],
+                  //       locale.followers, FollowersPage()),
+                  //   RowItem(_profileController.user['following'],
+                  //       locale.following, FollowingPage()),
+                  // ],
+                ),
+              ],
             ),
-          ),
-          Obx(
-            () => Text(
-              _controller.user.description,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.grey[600],
-                fontSize: 16,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+          );
+        });
   }
 }

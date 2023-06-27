@@ -3,6 +3,7 @@ import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/services/user_service.dart';
 import 'package:meme_hub/utils/LogUtil.dart';
 import 'package:meme_hub/utils/api_constants.dart';
+import 'package:meme_hub/utils/task_result.dart';
 
 class PostService {
   PostService._();
@@ -61,6 +62,81 @@ class PostService {
     } catch (error, stackTrace) {
       LogUtil.error('newPost', error, stackTrace);
       return [];
+    }
+  }
+
+  Future<TaskResult> getUserPosts(String userId) async {
+    String url = '${ApiConstants.baseUrl}/post/get-user-post';
+    try {
+      final response = await _dio.get(
+        url,
+        data: {'userId': userId},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${UserService.instance.currentUser.token}'
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> data = response.data;
+        return TaskResult(
+            isSuccess: true, data: data.map((e) => Post.fromMap(e)).toList());
+      } else {
+        return TaskResult(isSuccess: false);
+      }
+    } catch (error, stackTrace) {
+      LogUtil.error('newPost', error, stackTrace);
+      return TaskResult(isSuccess: false);
+    }
+  }
+
+  Future<TaskResult> getUpvotePosts(String userId) async {
+    String url = '${ApiConstants.baseUrl}/post/get-upvote-post';
+    try {
+      final response = await _dio.get(
+        url,
+        data: {'userId': userId},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${UserService.instance.currentUser.token}'
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> data = response.data;
+        return TaskResult(
+            isSuccess: true, data: data.map((e) => Post.fromMap(e)).toList());
+      } else {
+        return TaskResult(isSuccess: false);
+      }
+    } catch (error, stackTrace) {
+      LogUtil.error('newPost', error, stackTrace);
+      return TaskResult(isSuccess: false);
+    }
+  }
+
+  Future<TaskResult> getFavouritePosts(String userId) async {
+    String url = '${ApiConstants.baseUrl}/post/get-favourite-post';
+    try {
+      final response = await _dio.get(
+        url,
+        data: {'userId': userId},
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer ${UserService.instance.currentUser.token}'
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        List<dynamic> data = response.data;
+        return TaskResult(
+            isSuccess: true, data: data.map((e) => Post.fromMap(e)).toList());
+      } else {
+        return TaskResult(isSuccess: false);
+      }
+    } catch (error, stackTrace) {
+      LogUtil.error('newPost', error, stackTrace);
+      return TaskResult(isSuccess: false);
     }
   }
 

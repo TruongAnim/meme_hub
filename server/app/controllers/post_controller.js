@@ -43,6 +43,39 @@ class PostController {
       next(err);
     }
   }
+  async getUserPost(req, res, next) {
+    try {
+      const userId = req.body.userId;
+      const posts = await Post.find({ userId: userId })
+        .populate("userId")
+        .sort({ createdAt: -1 }); // -1 for descending order, 1 for ascending order
+      res.json(posts);
+    } catch (err) {
+      next(err);
+    }
+  }
+  async getUpvotePost(req, res, next) {
+    try {
+      const userId = req.body.userId;
+      const posts = await Post.find({ upVotes: { $in: [userId] } })
+        .populate("userId")
+        .sort({ createdAt: -1 }); // -1 for descending order, 1 for ascending order
+      res.json(posts);
+    } catch (err) {
+      next(err);
+    }
+  }
+  async getFavouritePost(req, res, next) {
+    try {
+      const userId = req.body.userId;
+      const posts = await Post.find({ favourites: { $in: [userId] } })
+        .populate("userId")
+        .sort({ createdAt: -1 }); // -1 for descending order, 1 for ascending order
+      res.json(posts);
+    } catch (err) {
+      next(err);
+    }
+  }
   async upvote(req, res, next) {
     try {
       const postId = req.body["postId"];

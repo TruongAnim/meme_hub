@@ -2,6 +2,7 @@ import 'package:animation_wrappers/animation_wrappers.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/Screens/User/controllers/user_controller.dart';
+import 'package:meme_hub/Screens/User/widgets/header_widget.dart';
 import 'package:meme_hub/Screens/User/widgets/sliver_app_delegate.dart';
 import 'package:meme_hub/Screens/User/widgets/tab_grid.dart';
 import 'package:meme_hub/Theme/colors.dart';
@@ -78,131 +79,7 @@ class _UserScreenBodyState extends State<UserScreenBody> {
                       },
                     )
                   ],
-                  flexibleSpace: GetBuilder<UserController>(
-                      builder: (UserController controller) {
-                    if (_controller.user.name == 'unknown') {
-                      return Container();
-                    }
-                    return FlexibleSpaceBar(
-                      centerTitle: true,
-                      title: Column(
-                        children: <Widget>[
-                          Spacer(flex: 10),
-                          FadedScaleAnimation(
-                            child: CircleAvatar(
-                              radius: 28.0,
-                              backgroundImage:
-                                  NetworkImage(_controller.user.avatar),
-                            ),
-                          ),
-                          Spacer(),
-                          Row(
-                            children: [
-                              Spacer(flex: 12),
-                              Text(
-                                _controller.user.name,
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              Spacer(),
-                              Image.asset(
-                                AssetsHelper.icon_verified,
-                                scale: 4,
-                              ),
-                              Spacer(flex: 8),
-                            ],
-                          ),
-                          Text(
-                            '@${CommonUtils.getUsernameFromEmail(controller.user.email)}',
-                            style: TextStyle(
-                                fontSize: 10, color: disabledTextColor),
-                          ),
-                          Spacer(),
-                          FadedScaleAnimation(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                ImageIcon(
-                                  AssetImage(
-                                    AssetsHelper.icon_fb,
-                                  ),
-                                  color: secondaryColor,
-                                  size: 10,
-                                ),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                ImageIcon(
-                                  AssetImage(AssetsHelper.icon_twt),
-                                  color: secondaryColor,
-                                  size: 10,
-                                ),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                ImageIcon(
-                                  AssetImage(AssetsHelper.icon_insta),
-                                  color: secondaryColor,
-                                  size: 10,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Spacer(),
-                          Text(
-                            _controller.user.description,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 10, fontWeight: FontWeight.w500),
-                          ),
-                          Spacer(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            // children: <Widget>[
-                            //   ProfilePageButton(
-                            //       locale.message,
-                            //       () => Navigator.pushNamed(
-                            //           context, PageRoutes.chatPage)),
-                            //   SizedBox(width: 16),
-                            //   _profileController.user['isFollowing']
-                            //       ? ProfilePageButton(locale.following, () {
-                            //           _profileController.followUser();
-                            //         })
-                            //       : ProfilePageButton(
-                            //           locale.follow,
-                            //           () {
-                            //             _profileController.followUser();
-                            //           },
-                            //           color: mainColor,
-                            //           textColor: secondaryColor,
-                            //         ),
-                            // ],
-                          ),
-                          Spacer(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            // children: <Widget>[
-                            //   RowItem(
-                            //       _profileController.user['likes'],
-                            //       locale.liked,
-                            //       Scaffold(
-                            //         appBar: AppBar(
-                            //           title: const Text('Liked'),
-                            //         ),
-                            //         body: TabGrid(
-                            //           _profileController.user['videos'],
-                            //           showView: false,
-                            //         ),
-                            //       )),
-                            //   RowItem(_profileController.user['followers'],
-                            //       locale.followers, FollowersPage()),
-                            //   RowItem(_profileController.user['following'],
-                            //       locale.following, FollowingPage()),
-                            // ],
-                          ),
-                        ],
-                      ),
-                    );
-                  }),
+                  flexibleSpace: HeaderWidget(),
                 ),
                 SliverPersistentHeader(
                   delegate: SliverAppBarDelegate(
@@ -210,7 +87,7 @@ class _UserScreenBodyState extends State<UserScreenBody> {
                       labelColor: mainColor,
                       unselectedLabelColor: lightTextColor,
                       indicatorColor: transparentColor,
-                      tabs: [
+                      tabs: const [
                         Tab(icon: Icon(Icons.dashboard)),
                         Tab(icon: Icon(Icons.arrow_upward)),
                         Tab(
@@ -227,46 +104,39 @@ class _UserScreenBodyState extends State<UserScreenBody> {
             },
             body: TabBarView(
               children: <Widget>[
-                FadedSlideAnimation(
-                  beginOffset: Offset(0, 0.3),
-                  endOffset: Offset(0, 0),
-                  slideCurve: Curves.linearToEaseOut,
-                  child: GetBuilder<UserController>(
-                      builder: (UserController controller) {
-                    if (controller.myPost.isEmpty) {
-                      return Container();
-                    }
-                    return TabGrid(
-                      controller.myPost,
-                      showView: false,
-                    );
-                  }),
-                ),
-                FadedSlideAnimation(
-                    beginOffset: Offset(0, 0.3),
-                    endOffset: Offset(0, 0),
-                    slideCurve: Curves.linearToEaseOut,
-                    child: GetBuilder<UserController>(
-                        builder: (UserController controller) {
-                      if (controller.myUpvote.isEmpty) {
-                        return Container();
-                      }
-                      return TabGrid(
-                        controller.myUpvote,
-                        showView: false,
-                      );
-                    })),
+                GetBuilder<UserController>(
+                    builder: (UserController controller) {
+                  print('hello');
+                  if (controller.upvotePost.isEmpty) {
+                    return Container();
+                  }
+                  return TabGrid(
+                    controller.upvotePost,
+                    showView: false,
+                  );
+                }),
+                GetBuilder<UserController>(
+                    builder: (UserController controller) {
+                  print('hello');
+                  if (controller.upvotePost.isEmpty) {
+                    return Container();
+                  }
+                  return TabGrid(
+                    controller.upvotePost,
+                    showView: false,
+                  );
+                }),
                 FadedSlideAnimation(
                     beginOffset: Offset(0, 0.3),
                     endOffset: Offset(0, 0),
                     slideCurve: Curves.linearToEaseOut,
                     child: GetBuilder<UserController>(
                         builder: (UserController controller) {
-                      if (controller.myFavourite.isEmpty) {
+                      if (controller.favouritePost.isEmpty) {
                         return Container();
                       }
                       return TabGrid(
-                        controller.myFavourite,
+                        controller.favouritePost,
                         showView: false,
                       );
                     })),
