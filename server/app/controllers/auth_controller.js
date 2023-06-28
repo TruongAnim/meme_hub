@@ -10,13 +10,19 @@ class AuthController {
       if (!user) {
         return res.status(400).json({ msg: "User dose not exist!" });
       }
-
       const isMatch = await bcryptjs.compare(password, user.password);
       if (!isMatch) {
         return res.status(400).json({ msg: "Incorrect password!" });
       }
       const token = jwt.sign({ id: user._id }, "passwordKey");
-      res.json({ _id: user._id, name: user.name, email: user.email, token });
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        description: user.description,
+        avatar: user.avatar,
+        token,
+      });
     } catch (err) {
       next(err);
     }
@@ -37,8 +43,31 @@ class AuthController {
       next(err);
     }
   }
+  async changePassword(req, res, next) {
+    try {
+      const oldPassword = req.body.oldPassword;
+      const newPassword = req.body.newPassword;
+      var user = await User.findById(req.user._id);
+      const isMatch = await bcryptjs.compare(oldPassword, user.password);
+      if (isMatch) {
+        const hashedPassword = await bcryptjs.hash(newPassword, 10);
+        user.password = hashedPassword;
+        user = await user.save();
+        return res.json({
+          status: "success",
+          message: "Password changed successfully",
+        });
+      } else {
+        return res.json({
+          status: "fail",
+          message: "Invalid current password",
+        });
+      }
+    } catch (err) {
+      next(err);
+    }
+  }
   async getUser(req, res, next) {
-    console.log("/api/get-user");
     try {
       var user = await User.findById(req.user._id);
       res.json(user);
@@ -49,7 +78,7 @@ class AuthController {
   async getUserInfo(req, res, next) {
     console.log("/api/get-user-info");
     try {
-      var user = await User.findById(req.body['userId']);
+      var user = await User.findById(req.body["userId"]);
       res.json(user);
     } catch (err) {
       next(err);

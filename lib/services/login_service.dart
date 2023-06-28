@@ -19,7 +19,6 @@ class LoginService {
         url,
         data: {'email': email, 'password': password},
       );
-
       if (response.statusCode == 200) {
         final token = response.data['token'] as String;
         UserService.instance.currentUser = User.fromMap(response.data);

@@ -47,7 +47,7 @@ class _LoginFormState extends State<LoginForm> {
         _emailController.clear();
         _passwordController.clear();
       } else {
-        ToastMaker.showToast(content: 'Sign up false!!!');
+        ToastMaker.showToast(content: 'Log in false!!!');
       }
     }
   }

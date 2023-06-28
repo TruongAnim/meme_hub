@@ -105,4 +105,38 @@ class UserService {
       ;
     }
   }
+
+  Future<TaskResult> changePassword(String oldPass, String newPass) async {
+    try {
+      if (currentUser.token != null) {
+        const url =
+            '${ApiConstants.baseUrl}/user/change-password'; // Replace with your user endpoint
+
+        final response = await _dio.post(
+          url,
+          data: {'oldPassword': oldPass, 'newPassword': newPass},
+          options: Options(
+            headers: {'Authorization': 'Bearer ${currentUser.token}'},
+          ),
+        );
+        if (response.statusCode == 200) {
+          Map<String, dynamic> data = response.data;
+          if (data['status'] == 'success') {
+            return TaskResult(isSuccess: true, message: data['message']);
+          } else {
+            return TaskResult(isSuccess: false, message: data['message']);
+          }
+        }
+      }
+      return TaskResult(
+          isSuccess: false,
+          title: 'Update Failed',
+          message: 'Token null'); // No token or request failed
+    } catch (error, stackTrace) {
+      LogUtil.error('login', error, stackTrace);
+      return TaskResult(
+          isSuccess: false, title: 'Update Failed', message: error.toString());
+      ;
+    }
+  }
 }

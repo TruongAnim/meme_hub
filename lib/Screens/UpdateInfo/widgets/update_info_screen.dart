@@ -66,6 +66,21 @@ class _UpdateInfoScreenState extends State<UpdateInfoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Update User Info'),
+        actions: [
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              if (value == 'change-password') {
+                _controller.toChangePasswordScreen();
+              }
+            },
+            itemBuilder: (BuildContext context) => [
+              const PopupMenuItem<String>(
+                value: 'change-password',
+                child: Text('Change password'),
+              ),
+            ],
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

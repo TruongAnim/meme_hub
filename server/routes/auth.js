@@ -9,5 +9,6 @@ router.post('/signup', authController.signup);
 router.get('/get-user-info', auth_passport, authController.getUserInfo)
 router.get('/get-user', auth_passport, authController.getUser)
 router.post('/update-user-info', auth_passport, authController.updateUserInfo)
+router.post('/change-password', auth_passport, authController.changePassword)
 
 module.exports = router;

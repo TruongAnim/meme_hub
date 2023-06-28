@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:meme_hub/models/user.dart';
+import 'package:meme_hub/routes/app_routes.dart';
 import 'package:meme_hub/services/cloud_service.dart';
 import 'package:meme_hub/services/user_service.dart';
 import 'package:meme_hub/utils/task_result.dart';
@@ -18,5 +19,9 @@ class UpdateInfoController extends GetxController {
     TaskResult update =
         await UserService.instance.updateUserInfo(name, description, url);
     return update;
+  }
+
+  void toChangePasswordScreen() {
+    Get.toNamed(AppRoutes.changePassword);
   }
 }

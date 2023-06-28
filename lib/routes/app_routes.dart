@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:meme_hub/Screens/ChangePassword/bindings/change_password_binding.dart';
+import 'package:meme_hub/Screens/ChangePassword/change_password_screen.dart';
 import 'package:meme_hub/Screens/Comment/comment_screen.dart';
 import 'package:meme_hub/Screens/Home/home_screen.dart';
 import 'package:meme_hub/Screens/ImageView/image_view_screen.dart';
@@ -26,6 +28,7 @@ class AppRoutes {
   static const String login = '/login';
   static const String signup = '/signup';
   static const String user = '/user';
+  static const String changePassword = '/changePassword';
   static const String upload = '/upload';
   static const String comment = '/comment';
   static const String reply = '/reply';
@@ -49,6 +52,10 @@ class AppRoutes {
         name: AppRoutes.home, page: () => HomeScreen(), binding: HomeBinding()),
     GetPage(
         name: AppRoutes.user, page: () => UserScreen(), binding: UserBinding()),
+    GetPage(
+        name: AppRoutes.changePassword,
+        page: () => ChangePasswordScreen(),
+        binding: ChangePasswordBinding()),
     GetPage(
         name: AppRoutes.upload,
         page: () => NewPostScreen(),
