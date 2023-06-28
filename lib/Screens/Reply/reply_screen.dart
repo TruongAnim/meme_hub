@@ -41,8 +41,12 @@ class _ReplyScreenState extends State<ReplyScreen> {
           Expanded(
             child: Obx(() {
               if (_controller.comments.isNotEmpty) _scrollTo(1);
-              return ListView.builder(
+              return ListView.separated(
                 controller: _scrollController,
+                separatorBuilder: (context, index) => Divider(
+                  color: Colors.grey,
+                  thickness: 1,
+                ),
                 itemCount: _controller.comments.length + 1,
                 itemBuilder: (context, index) {
                   if (index == 0) {

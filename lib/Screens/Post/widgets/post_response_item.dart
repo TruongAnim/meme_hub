@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttericon/typicons_icons.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/Screens/Post/controllers/post_controller.dart';
 import 'package:meme_hub/models/post.dart';
@@ -63,13 +64,20 @@ class _PostResponseItemState extends State<PostResponseItem> {
               _upvote();
             },
             icon: Icon(
-              Icons.arrow_upward,
+              Typicons.up,
               color: widget.post.upVotes.contains(currentUser.id)
                   ? Colors.green
                   : Colors.grey,
             ),
           ),
-          Text(widget.post.upVotes.length.toString()),
+          Text(
+            widget.post.upVotes.length.toString(),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey),
+          ),
+          SizedBox(
+            width: 16,
+          ),
           IconButton(
             onPressed: () {
               _favourite();
@@ -81,7 +89,14 @@ class _PostResponseItemState extends State<PostResponseItem> {
                   : Colors.grey,
             ),
           ),
-          Text(widget.post.favourites.length.toString()),
+          Text(
+            widget.post.favourites.length.toString(),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey),
+          ),
+          SizedBox(
+            width: 16,
+          ),
           IconButton(
             onPressed: () {
               _comment();
@@ -92,7 +107,11 @@ class _PostResponseItemState extends State<PostResponseItem> {
                   widget.post.comments.isNotEmpty ? Colors.black : Colors.grey,
             ),
           ),
-          Text(widget.post.comments.length.toString()),
+          Text(
+            widget.post.comments.length.toString(),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey),
+          ),
         ],
       ),
     );

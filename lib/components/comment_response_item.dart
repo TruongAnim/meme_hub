@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meme_hub/controllers/comment_controller.dart';
+import 'package:meme_hub/Screens/Comment/controllers/comment_controller.dart';
 import 'package:meme_hub/models/comment.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/services/user_service.dart';
+import 'package:fluttericon/typicons_icons.dart';
 
 class CommentResponseItem extends StatefulWidget {
   Comment comment;
@@ -57,58 +58,70 @@ class _CommentResponseItemState extends State<CommentResponseItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () {
-              _upvote();
-            },
-            icon: Icon(
-              Icons.arrow_upward,
-              color: widget.comment.upVotes.contains(currentUser.id)
-                  ? Colors.green
-                  : Colors.grey,
-            ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        IconButton(
+          onPressed: () {
+            _upvote();
+          },
+          icon: Icon(
+            Typicons.up,
+            color: widget.comment.upVotes.contains(currentUser.id)
+                ? Colors.green
+                : Colors.grey,
           ),
-          Text(widget.comment.upVotes.length.toString()),
-          IconButton(
-            onPressed: () {
-              _favourite();
-            },
-            icon: Icon(
-              Icons.favorite,
-              color: widget.comment.favourites.contains(currentUser.id)
-                  ? Colors.red
-                  : Colors.grey,
-            ),
+          padding: const EdgeInsets.only(right: 6),
+          constraints: const BoxConstraints(),
+        ),
+        Text(
+          widget.comment.upVotes.length.toString(),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey),
+        ),
+        const SizedBox(
+          width: 10,
+        ),
+        IconButton(
+          onPressed: () {
+            _favourite();
+          },
+          icon: Icon(
+            Icons.favorite,
+            color: widget.comment.favourites.contains(currentUser.id)
+                ? Colors.red
+                : Colors.grey,
           ),
-          Text(widget.comment.favourites.length.toString()),
-          if (widget.showReply)
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  InkWell(
-                    onTap: () {
-                      _comment();
-                    },
-                    child: Text(
-                      'Reply ${widget.comment.comments.length.toString()}',
-                      style: TextStyle(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14),
-                    ),
+        ),
+        Text(
+          widget.comment.favourites.length.toString(),
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey),
+        ),
+        if (widget.showReply)
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                InkWell(
+                  onTap: () {
+                    _comment();
+                  },
+                  child: Text(
+                    'Reply ${widget.comment.comments.length.toString()}',
+                    style: const TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16),
                   ),
-                  SizedBox(
-                    width: 10,
-                  )
-                ],
-              ),
+                ),
+                const SizedBox(
+                  width: 10,
+                )
+              ],
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 }

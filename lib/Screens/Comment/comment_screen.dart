@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:meme_hub/Screens/Post/widgets/post_item.dart';
 import 'package:meme_hub/components/comment_box.dart';
 import 'package:meme_hub/components/comment_item.dart';
-import 'package:meme_hub/controllers/comment_controller.dart';
+import 'package:meme_hub/Screens/Comment/controllers/comment_controller.dart';
 import 'package:meme_hub/models/post.dart';
 
 class CommentScreen extends StatefulWidget {
@@ -42,8 +42,12 @@ class _CommentScreenState extends State<CommentScreen> {
           Expanded(
             child: Obx(() {
               if (_controller.comments.isNotEmpty) _scrollTo(1);
-              return ListView.builder(
+              return ListView.separated(
                 controller: _scrollController,
+                separatorBuilder: (context, index) => Divider(
+                  color: Colors.grey,
+                  thickness: 1,
+                ),
                 itemCount: _controller.comments.length + 1,
                 itemBuilder: (context, index) {
                   if (index == 0) return PostItem(post: post);
