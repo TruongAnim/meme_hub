@@ -87,8 +87,18 @@ class PostController extends GetxController {
   }
 
   void toUserInfo(String userId) async {
-    await Get.toNamed(AppRoutes.user,
-        arguments: {'userId': userId}, preventDuplicates: false);
+    bool isRegistered = false;
+    if (Get.isRegistered<UserController>()) {
+      UserController userController = Get.find();
+      if (userController.stackUserId.isEmpty ||
+          userController.stackUserId.last == userId) {
+        isRegistered = true;
+      }
+    }
+    if (!isRegistered) {
+      await Get.toNamed(AppRoutes.user,
+          arguments: {'userId': userId}, preventDuplicates: false);
+    }
   }
 
   void upvote(String id, bool isUpvote) {

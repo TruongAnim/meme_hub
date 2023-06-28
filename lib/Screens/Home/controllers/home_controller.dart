@@ -22,10 +22,6 @@ class HomeController extends GetxController {
     tags.value = temp;
   }
 
-  void toUserScreen() {
-    Get.toNamed(AppRoutes.user);
-  }
-
   void toUploadScreen() async {
     await Get.toNamed(AppRoutes.upload);
   }
