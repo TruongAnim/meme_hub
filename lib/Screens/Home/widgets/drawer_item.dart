@@ -7,43 +7,38 @@ import 'package:meme_hub/utils/api_constants.dart';
 class DrawerItem extends StatelessWidget {
   DrawerItem({
     super.key,
-    required this.index,
+    required this.tag,
+    required this.isSelected,
   });
-  int index;
+  Tag tag;
+  bool isSelected;
   final HomeController _controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    Tag tag = _controller.tags[index];
-    return Obx(() {
-      bool isActive = index == _controller.current.value;
-      return InkWell(
-        onTap: () => _controller.selectItem(index),
-        child: ListTile(
-          horizontalTitleGap: 10,
-          textColor: Colors.black54,
-          tileColor: isActive ? Colors.green : Colors.white30,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25),
-                bottomLeft: Radius.circular(25)), // Rounded corners
-          ),
-          leading: Image.network(
-              width: 25, height: 25, ApiConstants.public + tag.icon),
-          title: Text(tag.name),
-          trailing: Container(
-              width: 30,
-              height: 25,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                border: Border.all(
-                  color: Colors.grey,
-                  width: 1,
-                ),
-              ),
-              child: Center(child: Text(tag.posts.length.toString()))),
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(horizontal: 16),
+      visualDensity: VisualDensity(horizontal: 0, vertical: -2),
+      textColor: Colors.black54,
+      leading:
+          Image.network(width: 25, height: 25, ApiConstants.public + tag.icon),
+      title: Text(tag.name),
+      trailing: ChoiceChip(
+        label: Text(
+          tag.posts.length.toString(),
+          style: TextStyle(color: Colors.grey),
         ),
-      );
-    });
+        backgroundColor: Colors.transparent,
+        shape: const StadiumBorder(side: BorderSide(color: Colors.grey)),
+        selected: false,
+        onSelected: (bool selected) {
+          if (isSelected) {
+            _controller.removeTag(tag);
+          } else {
+            _controller.selectTag(tag);
+          }
+        },
+      ),
+    );
   }
 }

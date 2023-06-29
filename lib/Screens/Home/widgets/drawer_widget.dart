@@ -9,15 +9,49 @@ class DrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(child: Obx(() {
-      return _controller.tags.isEmpty
-          ? Container()
-          : ListView.builder(
-              itemCount: _controller.tags.length,
-              itemBuilder: (context, index) {
-                return DrawerItem(index: index);
-              },
-            );
-    }));
+    return Drawer(
+      child: Column(children: [
+        Obx(
+          () {
+            return _controller.selectedTags.isEmpty
+                ? Container()
+                : ListView.separated(
+                    shrinkWrap: true,
+                    separatorBuilder: (context, index) => Divider(
+                      color: Colors.grey[200],
+                      thickness: 2,
+                      height: 0,
+                    ),
+                    itemCount: _controller.selectedTags.length,
+                    itemBuilder: (context, index) {
+                      return DrawerItem(
+                          tag: _controller.selectedTags[index],
+                          isSelected: true);
+                    },
+                  );
+          },
+        ),
+        Expanded(
+          child: Obx(
+            () {
+              return _controller.tags.isEmpty
+                  ? Container()
+                  : ListView.separated(
+                      separatorBuilder: (context, index) => Divider(
+                        color: Colors.grey[200],
+                        thickness: 2,
+                        height: 0,
+                      ),
+                      itemCount: _controller.tags.length,
+                      itemBuilder: (context, index) {
+                        return DrawerItem(
+                            tag: _controller.tags[index], isSelected: false);
+                      },
+                    );
+            },
+          ),
+        ),
+      ]),
+    );
   }
 }
