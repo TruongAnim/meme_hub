@@ -4,7 +4,6 @@ import 'package:meme_hub/models/tag.dart';
 import 'package:meme_hub/routes/app_routes.dart';
 import 'package:meme_hub/services/tag_service.dart';
 import 'package:meme_hub/services/user_service.dart';
-import 'package:meme_hub/utils/temp_data.dart';
 
 class HomeController extends GetxController {
   final TagService _tagService = TagService.instance;
@@ -32,11 +31,18 @@ class HomeController extends GetxController {
   void selectTag(Tag tag) {
     if (!selectedTags.contains(tag)) {
       selectedTags.add(tag);
+      update(['all-tag', 'selected-tag']);
     }
   }
 
   void removeTag(Tag tag) {
     selectedTags.remove(tag);
+    update(['all-tag', 'selected-tag']);
+  }
+
+  void clearSelectedTag() {
+    selectedTags.clear();
+    update(['all-tag', 'selected-tag']);
   }
 
   void closeDrawer() {
