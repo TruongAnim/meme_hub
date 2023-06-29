@@ -56,64 +56,58 @@ class _PostResponseItemState extends State<PostResponseItem> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () {
-              _upvote();
-            },
-            icon: Icon(
-              Typicons.up,
-              color: widget.post.upVotes.contains(currentUser.id)
-                  ? Colors.green
-                  : Colors.grey,
-            ),
+    return Row(
+      children: [
+        SizedBox(width: 16),
+        IconButton(
+          onPressed: () {
+            _upvote();
+          },
+          icon: Icon(
+            Typicons.up,
+            color: widget.post.upVotes.contains(currentUser.id)
+                ? Colors.green
+                : Colors.grey,
           ),
-          Text(
-            widget.post.upVotes.length.toString(),
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey),
+        ),
+        Text(
+          widget.post.upVotes.length.toString(),
+          style: const TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey),
+        ),
+        const SizedBox(width: 16),
+        IconButton(
+          onPressed: () {
+            _favourite();
+          },
+          icon: Icon(
+            Icons.favorite,
+            color: widget.post.favourites.contains(currentUser.id)
+                ? Colors.red
+                : Colors.grey,
           ),
-          SizedBox(
-            width: 16,
+        ),
+        Text(
+          widget.post.favourites.length.toString(),
+          style: const TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey),
+        ),
+        const SizedBox(width: 16),
+        IconButton(
+          onPressed: () {
+            _comment();
+          },
+          icon: Icon(
+            Icons.comment,
+            color: widget.post.comments.isNotEmpty ? Colors.black : Colors.grey,
           ),
-          IconButton(
-            onPressed: () {
-              _favourite();
-            },
-            icon: Icon(
-              Icons.favorite,
-              color: widget.post.favourites.contains(currentUser.id)
-                  ? Colors.red
-                  : Colors.grey,
-            ),
-          ),
-          Text(
-            widget.post.favourites.length.toString(),
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey),
-          ),
-          SizedBox(
-            width: 16,
-          ),
-          IconButton(
-            onPressed: () {
-              _comment();
-            },
-            icon: Icon(
-              Icons.comment,
-              color:
-                  widget.post.comments.isNotEmpty ? Colors.black : Colors.grey,
-            ),
-          ),
-          Text(
-            widget.post.comments.length.toString(),
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey),
-          ),
-        ],
-      ),
+        ),
+        Text(
+          widget.post.comments.length.toString(),
+          style: const TextStyle(
+              fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey),
+        ),
+      ],
     );
   }
 }

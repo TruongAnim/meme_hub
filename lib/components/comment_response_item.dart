@@ -76,12 +76,10 @@ class _CommentResponseItemState extends State<CommentResponseItem> {
         ),
         Text(
           widget.comment.upVotes.length.toString(),
-          style: TextStyle(
+          style: const TextStyle(
               fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey),
         ),
-        const SizedBox(
-          width: 10,
-        ),
+        const SizedBox(width: 10),
         IconButton(
           onPressed: () {
             _favourite();
@@ -95,7 +93,7 @@ class _CommentResponseItemState extends State<CommentResponseItem> {
         ),
         Text(
           widget.comment.favourites.length.toString(),
-          style: TextStyle(
+          style: const TextStyle(
               fontWeight: FontWeight.bold, fontSize: 16, color: Colors.grey),
         ),
         if (widget.showReply)
@@ -115,9 +113,7 @@ class _CommentResponseItemState extends State<CommentResponseItem> {
                         fontSize: 16),
                   ),
                 ),
-                const SizedBox(
-                  width: 10,
-                )
+                const SizedBox(width: 10)
               ],
             ),
           ),

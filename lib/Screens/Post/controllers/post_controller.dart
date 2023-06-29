@@ -7,6 +7,7 @@ import 'package:meme_hub/models/tag.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/routes/app_routes.dart';
 import 'package:meme_hub/services/post_service.dart';
+import 'package:meme_hub/services/tag_service.dart';
 import 'package:meme_hub/services/user_service.dart';
 import 'package:meme_hub/utils/temp_data.dart';
 
@@ -59,6 +60,15 @@ class PostController extends GetxController {
 
   void triggerEvent() {
     throttle(onPostFetched, const Duration(seconds: 1));
+  }
+
+  List<Tag> getTagFromId(List<String> ids) {
+    List<Tag> tags = [];
+    if (TagService.cachedTags != null) {
+      tags =
+          TagService.cachedTags!.where((tag) => ids.contains(tag.id)).toList();
+    }
+    return tags;
   }
 
   Future<void> onPostFetched() async {

@@ -34,9 +34,12 @@ class _PostListState extends State<PostList> {
               children: [CircularProgressIndicator(), Text('Fetching post...')],
             ));
       }
-      print(listPost.length);
-      return ListView.builder(
+      return ListView.separated(
         controller: _scrollController,
+        separatorBuilder: (context, index) => Divider(
+          color: Colors.grey[200],
+          thickness: 10,
+        ),
         itemCount: controller.hasReachedMax.value
             ? listPost.length
             : listPost.length + 1,

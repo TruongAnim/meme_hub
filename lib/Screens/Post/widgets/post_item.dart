@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meme_hub/Screens/Post/widgets/list_tags.dart';
 import 'package:meme_hub/Screens/Post/widgets/post_response_item.dart';
 import 'package:meme_hub/Screens/Post/widgets/user_card_widget.dart';
 import 'package:meme_hub/components/video_player_widget.dart';
@@ -31,15 +32,28 @@ class PostItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           InkWell(
               onTap: () => controller.toUserInfo(user.id),
-              child: UserCardWidget(user: user)),
-          const SizedBox(height: 8),
-          if (post.type == 'image')
+              child: Padding(
+                padding: const EdgeInsets.only(left: 16, top: 8),
+                child: UserCardWidget(
+                    user: user, message: timeago.format(post.createdAt)),
+              )),
+          Padding(
+            padding: const EdgeInsets.only(left: 16, top: 8),
+            child: Text(
+              post.title,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          if (post.type == 'image') ...[
+            const SizedBox(height: 8),
             GestureDetector(
               onTap: _viewMedia,
               child: Image.network(
@@ -48,25 +62,16 @@ class PostItem extends StatelessWidget {
                 fit: BoxFit.contain,
               ),
             ),
-          if (post.type == 'video')
+          ],
+          if (post.type == 'video') ...[
+            const SizedBox(height: 8),
             GestureDetector(
                 onTap: _viewMedia,
                 child: VideoPlayerWidget(source: post.mediaLink)),
-          const SizedBox(height: 8),
-          Text(
-            post.title,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            timeago.format(post.createdAt),
-            style: const TextStyle(
-              color: Colors.grey,
-            ),
-          ),
+          ],
+          Padding(
+              padding: EdgeInsets.only(left: 16, top: 8),
+              child: SizedBox(height: 40, child: ListTags(tagIds: post.tags))),
           PostResponseItem(post: post),
         ],
       ),

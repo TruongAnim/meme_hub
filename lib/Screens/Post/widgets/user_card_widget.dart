@@ -4,8 +4,9 @@ import 'package:meme_hub/utils/common_utils.dart';
 import 'package:meme_hub/utils/url_utils.dart';
 
 class UserCardWidget extends StatelessWidget {
-  UserCardWidget({super.key, required this.user});
+  UserCardWidget({super.key, required this.user, required this.message});
   User user;
+  String message;
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,7 @@ class UserCardWidget extends StatelessWidget {
         ),
         const SizedBox(width: 8),
         Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               user.name,
@@ -26,7 +28,7 @@ class UserCardWidget extends StatelessWidget {
               ),
             ),
             Text(
-              CommonUtils.getUsernameFromEmail(user.email),
+              '${CommonUtils.getUsernameFromEmail(user.email)} - $message',
               style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
           ],

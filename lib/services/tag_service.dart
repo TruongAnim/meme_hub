@@ -7,6 +7,7 @@ class TagService {
   TagService._();
   static final TagService _instance = TagService._();
   static TagService get instance => _instance;
+  static List<Tag>? cachedTags;
   final Dio _dio = Dio();
 
   Future<List<Tag>> getTags() async {
@@ -21,7 +22,8 @@ class TagService {
     );
     if (response.statusCode == 200) {
       List<dynamic> tags = response.data;
-      return tags.map((e) => Tag.fromMap(e)).toList();
+      cachedTags = tags.map((e) => Tag.fromMap(e)).toList();
+      return cachedTags!;
     } else {
       return List.empty();
     }
