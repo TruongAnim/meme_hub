@@ -41,12 +41,12 @@ class PostService {
   }
 
   Future<List<Post>> fetchPosts(
-      {String tag = 'all', int start = 0, int limit = 100}) async {
-    String url = '${ApiConstants.baseUrl}/post/get-post/$tag';
+      {required List<String> tags, int start = 0, int limit = 100}) async {
+    String url = '${ApiConstants.baseUrl}/post/get-post/';
     try {
       final response = await _dio.get(
         url,
-        data: {'start': start, 'limit': limit},
+        data: {'tags': tags, 'start': start, 'limit': limit},
         options: Options(
           headers: {
             'Authorization': 'Bearer ${UserService.instance.currentUser.token}'

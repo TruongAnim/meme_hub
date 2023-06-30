@@ -21,20 +21,20 @@ class DrawerWidget extends StatelessWidget {
             ),
             Row(
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 16,
                 ),
-                Text(
+                const Text(
                   'Interests',
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Colors.grey),
                 ),
-                Spacer(),
+                const Spacer(),
                 GestureDetector(
                   onTap: _controller.clearSelectedTag,
-                  child: Text(
+                  child: const Text(
                     'Clear',
                     style: TextStyle(
                         fontSize: 16,
@@ -42,17 +42,17 @@ class DrawerWidget extends StatelessWidget {
                         color: Colors.grey),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 16,
                 ),
               ],
             ),
-            SizedBox(height: 6),
+            const SizedBox(height: 6),
             GetBuilder(
               id: 'selected-tag',
               builder: (HomeController controller) =>
                   controller.selectedTags.isEmpty
-                      ? NoTagSelectedWidget()
+                      ? const NoTagSelectedWidget()
                       : ListView.separated(
                           padding: EdgeInsets.zero,
                           shrinkWrap: true,
@@ -77,34 +77,34 @@ class DrawerWidget extends StatelessWidget {
             ),
             Row(
               children: [
-                SizedBox(
+                const SizedBox(
                   width: 16,
                 ),
-                Text(
+                const Text(
                   'All tags',
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w600,
                       color: Colors.grey),
                 ),
-                Spacer(),
+                const Spacer(),
                 GetBuilder(
                     id: 'selected-tag',
                     builder: (HomeController controller) {
                       return Text(
                         '${controller.selectedTags.length}/${controller.tags.length}',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: Colors.grey),
                       );
                     }),
-                SizedBox(
+                const SizedBox(
                   width: 16,
                 ),
               ],
             ),
-            SizedBox(height: 6),
+            const SizedBox(height: 6),
             Expanded(
               child: GetBuilder(
                 id: 'all-tag',

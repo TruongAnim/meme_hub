@@ -45,8 +45,8 @@ class HomeController extends GetxController {
     update(['all-tag', 'selected-tag']);
   }
 
-  void closeDrawer() {
-    PostController postController = Get.find();
-    // postController.updateTag(selectedTags.value);
+  void updatePost() {
+    print('updatePostTag ${selectedTags}');
+    Get.find<PostController>().updateTags(selectedTags);
   }
 }

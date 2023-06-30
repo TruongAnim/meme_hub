@@ -9,14 +9,14 @@ import 'package:meme_hub/routes/app_routes.dart';
 import 'package:meme_hub/services/post_service.dart';
 import 'package:meme_hub/services/tag_service.dart';
 import 'package:meme_hub/services/user_service.dart';
-import 'package:meme_hub/utils/temp_data.dart';
+import 'package:meme_hub/utils/common_utils.dart';
 
 enum PostStatus { initial, success, failure }
 
 class PostController extends GetxController {
   final User currentUser = UserService.instance.currentUser;
   final PostService _postService = PostService.instance;
-  Tag currentTag = TempData.getTempTag();
+  List<Tag> tags = List.empty();
   RxList<Post> posts = RxList();
   Rx<PostStatus> status = Rx<PostStatus>(PostStatus.initial);
   RxBool hasReachedMax = RxBool(false);
@@ -29,22 +29,20 @@ class PostController extends GetxController {
     onPostFetched();
   }
 
-  void updateTag(Tag tag) {
-    currentTag = tag;
-    status.value = PostStatus.initial;
-    hasReachedMax.value = false;
-    onPostFetched();
+  void updateTags(List<Tag> tags) {
+    if (!CommonUtils.compareListOrderless(this.tags, tags)) {
+      this.tags = List.from(tags);
+      status.value = PostStatus.initial;
+      hasReachedMax.value = false;
+      onPostFetched();
+    }
   }
 
   Future<List<Post>> _fetchPosts() async {
-    if (currentTag.id.isNotEmpty) {
-      return _postService.fetchPosts(
-          tag: currentTag.id,
-          start: status.value == PostStatus.initial ? 0 : posts.length,
-          limit: limitFetchPosts);
-    } else {
-      return _postService.fetchPosts(start: posts.length, limit: 2);
-    }
+    return _postService.fetchPosts(
+        tags: tags.map((e) => e.id).toList(),
+        start: status.value == PostStatus.initial ? 0 : posts.length,
+        limit: limitFetchPosts);
   }
 
   void throttle(Function callback, Duration interval) {

@@ -28,11 +28,11 @@ class PostController {
   }
   async getPost(req, res, next) {
     try {
-      const tag = req.params.tag;
+      const tags = req.body.tags;
       const start = req.body.start;
       const limit = req.body.limit;
-      console.log("get post: ", tag, start, limit);
-      const query = tag == "all" ? {} : { tags: { $in: [tag] } };
+      console.log("get post: ", tags, start, limit);
+      const query = tags.length == 0 ? {} : { tags: { $in: tags } };
       const posts = await Post.find(query)
         .skip(start)
         .limit(limit)

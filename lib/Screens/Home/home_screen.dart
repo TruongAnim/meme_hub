@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
         drawer: DrawerWidget(),
         onDrawerChanged: (isOpened) {
           if (!isOpened) {
-            controller.closeDrawer();
+            controller.updatePost();
           }
         },
         floatingActionButton: FloatingActionButton(
