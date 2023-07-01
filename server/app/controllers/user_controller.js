@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const Post = require("../models/post");
+const Comment = require("../models/comment");
 
 class UserController {
   async getUser(req, res, next) {
@@ -69,6 +71,69 @@ class UserController {
       }
     } catch (err) {
       next(err);
+    }
+  }
+  async countPostUpvote(userId) {
+    try {
+      const result = await Post.aggregate([
+        {
+          $addFields: {
+            upvoteCount: { $size: "$upVotes" },
+          },
+        },
+        {
+          $group: {
+            _id: '',
+            totalUpvotes: { $sum: "$upvoteCount" },
+          },
+        },
+      ]);
+      if (result.length > 0) {
+        return result[0].totalUpvotes;
+      } else {
+        return 0;
+      }
+    } catch (error) {
+      console.error("Error calculating sum of PostUpvote:", error);
+      throw error;
+    }
+  }
+  async countCommentUpvote(userId) {
+    try {
+      const result = await Comment.aggregate([
+        {
+          $addFields: {
+            upvoteCount: { $size: "$upVotes" },
+          },
+        },
+        {
+          $group: {
+            _id: '',
+            totalUpvotes: { $sum: "$upvoteCount" },
+          },
+        },
+      ]);
+      if (result.length > 0) {
+        return result[0].totalUpvotes;
+      } else {
+        return 0;
+      }
+    } catch (error) {
+      console.error("Error calculating sum of CommentUpvote:", error);
+      throw error;
+    }
+  }
+  getUserActivity = async (req, res, next) => {
+    try {
+      const userId = req.body.userId;
+      const countPost = await Post.countDocuments({ userId });
+      const countComment = await Comment.countDocuments({ userId });
+      const postUpvote = await this.countPostUpvote(userId);
+      const commentUpvote = await this.countCommentUpvote(userId);
+      res.json({ userId, countPost, countComment, postUpvote, commentUpvote});
+    } catch (error) {
+      console.error("Error counting posts:", error);
+      throw error;
     }
   }
 }

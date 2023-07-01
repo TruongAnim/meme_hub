@@ -68,7 +68,7 @@ class UserService {
 
       return TaskResult(isSuccess: false);
     } catch (error, stackTrace) {
-      LogUtil.error('login', error, stackTrace);
+      LogUtil.error('getUserInfo', error, stackTrace);
       return TaskResult(isSuccess: false);
     }
   }
@@ -137,6 +137,31 @@ class UserService {
       return TaskResult(
           isSuccess: false, title: 'Update Failed', message: error.toString());
       ;
+    }
+  }
+
+  Future<TaskResult> getUserActivity(String id) async {
+    try {
+      const url =
+          '${ApiConstants.baseUrl}/user/get-user-activity'; // Replace with your user endpoint
+
+      final response = await _dio.get(
+        url,
+        data: {'userId': id},
+        options: Options(
+          headers: {'Authorization': 'Bearer ${currentUser.token}'},
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        Map<String, dynamic> data = response.data;
+        return TaskResult(isSuccess: true, data: User.fromMap(data));
+      }
+
+      return TaskResult(isSuccess: false);
+    } catch (error, stackTrace) {
+      LogUtil.error('getUserActivity', error, stackTrace);
+      return TaskResult(isSuccess: false);
     }
   }
 }
