@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:meme_hub/routes/app_routes.dart';
-import 'package:meme_hub/services/login_service.dart';
+import 'package:meme_hub/services/auth_service.dart';
 
 class LoginController extends GetxController {
   void toSignupScreen() {
@@ -13,8 +13,7 @@ class LoginController extends GetxController {
 
   Future<bool> login(String email, String password) async {
     try {
-      LoginService loginService = LoginService();
-      bool result = await loginService.login(email, password);
+      bool result = await AuthService.instance.login(email, password);
 
       if (result) {
         toHomeScreen();

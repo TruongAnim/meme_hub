@@ -7,7 +7,11 @@ import 'package:meme_hub/utils/LogUtil.dart';
 import 'package:meme_hub/utils/api_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginService {
+class AuthService {
+  static final AuthService _instance = AuthService._();
+  static AuthService get instance => _instance;
+
+  AuthService._();
   final Dio _dio = Dio();
 
   Future<bool> login(String email, String password) async {
@@ -25,6 +29,28 @@ class LoginService {
         bool isTokenSaved = await saveTokenToSharedPreferences(token);
         return isTokenSaved;
       } else {
+        return false;
+      }
+    } catch (error, stackTrace) {
+      LogUtil.error('login', error, stackTrace);
+      return false;
+    }
+  }
+
+  Future<bool> signup(String username, String email, String password) async {
+    const url = '${ApiConstants.baseUrl}/signup';
+
+    try {
+      final response = await _dio.post(
+        url,
+        data: {'name': username, 'email': email, 'password': password},
+      );
+
+      if (response.statusCode == 200) {
+        // Signup successful
+        return true;
+      } else {
+        // Signup failed
         return false;
       }
     } catch (error, stackTrace) {
