@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/Screens/User/controllers/user_controller.dart';
 import 'package:meme_hub/Screens/User/widgets/header_widget.dart';
+import 'package:meme_hub/Screens/User/widgets/row_item.dart';
 import 'package:meme_hub/Screens/User/widgets/sliver_app_delegate.dart';
 import 'package:meme_hub/Screens/User/widgets/tab_grid.dart';
 import 'package:meme_hub/Theme/colors.dart';
@@ -28,8 +29,6 @@ class UserScreenBody extends StatefulWidget {
 
 class _UserScreenBodyState extends State<UserScreenBody> {
   late UserController _controller;
-
-  var followText;
   final key = UniqueKey();
 
   @override
@@ -65,19 +64,19 @@ class _UserScreenBodyState extends State<UserScreenBody> {
                           borderSide: BorderSide.none),
                       itemBuilder: (BuildContext context) {
                         return [
-                          // PopupMenuItem(
-                          //   value: locale!.report,
-                          //   textStyle: TextStyle(color: secondaryColor),
-                          //   child: Text(locale.report!),
-                          // ),
-                          // PopupMenuItem(
-                          //   value: locale.block,
-                          //   textStyle: TextStyle(color: secondaryColor),
-                          //   child: Text(locale.block!),
-                          // ),
+                          PopupMenuItem(
+                            value: 'report',
+                            textStyle: TextStyle(color: secondaryColor),
+                            child: Text('Report'),
+                          ),
+                          PopupMenuItem(
+                            value: 'block',
+                            textStyle: TextStyle(color: secondaryColor),
+                            child: Text('Block'),
+                          ),
                         ];
                       },
-                    )
+                    ),
                   ],
                   flexibleSpace: HeaderWidget(),
                 ),

@@ -12,10 +12,14 @@ class UserController extends GetxController {
   final RxList<Post> _userPost = RxList();
   final RxList<Post> _upvotePost = RxList();
   final RxList<Post> _favouritePost = RxList();
+  final RxMap<String, int> _counting =
+      RxMap({"posts": 0, "comments": 0, "upvotes": 0});
   User get user => _user.value;
   List<Post> get userPost => _userPost;
   List<Post> get upvotePost => _upvotePost;
   List<Post> get favouritePost => _favouritePost;
+  Map<String, int> get counting => _counting;
+
   UserController();
 
   void addUserId(String userId) {
@@ -33,25 +37,39 @@ class UserController extends GetxController {
   void loadData() async {
     TaskResult userInfoResult =
         await UserService.instance.getUserInfo(stackUserId.last);
-
     if (userInfoResult.isSuccess) {
       _user.value = userInfoResult.data as User;
     }
+
     TaskResult getUserPost =
         await PostService.instance.getUserPosts(stackUserId.last);
     if (getUserPost.isSuccess) {
       _userPost.value = getUserPost.data as List<Post>;
       update(['HeaderWidget'], true);
     }
+
     TaskResult getUpvotePost =
         await PostService.instance.getUpvotePosts(stackUserId.last);
     if (getUpvotePost.isSuccess) {
       _upvotePost.value = getUpvotePost.data as List<Post>;
     }
+
     TaskResult getFavouritePost =
         await PostService.instance.getFavouritePosts(stackUserId.last);
     if (getFavouritePost.isSuccess) {
       _favouritePost.value = getFavouritePost.data as List<Post>;
+    }
+
+    TaskResult getCounting =
+        await UserService.instance.getUserActivity(stackUserId.last);
+    if (getCounting.isSuccess) {
+      Map<String, dynamic> data = getCounting.data as Map<String, dynamic>;
+      _counting.value = {
+        'posts': data['countPost'],
+        'comments': data['countComment'],
+        'upvotes': data['postUpvote'] + data['commentUpvote'],
+      };
+      update(['HeaderWidget'], true);
     }
   }
 }

@@ -155,7 +155,7 @@ class UserService {
 
       if (response.statusCode == 200) {
         Map<String, dynamic> data = response.data;
-        return TaskResult(isSuccess: true, data: User.fromMap(data));
+        return TaskResult(isSuccess: true, data: data);
       }
 
       return TaskResult(isSuccess: false);

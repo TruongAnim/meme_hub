@@ -2,9 +2,9 @@ import 'package:animation_wrappers/animations/faded_scale_animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/Screens/User/controllers/user_controller.dart';
+import 'package:meme_hub/Screens/User/widgets/row_item.dart';
 import 'package:meme_hub/Theme/colors.dart';
 import 'package:meme_hub/core/helpers/assets_helper.dart';
-import 'package:meme_hub/core/helpers/image_helper.dart';
 import 'package:meme_hub/utils/common_utils.dart';
 import 'package:meme_hub/utils/url_utils.dart';
 
@@ -115,24 +115,13 @@ class HeaderWidget extends StatelessWidget {
                 Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  // children: <Widget>[
-                  //   RowItem(
-                  //       _profileController.user['likes'],
-                  //       locale.liked,
-                  //       Scaffold(
-                  //         appBar: AppBar(
-                  //           title: const Text('Liked'),
-                  //         ),
-                  //         body: TabGrid(
-                  //           _profileController.user['videos'],
-                  //           showView: false,
-                  //         ),
-                  //       )),
-                  //   RowItem(_profileController.user['followers'],
-                  //       locale.followers, FollowersPage()),
-                  //   RowItem(_profileController.user['following'],
-                  //       locale.following, FollowingPage()),
-                  // ],
+                  children: <Widget>[
+                    RowItem(_controller.counting['posts'].toString(), 'Posts'),
+                    RowItem(_controller.counting['comments'].toString(),
+                        'Comments'),
+                    RowItem(
+                        _controller.counting['upvotes'].toString(), 'Upvotes'),
+                  ],
                 ),
               ],
             ),

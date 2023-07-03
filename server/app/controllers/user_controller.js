@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const User = require("../models/user");
 const Post = require("../models/post");
 const Comment = require("../models/comment");
@@ -77,6 +78,11 @@ class UserController {
     try {
       const result = await Post.aggregate([
         {
+          $match: {
+            userId: new mongoose.Types.ObjectId(userId)
+          }
+        },
+        {
           $addFields: {
             upvoteCount: { $size: "$upVotes" },
           },
@@ -101,6 +107,11 @@ class UserController {
   async countCommentUpvote(userId) {
     try {
       const result = await Comment.aggregate([
+        {
+          $match: {
+            userId: new mongoose.Types.ObjectId(userId)
+          }
+        },
         {
           $addFields: {
             upvoteCount: { $size: "$upVotes" },
@@ -131,9 +142,8 @@ class UserController {
       const postUpvote = await this.countPostUpvote(userId);
       const commentUpvote = await this.countCommentUpvote(userId);
       res.json({ userId, countPost, countComment, postUpvote, commentUpvote});
-    } catch (error) {
-      console.error("Error counting posts:", error);
-      throw error;
+    } catch (err) {
+      next(err);
     }
   }
 }
