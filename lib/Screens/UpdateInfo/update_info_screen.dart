@@ -96,6 +96,7 @@ class _UpdateInfoScreenState extends State<UpdateInfoScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              const SizedBox(height: 16),
               GestureDetector(
                 onTap: pickImageFromGallery,
                 child: CircleAvatar(
@@ -117,17 +118,19 @@ class _UpdateInfoScreenState extends State<UpdateInfoScreen> {
                       ],
                     )),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
               CustomTextField(
                 controller: nameController,
                 label: 'Nick name',
+                icon: Icons.person_outline,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
               CustomTextField(
                 controller: descriptionController,
                 label: 'Description',
+                icon: Icons.description_outlined,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
               CustomButton(
                 title: 'Update',
                 callback: updateUser,

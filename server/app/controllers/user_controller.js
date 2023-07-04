@@ -1,3 +1,4 @@
+const bcryptjs = require("bcryptjs");
 const mongoose = require("mongoose");
 const User = require("../models/user");
 const Post = require("../models/post");
@@ -71,6 +72,7 @@ class UserController {
         });
       }
     } catch (err) {
+      console.log(err)
       next(err);
     }
   }

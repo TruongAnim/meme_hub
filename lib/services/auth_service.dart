@@ -16,13 +16,14 @@ class AuthService {
 
   Future<bool> login(String email, String password) async {
     const url =
-        '${ApiConstants.baseUrl}/user/login'; // Replace with your login endpoint
+        '${ApiConstants.baseUrl}/auth/login'; // Replace with your login endpoint
 
     try {
       final response = await _dio.post(
         url,
         data: {'email': email, 'password': password},
       );
+      print(response);
       if (response.statusCode == 200) {
         final token = response.data['token'] as String;
         UserService.instance.currentUser = User.fromMap(response.data);
@@ -38,7 +39,7 @@ class AuthService {
   }
 
   Future<bool> signup(String username, String email, String password) async {
-    const url = '${ApiConstants.baseUrl}/signup';
+    const url = '${ApiConstants.baseUrl}/auth/signup';
 
     try {
       final response = await _dio.post(

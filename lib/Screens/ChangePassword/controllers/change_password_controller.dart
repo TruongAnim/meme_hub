@@ -13,6 +13,7 @@ class ChangePasswordController extends GetxController {
 
   void setCurrentPassword(String password) {
     currentPassword.value = password;
+    print(password);
   }
 
   void setNewPassword(String password) {
