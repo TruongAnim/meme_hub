@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/Screens/UpdateInfo/controllers/update_info_controller.dart';
+import 'package:meme_hub/Theme/colors.dart';
+import 'package:meme_hub/components/custom_app_bar.dart';
+import 'package:meme_hub/components/custom_button.dart';
+import 'package:meme_hub/components/custom_text_field.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/utils/api_constants.dart';
 import 'package:meme_hub/utils/loading_overlay.dart';
@@ -64,10 +68,15 @@ class _UpdateInfoScreenState extends State<UpdateInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Update User Info'),
+      appBar: CustomAppBar(
+        title: 'Update User Info',
         actions: [
           PopupMenuButton<String>(
+            color: backgroundColor,
+            icon: Icon(
+              Icons.more_vert,
+              color: lightColor,
+            ),
             onSelected: (value) {
               if (value == 'change-password') {
                 _controller.toChangePasswordScreen();
@@ -83,50 +92,48 @@ class _UpdateInfoScreenState extends State<UpdateInfoScreen> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap: pickImageFromGallery,
-              child: CircleAvatar(
-                  radius: 50,
-                  backgroundImage: avatarImage != null
-                      ? FileImage(avatarImage!) as ImageProvider
-                      : NetworkImage(
-                          UrlUtils.addPublicIfNeeded(currentUser.avatar)),
-                  child: Stack(
-                    children: const [
-                      Positioned(
-                          right: -5,
-                          bottom: -5,
-                          child: Icon(
-                            Icons.camera_alt,
-                            size: 40,
-                            color: Colors.orange,
-                          ))
-                    ],
-                  )),
-            ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: nameController,
-              decoration: const InputDecoration(
-                labelText: 'Nick name',
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap: pickImageFromGallery,
+                child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: avatarImage != null
+                        ? FileImage(avatarImage!) as ImageProvider
+                        : NetworkImage(
+                            UrlUtils.addPublicIfNeeded(currentUser.avatar)),
+                    child: Stack(
+                      children: [
+                        Positioned(
+                            right: -5,
+                            bottom: -5,
+                            child: Icon(
+                              Icons.camera_alt,
+                              size: 40,
+                              color: upvoteColor,
+                            ))
+                      ],
+                    )),
               ),
-            ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: descriptionController,
-              decoration: const InputDecoration(
-                labelText: 'Description',
+              const SizedBox(height: 20),
+              CustomTextField(
+                controller: nameController,
+                label: 'Nick name',
               ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: updateUser,
-              child: const Text('Update'),
-            ),
-          ],
+              const SizedBox(height: 20),
+              CustomTextField(
+                controller: descriptionController,
+                label: 'Description',
+              ),
+              const SizedBox(height: 20),
+              CustomButton(
+                title: 'Update',
+                callback: updateUser,
+              )
+            ],
+          ),
         ),
       ),
     );

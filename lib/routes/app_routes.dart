@@ -9,7 +9,7 @@ import 'package:meme_hub/Screens/Reply/reply_screen.dart';
 import 'package:meme_hub/Screens/Signup/signup_screen.dart';
 import 'package:meme_hub/Screens/NewPost/new_post_screen.dart';
 import 'package:meme_hub/Screens/UpdateInfo/bindings/update_info_binding.dart';
-import 'package:meme_hub/Screens/UpdateInfo/widgets/update_info_screen.dart';
+import 'package:meme_hub/Screens/UpdateInfo/update_info_screen.dart';
 import 'package:meme_hub/Screens/User/bindings/user_binding.dart';
 import 'package:meme_hub/Screens/Comment/bindings/comment_binding.dart';
 import 'package:meme_hub/Screens/User/user_screen.dart';

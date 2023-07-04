@@ -44,36 +44,34 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
         key: scaffoldKey,
-        body: SafeArea(
-          child: SliderDrawer(
-              key: sliderKey,
-              slideDirection: SlideDirection.RIGHT_TO_LEFT,
-              appBar: SliderAppBar(
-                drawerIcon: GestureDetector(
-                    onTap: openSlider,
-                    child: Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(getAvatar()),
-                      ),
-                    )),
-                title: Obx(
-                  () => Text(getTagName(),
-                      style: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.w700)),
-                ),
-                trailing: GestureDetector(
-                    onTap: () {
-                      openDrawer();
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.only(left: 8, bottom: 4),
-                      child: Icon(Icons.menu),
-                    )),
+        body: SliderDrawer(
+            key: sliderKey,
+            slideDirection: SlideDirection.RIGHT_TO_LEFT,
+            appBar: SliderAppBar(
+              drawerIcon: GestureDetector(
+                  onTap: openSlider,
+                  child: Padding(
+                    padding: const EdgeInsets.all(6.0),
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(getAvatar()),
+                    ),
+                  )),
+              title: Obx(
+                () => Text(getTagName(),
+                    style: const TextStyle(
+                        fontSize: 22, fontWeight: FontWeight.w700)),
               ),
-              slider: SliderWidget(),
-              child: PostList()),
-        ),
+              trailing: GestureDetector(
+                  onTap: () {
+                    openDrawer();
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 8, bottom: 4),
+                    child: Icon(Icons.menu),
+                  )),
+            ),
+            slider: SliderWidget(),
+            child: PostList()),
         drawer: DrawerWidget(),
         onDrawerChanged: (isOpened) {
           if (!isOpened) {
