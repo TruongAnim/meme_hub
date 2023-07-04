@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-Color backgroundColor = Color(0xff1d1f24);
-Color mainColor = Color(0xff0de8d1);
-Color secondaryColor = Colors.white;
-Color disabledTextColor = Color(0xff6b717e);
-Color lightTextColor = Color(0xff4cffffff);
+Color backgroundColor = const Color(0xffffffff);
+Color mainColor = const Color(0xff000000);
+Color secondaryColor = const Color(0xfff7971d);
+Color lightColor = const Color(0xff999999);
+Color lightTextColor = const Color(0xff9a9a9a);
 Color transparentColor = Colors.transparent;
-Color darkColor = Color(0xff151619);
-Color fbColor = Color(0xff3c5a9a);
-Color videoCall = Colors.red;
+Color linkColor = const Color(0xff0077ff);
+Color upvoteColor = const Color(0xff00cc00);
+Color favouriteColor = const Color(0xfffb5353);

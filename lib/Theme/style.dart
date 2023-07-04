@@ -16,8 +16,8 @@ final ThemeData appTheme = ThemeData.light().copyWith(
 
   ///text theme
   textTheme: GoogleFonts.openSansTextTheme().copyWith(
-    subtitle1: TextStyle(color: disabledTextColor),
-    caption: TextStyle(color: disabledTextColor),
+    subtitle1: TextStyle(color: lightTextColor),
+    caption: TextStyle(color: lightTextColor),
     bodyText1: TextStyle(fontSize: 16.0),
     headline6: TextStyle(fontSize: 18.0),
     button: TextStyle(fontSize: 16.0, letterSpacing: 1),

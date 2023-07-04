@@ -13,15 +13,15 @@ class RowItem extends StatelessWidget {
       child: RichText(
         textAlign: TextAlign.center,
         text: TextSpan(
-          style: TextStyle(fontSize: 12, height: 1.5),
+          style: TextStyle(fontSize: 20, height: 1.5),
           children: [
             TextSpan(
               text: title + '\n',
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold, color: upvoteColor),
             ),
             TextSpan(
               text: subtitle,
-              style: TextStyle(fontSize: 8, color: disabledTextColor),
+              style: TextStyle(fontSize: 12, color: lightTextColor),
             ),
           ],
         ),

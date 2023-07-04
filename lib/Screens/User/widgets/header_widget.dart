@@ -15,104 +15,114 @@ class HeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<UserController>(
-        id: 'HeaderWidget',
-        builder: (UserController controller) {
-          if (_controller.user.name == 'unknown') {
-            return Container();
-          }
-          return FlexibleSpaceBar(
-            centerTitle: true,
-            title: Column(
+      id: 'HeaderWidget',
+      builder: (UserController controller) {
+        if (_controller.user.name == 'unknown') {
+          return Container();
+        }
+        return FlexibleSpaceBar(
+          background: Container(
+            alignment: Alignment.center,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Spacer(flex: 10),
+                const Spacer(),
                 FadedScaleAnimation(
                   child: CircleAvatar(
-                    radius: 28.0,
+                    radius: 60.0,
                     backgroundImage: NetworkImage(
                         UrlUtils.addPublicIfNeeded(_controller.user.avatar)),
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Row(
                   children: [
-                    Spacer(flex: 12),
+                    const Spacer(),
+                    const SizedBox(width: 20),
                     Text(
                       _controller.user.name,
-                      style: const TextStyle(fontSize: 16),
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: mainColor,
+                          fontWeight: FontWeight.bold),
                     ),
-                    Spacer(),
+                    const SizedBox(width: 12),
                     Image.asset(
                       AssetsHelper.icon_verified,
                       scale: 4,
                     ),
-                    Spacer(flex: 8),
+                    const Spacer(),
                   ],
                 ),
                 Text(
                   '@${CommonUtils.getUsernameFromEmail(controller.user.email)}',
-                  style: TextStyle(fontSize: 10, color: disabledTextColor),
+                  style: TextStyle(fontSize: 14, color: lightTextColor),
                 ),
-                Spacer(),
+                const Spacer(),
                 FadedScaleAnimation(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       ImageIcon(
-                        AssetImage(
+                        const AssetImage(
                           AssetsHelper.icon_fb,
                         ),
-                        color: secondaryColor,
-                        size: 10,
+                        color: linkColor,
+                        size: 20,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 15,
                       ),
                       ImageIcon(
-                        AssetImage(AssetsHelper.icon_twt),
-                        color: secondaryColor,
-                        size: 10,
+                        const AssetImage(AssetsHelper.icon_twt),
+                        color: linkColor,
+                        size: 20,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 15,
                       ),
                       ImageIcon(
-                        AssetImage(AssetsHelper.icon_insta),
-                        color: secondaryColor,
-                        size: 10,
+                        const AssetImage(AssetsHelper.icon_insta),
+                        color: linkColor,
+                        size: 20,
                       ),
                     ],
                   ),
                 ),
-                Spacer(),
+                const Spacer(),
                 Text(
                   _controller.user.description,
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 10, fontWeight: FontWeight.w500),
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: mainColor),
                 ),
-                Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  // children: <Widget>[
-                  //   ProfilePageButton(
-                  //       locale.message,
-                  //       () => Navigator.pushNamed(
-                  //           context, PageRoutes.chatPage)),
-                  //   SizedBox(width: 16),
-                  //   _profileController.user['isFollowing']
-                  //       ? ProfilePageButton(locale.following, () {
-                  //           _profileController.followUser();
-                  //         })
-                  //       : ProfilePageButton(
-                  //           locale.follow,
-                  //           () {
-                  //             _profileController.followUser();
-                  //           },
-                  //           color: mainColor,
-                  //           textColor: secondaryColor,
-                  //         ),
-                  // ],
-                ),
-                Spacer(),
+                // Spacer(),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: <Widget>[
+                //     ProfilePageButton(
+                //         locale.message,
+                //         () => Navigator.pushNamed(
+                //             context, PageRoutes.chatPage)),
+                //     SizedBox(width: 16),
+                //     _profileController.user['isFollowing']
+                //         ? ProfilePageButton(locale.following, () {
+                //             _profileController.followUser();
+                //           })
+                //         : ProfilePageButton(
+                //             locale.follow,
+                //             () {
+                //               _profileController.followUser();
+                //             },
+                //             color: mainColor,
+                //             textColor: secondaryColor,
+                //           ),
+                //   ],
+                // ),
+                const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
@@ -123,9 +133,12 @@ class HeaderWidget extends StatelessWidget {
                         _controller.counting['upvotes'].toString(), 'Upvotes'),
                   ],
                 ),
+                const Spacer(),
               ],
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 }

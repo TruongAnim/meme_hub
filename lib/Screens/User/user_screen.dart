@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/Screens/User/controllers/user_controller.dart';
 import 'package:meme_hub/Screens/User/widgets/header_widget.dart';
-import 'package:meme_hub/Screens/User/widgets/row_item.dart';
 import 'package:meme_hub/Screens/User/widgets/sliver_app_delegate.dart';
 import 'package:meme_hub/Screens/User/widgets/tab_grid.dart';
 import 'package:meme_hub/Theme/colors.dart';
@@ -41,7 +40,7 @@ class _UserScreenBodyState extends State<UserScreenBody> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: darkColor,
+      backgroundColor: backgroundColor,
       body: DefaultTabController(
         length: 3,
         child: SafeArea(
@@ -50,14 +49,18 @@ class _UserScreenBodyState extends State<UserScreenBody> {
                 (BuildContext context, bool innerBoxIsScrolled) {
               return <Widget>[
                 SliverAppBar(
-                  expandedHeight: 400.0,
+                  backgroundColor: backgroundColor,
+                  expandedHeight: 300,
                   floating: false,
+                  leading: BackButton(
+                    color: lightColor,
+                  ),
                   actions: <Widget>[
                     PopupMenuButton(
                       color: backgroundColor,
                       icon: Icon(
                         Icons.more_vert,
-                        color: secondaryColor,
+                        color: lightColor,
                       ),
                       shape: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12.0),
@@ -66,12 +69,12 @@ class _UserScreenBodyState extends State<UserScreenBody> {
                         return [
                           PopupMenuItem(
                             value: 'report',
-                            textStyle: TextStyle(color: secondaryColor),
+                            textStyle: TextStyle(color: mainColor),
                             child: Text('Report'),
                           ),
                           PopupMenuItem(
                             value: 'block',
-                            textStyle: TextStyle(color: secondaryColor),
+                            textStyle: TextStyle(color: mainColor),
                             child: Text('Block'),
                           ),
                         ];
@@ -83,9 +86,11 @@ class _UserScreenBodyState extends State<UserScreenBody> {
                 SliverPersistentHeader(
                   delegate: SliverAppBarDelegate(
                     TabBar(
-                      labelColor: mainColor,
+                      labelColor: secondaryColor,
                       unselectedLabelColor: lightTextColor,
-                      indicatorColor: transparentColor,
+                      indicatorColor: linkColor,
+                      dividerColor: mainColor,
+                      automaticIndicatorColorAdjustment: true,
                       tabs: const [
                         Tab(icon: Icon(Icons.dashboard)),
                         Tab(icon: Icon(Icons.arrow_upward)),
