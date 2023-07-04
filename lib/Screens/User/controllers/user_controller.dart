@@ -39,25 +39,29 @@ class UserController extends GetxController {
         await UserService.instance.getUserInfo(stackUserId.last);
     if (userInfoResult.isSuccess) {
       _user.value = userInfoResult.data as User;
+      update(['HeaderWidget'], true);
     }
 
     TaskResult getUserPost =
         await PostService.instance.getUserPosts(stackUserId.last);
     if (getUserPost.isSuccess) {
       _userPost.value = getUserPost.data as List<Post>;
-      update(['HeaderWidget'], true);
+      update(['userPost'], true);
+      print('getUserPost done');
     }
 
     TaskResult getUpvotePost =
         await PostService.instance.getUpvotePosts(stackUserId.last);
     if (getUpvotePost.isSuccess) {
       _upvotePost.value = getUpvotePost.data as List<Post>;
+      update(['upvotePost'], true);
     }
 
     TaskResult getFavouritePost =
         await PostService.instance.getFavouritePosts(stackUserId.last);
     if (getFavouritePost.isSuccess) {
       _favouritePost.value = getFavouritePost.data as List<Post>;
+      update(['favouritePost'], true);
     }
 
     TaskResult getCounting =

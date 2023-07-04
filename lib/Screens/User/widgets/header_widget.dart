@@ -24,8 +24,6 @@ class HeaderWidget extends StatelessWidget {
           background: Container(
             alignment: Alignment.center,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const Spacer(),
                 FadedScaleAnimation(

@@ -1,9 +1,6 @@
-import 'package:animation_wrappers/animation_wrappers.dart';
 import 'package:flutter/material.dart';
 import 'package:meme_hub/Screens/Post/widgets/post_item.dart';
 import 'package:meme_hub/models/post.dart';
-// import 'package:toktok/Theme/colors.dart';
-// import 'package:toktok/models/video.dart';
 
 class TabGrid extends StatelessWidget {
   final List<Post> list;
@@ -21,8 +18,12 @@ class TabGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
         physics: const BouncingScrollPhysics(),
+        separatorBuilder: (context, index) => Divider(
+              color: Colors.grey[200],
+              thickness: 10,
+            ),
         itemCount: list.length,
         itemBuilder: (context, index) {
           return PostItem(post: list[index]);

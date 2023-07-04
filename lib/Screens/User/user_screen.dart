@@ -109,39 +109,42 @@ class _UserScreenBodyState extends State<UserScreenBody> {
             body: TabBarView(
               children: <Widget>[
                 GetBuilder<UserController>(
+                    id: 'userPost',
                     builder: (UserController controller) {
-                  if (controller.upvotePost.isEmpty) {
-                    return Container();
-                  }
-                  return TabGrid(
-                    controller.upvotePost,
-                    showView: false,
-                  );
-                }),
+                      if (controller.userPost.isEmpty) {
+                        return Container();
+                      }
+                      return TabGrid(
+                        controller.userPost,
+                        showView: false,
+                      );
+                    }),
                 GetBuilder<UserController>(
+                    id: 'upvotePost',
                     builder: (UserController controller) {
-                  if (controller.upvotePost.isEmpty) {
-                    return Container();
-                  }
-                  return TabGrid(
-                    controller.upvotePost,
-                    showView: false,
-                  );
-                }),
+                      if (controller.upvotePost.isEmpty) {
+                        return Container();
+                      }
+                      return TabGrid(
+                        controller.upvotePost,
+                        showView: false,
+                      );
+                    }),
                 FadedSlideAnimation(
                     beginOffset: Offset(0, 0.3),
                     endOffset: Offset(0, 0),
                     slideCurve: Curves.linearToEaseOut,
                     child: GetBuilder<UserController>(
+                        id: 'favouritePost',
                         builder: (UserController controller) {
-                      if (controller.favouritePost.isEmpty) {
-                        return Container();
-                      }
-                      return TabGrid(
-                        controller.favouritePost,
-                        showView: false,
-                      );
-                    })),
+                          if (controller.favouritePost.isEmpty) {
+                            return Container();
+                          }
+                          return TabGrid(
+                            controller.favouritePost,
+                            showView: false,
+                          );
+                        })),
               ],
             ),
           ),
