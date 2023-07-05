@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:meme_hub/Screens/Login/components/login_title_widget.dart';
 import 'package:meme_hub/components/responsive.dart';
 import 'package:meme_hub/components/background.dart';
 import 'components/login_form.dart';
-import 'components/login_screen_top_image.dart';
 
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +25,6 @@ class DesktopLoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Expanded(
-          child: LoginScreenTopImage(),
-        ),
         Expanded(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -53,19 +50,9 @@ class MobileLoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          // const LoginScreenTopImage(),
-          Row(
-            children: const [
-              Spacer(),
-              Expanded(
-                flex: 8,
-                child: LoginForm(),
-              ),
-              Spacer(),
-            ],
-          ),
+          LoginTitleWidget(),
           Row(
             children: const [
               Spacer(),

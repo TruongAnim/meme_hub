@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meme_hub/Screens/Login/components/already_have_an_account_acheck.dart';
+import 'package:meme_hub/Theme/colors.dart';
+import 'package:meme_hub/constants.dart';
 import 'package:meme_hub/controllers/login_controller.dart';
 import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
 
-import '../../../components/already_have_an_account_acheck.dart';
-import '../../../constants.dart';
-import '../../Signup/signup_screen.dart';
-
 class LoginForm extends StatefulWidget {
-  const LoginForm({
-    Key? key,
-  }) : super(key: key);
+  const LoginForm({super.key});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -31,7 +28,6 @@ class _LoginFormState extends State<LoginForm> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
-    super.dispose();
     super.dispose();
   }
 
@@ -63,19 +59,25 @@ class _LoginFormState extends State<LoginForm> {
             controller: _emailController,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
-            cursorColor: kPrimaryColor,
+            cursorColor: secondaryColor,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter your email';
               }
-              // Add email validation logic if needed
               return null;
             },
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               hintText: "Your email",
-              prefixIcon: Padding(
+              fillColor: backgroundColor,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              prefixIcon: const Padding(
                 padding: EdgeInsets.all(defaultPadding),
-                child: Icon(Icons.person),
+                child: Icon(
+                  Icons.person,
+                  color: mainColor,
+                ),
               ),
             ),
           ),
@@ -89,24 +91,29 @@ class _LoginFormState extends State<LoginForm> {
                 if (value!.isEmpty) {
                   return 'Please enter your password';
                 }
-                // Add password validation logic if needed
                 return null;
               },
               cursorColor: kPrimaryColor,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: "Your password",
-                prefixIcon: Padding(
+                fillColor: backgroundColor,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                prefixIcon: const Padding(
                   padding: EdgeInsets.all(defaultPadding),
-                  child: Icon(Icons.lock),
+                  child: Icon(Icons.lock, color: mainColor),
                 ),
               ),
             ),
           ),
           const SizedBox(height: defaultPadding),
           Hero(
-            tag: "login_btn",
+            tag: "btn_login",
             child: ElevatedButton(
               onPressed: _submitForm,
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(mainColor)),
               child: Text(
                 "Login".toUpperCase(),
               ),

@@ -4,7 +4,7 @@ import 'package:meme_hub/controllers/signup_controller.dart';
 import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
 
-import '../../../components/already_have_an_account_acheck.dart';
+import '../../Login/components/already_have_an_account_acheck.dart';
 import '../../../constants.dart';
 
 class SignUpForm extends StatefulWidget {

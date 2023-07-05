@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meme_hub/components/background.dart';
 import 'package:meme_hub/components/responsive.dart';
 import 'package:meme_hub/constants.dart';
 import 'components/sign_up_top_image.dart';

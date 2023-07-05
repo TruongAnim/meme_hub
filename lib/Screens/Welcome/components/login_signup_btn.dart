@@ -14,7 +14,7 @@ class LoginAndSignupBtn extends StatelessWidget {
     return Column(
       children: [
         Hero(
-          tag: "login_btn",
+          tag: 'btn_login',
           child: ElevatedButton(
             onPressed: () {
               controller.toLoginScreen();
