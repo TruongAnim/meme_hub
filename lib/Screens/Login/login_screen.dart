@@ -52,7 +52,7 @@ class MobileLoginScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          LoginTitleWidget(),
+          const LoginTitleWidget(),
           Row(
             children: const [
               Spacer(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meme_hub/Theme/colors.dart';
 import 'package:meme_hub/controllers/signup_controller.dart';
 import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
@@ -73,43 +74,56 @@ class _SignUpFormState extends State<SignUpForm> {
             controller: usernameController,
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
-            cursorColor: kPrimaryColor,
+            cursorColor: secondaryColor,
             validator: (value) {
               if (value!.isEmpty) {
-                return 'Please enter your username';
+                return 'Please enter your nickname';
               }
               return null;
             },
-            decoration: const InputDecoration(
-              hintText: "Your username",
-              prefixIcon: Padding(
-                padding: EdgeInsets.all(defaultPadding),
-                child: Icon(Icons.person),
+            decoration: InputDecoration(
+              hintText: "Your nickname",
+              fillColor: backgroundColor,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: defaultPadding),
-            child: TextFormField(
-              controller: emailController,
-              textInputAction: TextInputAction.done,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Please enter your email';
-                }
-                // Add email validation logic if needed
-                return null;
-              },
-              cursorColor: kPrimaryColor,
-              decoration: const InputDecoration(
-                hintText: "Your email",
-                prefixIcon: Padding(
-                  padding: EdgeInsets.all(defaultPadding),
-                  child: Icon(Icons.email),
+              prefixIcon: const Padding(
+                padding: EdgeInsets.all(defaultPadding),
+                child: Icon(
+                  Icons.person,
+                  color: mainColor,
                 ),
               ),
             ),
           ),
+          const SizedBox(height: defaultPadding),
+          TextFormField(
+            controller: emailController,
+            textInputAction: TextInputAction.done,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'Please enter your email';
+              }
+              // Add email validation logic if needed
+              return null;
+            },
+            cursorColor: secondaryColor,
+            decoration: InputDecoration(
+              hintText: "Your email",
+              fillColor: backgroundColor,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              prefixIcon: const Padding(
+                padding: EdgeInsets.all(defaultPadding),
+                child: Icon(
+                  Icons.email,
+                  color: mainColor,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(height: defaultPadding),
           TextFormField(
             controller: passwordController,
             textInputAction: TextInputAction.done,
@@ -118,22 +132,30 @@ class _SignUpFormState extends State<SignUpForm> {
               if (value!.isEmpty) {
                 return 'Please enter your password';
               }
-              // Add password validation logic if needed
               return null;
             },
             cursorColor: kPrimaryColor,
-            decoration: const InputDecoration(
+            decoration: InputDecoration(
               hintText: "Your password",
-              prefixIcon: Padding(
+              fillColor: backgroundColor,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              prefixIcon: const Padding(
                 padding: EdgeInsets.all(defaultPadding),
-                child: Icon(Icons.lock),
+                child: Icon(Icons.lock, color: mainColor),
               ),
             ),
           ),
-          const SizedBox(height: defaultPadding / 2),
-          ElevatedButton(
-            onPressed: _submitForm,
-            child: Text("Sign Up".toUpperCase()),
+          const SizedBox(height: defaultPadding),
+          Hero(
+            tag: 'btn_signup',
+            child: ElevatedButton(
+              onPressed: _submitForm,
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(mainColor)),
+              child: Text("Sign Up".toUpperCase()),
+            ),
           ),
           const SizedBox(height: defaultPadding),
           AlreadyHaveAnAccountCheck(
@@ -142,6 +164,7 @@ class _SignUpFormState extends State<SignUpForm> {
               controller.toLoginScreen();
             },
           ),
+          const SizedBox(height: defaultPadding),
         ],
       ),
     );
