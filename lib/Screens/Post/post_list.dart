@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/Screens/Post/widgets/post_item.dart';
 import 'package:meme_hub/Screens/Post/controllers/post_controller.dart';
+import 'package:meme_hub/Theme/colors.dart';
 import 'package:meme_hub/models/post.dart';
 import 'package:meme_hub/Screens/Post/widgets/bottom_loader.dart';
 
@@ -27,14 +28,22 @@ class _PostListState extends State<PostList> {
   Widget build(BuildContext context) {
     return Obx(() {
       List<Post> listPost = controller.posts;
-      if (controller.status == PostStatus.initial) {
-        return Container(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              children: [CircularProgressIndicator(), Text('Fetching post...')],
-            ));
+      if (controller.status.value == PostStatus.initial) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            CircularProgressIndicator(),
+            SizedBox(height: 16),
+            Text(
+              'Fetching post...',
+              style: TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.w500, color: linkColor),
+            )
+          ],
+        );
       }
       return ListView.separated(
+        padding: const EdgeInsets.symmetric(vertical: 8),
         controller: _scrollController,
         separatorBuilder: (context, index) => Divider(
           color: Colors.grey[200],

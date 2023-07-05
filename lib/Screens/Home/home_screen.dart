@@ -5,6 +5,7 @@ import 'package:meme_hub/Screens/Home/widgets/drawer_widget.dart';
 import 'package:meme_hub/Screens/Home/widgets/slider_widget.dart';
 import 'package:meme_hub/Screens/Post/post_list.dart';
 import 'package:meme_hub/Screens/Home/controllers/home_controller.dart';
+import 'package:meme_hub/Theme/colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -62,16 +63,32 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontSize: 22, fontWeight: FontWeight.w700)),
               ),
               trailing: GestureDetector(
-                  onTap: () {
-                    openDrawer();
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.only(left: 8, bottom: 4),
-                    child: Icon(Icons.menu),
-                  )),
+                onTap: () {
+                  openDrawer();
+                },
+                child: const Padding(
+                  padding: EdgeInsets.only(left: 8, bottom: 4),
+                  child: Icon(Icons.menu),
+                ),
+              ),
             ),
             slider: SliderWidget(),
-            child: PostList()),
+            child: Container(
+                constraints: BoxConstraints.expand(),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.7),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset:
+                          Offset(0, 3), // Controls the position of the shadow
+                    ),
+                  ],
+                ),
+                margin: EdgeInsets.only(top: 3),
+                child: PostList())),
         drawer: DrawerWidget(),
         onDrawerChanged: (isOpened) {
           if (!isOpened) {

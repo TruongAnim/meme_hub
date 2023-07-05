@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meme_hub/Theme/colors.dart';
 import 'package:meme_hub/controllers/welcome_controller.dart';
-
-import '../../../constants.dart';
 
 class LoginAndSignupBtn extends StatelessWidget {
   const LoginAndSignupBtn({
@@ -20,8 +19,12 @@ class LoginAndSignupBtn extends StatelessWidget {
             onPressed: () {
               controller.toLoginScreen();
             },
+            style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(backgroundColor)),
             child: Text(
               "Login".toUpperCase(),
+              style: const TextStyle(color: mainColor),
             ),
           ),
         ),
@@ -30,11 +33,12 @@ class LoginAndSignupBtn extends StatelessWidget {
           onPressed: () {
             controller.toSignupScreen();
           },
-          style: ElevatedButton.styleFrom(
-              primary: kPrimaryLightColor, elevation: 0),
+          style: ButtonStyle(
+              backgroundColor:
+                  MaterialStateProperty.all<Color>(secondaryColor)),
           child: Text(
             "Sign Up".toUpperCase(),
-            style: TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.black),
           ),
         ),
       ],

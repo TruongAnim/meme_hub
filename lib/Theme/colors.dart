@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-Color backgroundColor = const Color(0xffffffff);
-Color mainColor = const Color(0xff000000);
-Color secondaryColor = const Color(0xfff7971d);
-Color lightColor = const Color(0xff999999);
-Color lightTextColor = const Color(0xff9a9a9a);
-Color transparentColor = Colors.transparent;
-Color linkColor = const Color(0xff0077ff);
-Color upvoteColor = const Color(0xff00cc00);
-Color favouriteColor = const Color(0xfffb5353);
+const Color backgroundColor = Color(0xffffffff);
+const Color mainColor = Color(0xff000000);
+const Color secondaryColor = Color(0xfff7971d);
+const Color lightColor = Color(0xff999999);
+const Color lightTextColor = Color(0xff9a9a9a);
+const Color transparentColor = Colors.transparent;
+const Color linkColor = Color(0xff0077ff);
+const Color upvoteColor = Color(0xff00cc00);
+const Color favouriteColor = Color(0xfffb5353);
