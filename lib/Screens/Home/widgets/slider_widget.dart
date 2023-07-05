@@ -4,6 +4,7 @@ import 'package:meme_hub/Screens/Home/widgets/slider_menu_item.dart';
 import 'package:meme_hub/Screens/Home/controllers/slider_controller.dart';
 import 'package:meme_hub/core/helpers/assets_helper.dart';
 import 'package:meme_hub/core/helpers/image_helper.dart';
+import 'package:meme_hub/utils/url_utils.dart';
 
 class SliderWidget extends StatelessWidget {
   SliderWidget({super.key});
@@ -25,8 +26,8 @@ class SliderWidget extends StatelessWidget {
               Obx(
                 () => CircleAvatar(
                   radius: 72,
-                  backgroundImage:
-                      NetworkImage(_controller.currentUser.value.avatar),
+                  backgroundImage: NetworkImage(UrlUtils.addPublicIfNeeded(
+                      _controller.currentUser.value.avatar)),
                 ),
               ),
             ],

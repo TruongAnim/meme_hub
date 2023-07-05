@@ -1,4 +1,6 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:meme_hub/Theme/colors.dart';
 
 class EmptyImageHolder extends StatelessWidget {
   final double width;
@@ -15,14 +17,22 @@ class EmptyImageHolder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: width,
-      height: height,
-      color: backgroundColor,
-      child: Icon(
-        Icons.image,
-        size: 50,
-        color: Colors.white,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: DottedBorder(
+          borderType: BorderType.RRect,
+          dashPattern: [16, 16],
+          radius: const Radius.circular(16),
+          color: lightColor,
+          strokeWidth: 3,
+          child: Container(
+            alignment: Alignment.center,
+            height: 200,
+            child: const Icon(
+              Icons.add_photo_alternate,
+              size: 50,
+              color: Colors.grey,
+            ),
+          )),
     );
   }
 }

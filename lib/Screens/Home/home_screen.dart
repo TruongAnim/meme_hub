@@ -6,6 +6,7 @@ import 'package:meme_hub/Screens/Home/widgets/slider_widget.dart';
 import 'package:meme_hub/Screens/Post/post_list.dart';
 import 'package:meme_hub/Screens/Home/controllers/home_controller.dart';
 import 'package:meme_hub/Theme/colors.dart';
+import 'package:meme_hub/utils/url_utils.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   String getAvatar() {
-    return controller.getUserAvatar();
+    return UrlUtils.addPublicIfNeeded(controller.getUserAvatar());
   }
 
   @override

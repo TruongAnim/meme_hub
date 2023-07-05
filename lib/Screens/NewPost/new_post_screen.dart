@@ -3,9 +3,15 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:meme_hub/Screens/NewPost/widgets/create_post_appbar.dart';
+import 'package:meme_hub/Screens/NewPost/widgets/new_post_user_card_widget.dart';
+import 'package:meme_hub/Theme/colors.dart';
+import 'package:meme_hub/components/custom_app_bar.dart';
+import 'package:meme_hub/components/custom_button.dart';
 import 'package:meme_hub/components/empty_image_holder.dart';
 import 'package:meme_hub/components/tags_dropdown.dart';
 import 'package:meme_hub/components/video_player_widget.dart';
+import 'package:meme_hub/constants.dart';
 import 'package:meme_hub/controllers/new_post_controller.dart';
 import 'package:meme_hub/models/tag.dart';
 import 'package:meme_hub/utils/loading_overlay.dart';
@@ -48,7 +54,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
     }
   }
 
-  void _uploadImage() async {
+  void post() async {
     LoadingOverlay.show();
     bool result = await _controller.post(_mediaFile, _titleController.text,
         selectedTags.map((e) => e.id).toList());
@@ -73,21 +79,21 @@ class _NewPostScreenState extends State<NewPostScreen> {
       context: context,
       builder: (BuildContext context) {
         return Container(
-          padding: EdgeInsets.symmetric(vertical: 20.0),
+          padding: const EdgeInsets.symmetric(vertical: 20.0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                leading: Icon(Icons.photo_library),
-                title: Text('Pick Image'),
+                leading: const Icon(Icons.photo_library),
+                title: const Text('Pick Image'),
                 onTap: () async {
                   Navigator.of(context).pop();
                   _pickImage();
                 },
               ),
               ListTile(
-                leading: Icon(Icons.video_library),
-                title: Text('Pick Video'),
+                leading: const Icon(Icons.video_library),
+                title: const Text('Pick Video'),
                 onTap: () async {
                   Navigator.of(context).pop();
                   _pickVideo();
@@ -103,24 +109,49 @@ class _NewPostScreenState extends State<NewPostScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Meme Upload'),
-      ),
+      appBar: CreatePostAppbar(callback: post),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              NewPostUserCardWidget(user: _controller.getCurrentUser()),
               const SizedBox(height: 16.0),
               TextField(
+                maxLines: null, // Allows multiple lines
+                minLines: 3,
+                maxLength: 500,
+                keyboardType: TextInputType.multiline,
+                autofocus: true,
                 controller: _titleController,
-                decoration: const InputDecoration(
-                  labelText: 'Title',
-                ),
+                decoration: InputDecoration(
+                    hintText: "A short and witty title does the trick.",
+                    fillColor: backgroundColor,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(1),
+                    )),
               ),
               const SizedBox(height: 16.0),
-              TagsDropdown(selectedTags: selectedTags),
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                decoration: const BoxDecoration(color: lightUpvoteColor),
+                child: Row(children: [
+                  const SizedBox(width: defaultPadding),
+                  const Text(
+                    'Tag:',
+                    style: TextStyle(
+                        color: mainColor,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16),
+                  ),
+                  const SizedBox(width: defaultPadding / 2),
+                  Expanded(
+                    child: TagsDropdown(selectedTags: selectedTags),
+                  ),
+                  const SizedBox(width: defaultPadding),
+                ]),
+              ),
               const SizedBox(height: 16.0),
               if (type == MediaType.image)
                 Image.file(
@@ -132,20 +163,16 @@ class _NewPostScreenState extends State<NewPostScreen> {
               else
                 EmptyImageHolder(backgroundColor: Colors.grey.shade400),
               const SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: type == MediaType.none
-                    ? showPickerBottomSheet
-                    : _clearMedia,
-                child: Text(type == MediaType.none
-                    ? 'Add Image/Video'
-                    : 'Remove Media'),
-              ),
-              const SizedBox(height: 16.0),
-              ElevatedButton(
-                onPressed: () {
-                  _uploadImage();
-                },
-                child: const Text('Upload'),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+                child: CustomButton(
+                  callback: type == MediaType.none
+                      ? showPickerBottomSheet
+                      : _clearMedia,
+                  title: type == MediaType.none
+                      ? 'Add Image/Video'
+                      : 'Remove Media',
+                ),
               ),
               const SizedBox(height: 16.0),
             ],

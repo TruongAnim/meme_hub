@@ -5,7 +5,6 @@ class PostController {
   async newPost(req, res, next) {
     try {
       const { tags, title, type, mediaLink } = req.body;
-      console.log({ userId: req.user.id, tags, title, type, mediaLink });
       var post = new Post({
         userId: req.user.id,
         tags,

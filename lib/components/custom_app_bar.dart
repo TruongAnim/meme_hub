@@ -11,11 +11,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
     return AppBar(
       title: Text(
         title,
-        style: TextStyle(
+        style: const TextStyle(
           color: mainColor,
         ),
       ),
-      leading: BackButton(
+      leading: const BackButton(
         color: lightColor,
       ),
       toolbarHeight: 80,
@@ -24,13 +24,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
       elevation: 4,
       iconTheme: const IconThemeData(
         color: Colors.white,
-      ),
-      textTheme: const TextTheme(
-        headline6: TextStyle(
-          color: Colors.white,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
       ),
       actions: actions,
     );

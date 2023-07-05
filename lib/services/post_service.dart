@@ -13,7 +13,7 @@ class PostService {
 
   Future<bool> newPost(
       String title, String mediaLink, String type, List<String> tags) async {
-    const url = '${ApiConstants.baseUrl}/user/post/new-post';
+    const url = '${ApiConstants.baseUrl}/post/new-post';
     try {
       final response = await _dio.post(
         url,

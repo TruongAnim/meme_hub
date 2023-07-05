@@ -108,7 +108,8 @@ class _TagsDropdownState extends State<TagsDropdown> {
                     child: Text(
                       widget.selectedTags.map((e) => e.name).join(', '),
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
                         overflow: TextOverflow.ellipsis,
                       ),
                       maxLines: 1,

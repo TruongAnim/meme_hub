@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:meme_hub/models/tag.dart';
+import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/services/cloud_service.dart';
 import 'package:meme_hub/services/post_service.dart';
 import 'package:meme_hub/services/tag_service.dart';
+import 'package:meme_hub/services/user_service.dart';
 import 'package:meme_hub/utils/LogUtil.dart';
 import 'package:mime/mime.dart';
 
@@ -15,6 +17,10 @@ class NewPostController extends GetxController {
   void onInit() {
     super.onInit();
     loadingTags();
+  }
+
+  User getCurrentUser() {
+    return UserService.instance.currentUser;
   }
 
   Future<bool> post(File? image, String title, List<String> tags) async {

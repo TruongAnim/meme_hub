@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:meme_hub/constants.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/utils/common_utils.dart';
 import 'package:meme_hub/utils/url_utils.dart';
 
-class UserCardWidget extends StatelessWidget {
-  UserCardWidget({super.key, required this.user, required this.message});
+class NewPostUserCardWidget extends StatelessWidget {
+  NewPostUserCardWidget({super.key, required this.user});
   User user;
-  String message;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
+        SizedBox(width: defaultPadding / 2),
         CircleAvatar(
           backgroundImage:
               NetworkImage(UrlUtils.addPublicIfNeeded(user.avatar)),
@@ -28,7 +29,7 @@ class UserCardWidget extends StatelessWidget {
               ),
             ),
             Text(
-              '@${CommonUtils.getUsernameFromEmail(user.email)} - $message',
+              '@${CommonUtils.getUsernameFromEmail(user.email)}',
               style: const TextStyle(fontSize: 14, color: Colors.grey),
             ),
           ],
