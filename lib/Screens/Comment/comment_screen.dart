@@ -28,7 +28,7 @@ class _CommentScreenState extends State<CommentScreen> {
     if (index >= 0 && index <= _controller.comments.length) {
       _scrollController.animateTo(
         index * 500.0,
-        duration: Duration(milliseconds: 1000),
+        duration: const Duration(milliseconds: 1000),
         curve: Curves.ease,
       );
     }
@@ -44,7 +44,7 @@ class _CommentScreenState extends State<CommentScreen> {
               if (_controller.comments.isNotEmpty) _scrollTo(1);
               return ListView.separated(
                 controller: _scrollController,
-                separatorBuilder: (context, index) => Divider(
+                separatorBuilder: (context, index) => const Divider(
                   color: Colors.grey,
                   thickness: 1,
                 ),
@@ -60,7 +60,7 @@ class _CommentScreenState extends State<CommentScreen> {
             }),
           ),
           Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: CommentBox(
               postId: post.id,
             ),

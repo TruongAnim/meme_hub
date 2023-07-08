@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meme_hub/Screens/NewPost/widgets/create_post_appbar.dart';
+import 'package:meme_hub/Screens/NewPost/widgets/file_video_player_widget.dart';
 import 'package:meme_hub/Screens/NewPost/widgets/new_post_user_card_widget.dart';
 import 'package:meme_hub/Theme/colors.dart';
 import 'package:meme_hub/components/custom_app_bar.dart';
 import 'package:meme_hub/components/custom_button.dart';
 import 'package:meme_hub/components/empty_image_holder.dart';
 import 'package:meme_hub/components/tags_dropdown.dart';
-import 'package:meme_hub/components/video_player_widget.dart';
+import 'package:meme_hub/Screens/Post/widgets/video_player_widget.dart';
 import 'package:meme_hub/constants.dart';
 import 'package:meme_hub/controllers/new_post_controller.dart';
 import 'package:meme_hub/models/tag.dart';
@@ -159,7 +160,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                   fit: BoxFit.cover,
                 )
               else if (type == MediaType.video)
-                VideoPlayerWidget(source: _mediaFile)
+                FileVideoPlayerWidget(source: _mediaFile!)
               else
                 EmptyImageHolder(backgroundColor: Colors.grey.shade400),
               const SizedBox(height: 16.0),

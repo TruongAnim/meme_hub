@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meme_hub/Theme/colors.dart';
 import 'package:meme_hub/controllers/new_post_controller.dart';
 import 'package:meme_hub/models/tag.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
@@ -95,7 +96,6 @@ class _TagsDropdownState extends State<TagsDropdown> {
                 ),
               );
             }).toList(),
-            //Use last selected item as the current value so if we've limited menu height, it scroll to last item.
             value:
                 widget.selectedTags.isEmpty ? null : widget.selectedTags.last,
             onChanged: (value) {},
@@ -104,15 +104,26 @@ class _TagsDropdownState extends State<TagsDropdown> {
                 (item) {
                   return Container(
                     alignment: AlignmentDirectional.center,
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(
-                      widget.selectedTags.map((e) => e.name).join(', '),
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        overflow: TextOverflow.ellipsis,
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: widget.selectedTags
+                            .map((e) => Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 4),
+                                  child: ChoiceChip(
+                                    label: Text(
+                                      e.name,
+                                      style: const TextStyle(color: lightColor),
+                                    ),
+                                    backgroundColor: backgroundColor,
+                                    shape: const StadiumBorder(
+                                        side: BorderSide(color: lightColor)),
+                                    selected: false,
+                                    onSelected: (bool selected) {},
+                                  ),
+                                ))
+                            .toList(),
                       ),
-                      maxLines: 1,
                     ),
                   );
                 },

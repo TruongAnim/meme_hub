@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:meme_hub/Theme/colors.dart';
 import 'package:meme_hub/constants.dart';
 import 'package:meme_hub/controllers/media_controller.dart';
 import 'package:meme_hub/observers/app_navigator_observer.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
             width: 100,
             height: 100,
             alignment: Alignment.center,
-            color: kPrimaryColor,
+            color: secondaryColor,
             child: SpinKitFoldingCube(
               itemBuilder: (BuildContext context, int index) {
                 return DecoratedBox(

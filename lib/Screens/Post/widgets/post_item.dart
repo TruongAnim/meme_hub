@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:meme_hub/Screens/Post/widgets/list_tags.dart';
 import 'package:meme_hub/Screens/Post/widgets/post_response_item.dart';
 import 'package:meme_hub/Screens/Post/widgets/user_card_widget.dart';
-import 'package:meme_hub/components/video_player_widget.dart';
+import 'package:meme_hub/Screens/Post/widgets/video_player_widget.dart';
 import 'package:meme_hub/controllers/media_controller.dart';
 import 'package:meme_hub/Screens/Post/controllers/post_controller.dart';
 import 'package:meme_hub/models/post.dart';
@@ -70,7 +70,7 @@ class PostItem extends StatelessWidget {
                 child: VideoPlayerWidget(source: post.mediaLink)),
           ],
           Padding(
-              padding: EdgeInsets.only(left: 16, top: 8),
+              padding: const EdgeInsets.only(left: 16, top: 8),
               child: SizedBox(height: 40, child: ListTags(tagIds: post.tags))),
           PostResponseItem(post: post),
         ],
