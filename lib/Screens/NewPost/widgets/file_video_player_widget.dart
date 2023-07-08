@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:meme_hub/Screens/Post/controllers/post_controller.dart';
+import 'package:meme_hub/Screens/NewPost/controllers/new_post_controller.dart';
 import 'package:video_player/video_player.dart';
 
 class FileVideoPlayerWidget extends StatefulWidget {
@@ -15,7 +15,7 @@ class FileVideoPlayerWidget extends StatefulWidget {
 
 class _FileVideoPlayerWidgetState extends State<FileVideoPlayerWidget> {
   late VideoPlayerController _videoController;
-  late PostController _controller;
+  late NewPostController _controller;
 
   @override
   void initState() {
@@ -23,6 +23,7 @@ class _FileVideoPlayerWidgetState extends State<FileVideoPlayerWidget> {
     _controller = Get.find();
     _videoController = VideoPlayerController.file(widget.source);
     _videoController.initialize().then((_) {
+      _controller.setMediaAspectRatio(_videoController.value.aspectRatio);
       setState(() {});
     });
     _videoController.addListener(() {

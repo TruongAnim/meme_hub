@@ -8,8 +8,8 @@ import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
 
 class CommentBox extends StatefulWidget {
-  CommentBox({super.key, required this.postId});
-  String postId;
+  const CommentBox({super.key, required this.postId});
+  final String postId;
 
   @override
   _CommentBoxState createState() => _CommentBoxState();
@@ -21,8 +21,8 @@ class _CommentBoxState extends State<CommentBox> {
   final List<XFile> _selectedImages = [];
 
   void _pickImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image != null) {
       setState(() {
         if (_selectedImages.isNotEmpty) {
@@ -94,7 +94,7 @@ class _CommentBoxState extends State<CommentBox> {
                   Positioned(
                     right: 0,
                     child: IconButton(
-                      icon: Icon(Icons.close),
+                      icon: const Icon(Icons.close),
                       onPressed: () => _removeImage(i),
                     ),
                   ),
@@ -107,13 +107,13 @@ class _CommentBoxState extends State<CommentBox> {
             Expanded(
               child: TextField(
                 controller: _textEditingController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Enter your comment',
                 ),
               ),
             ),
             IconButton(
-              icon: Icon(Icons.image),
+              icon: const Icon(Icons.image),
               onPressed: _pickImage,
             ),
             IconButton(

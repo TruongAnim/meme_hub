@@ -12,6 +12,7 @@ import 'package:mime/mime.dart';
 
 class NewPostController extends GetxController {
   RxList<Tag> tags = RxList();
+  double _mediaAspectRatio = 1;
 
   @override
   void onInit() {
@@ -23,6 +24,10 @@ class NewPostController extends GetxController {
     return UserService.instance.currentUser;
   }
 
+  void setMediaAspectRatio(double aspectRatio) {
+    _mediaAspectRatio = aspectRatio;
+  }
+
   Future<bool> post(File? image, String title, List<String> tags) async {
     try {
       String type = 'text';
@@ -32,7 +37,8 @@ class NewPostController extends GetxController {
         type = mimeType!.split('/')[0];
         mediaLink = await CloudService.instance.uploadMedia(image);
       }
-      return await PostService.instance.newPost(title, mediaLink, type, tags);
+      return await PostService.instance
+          .newPost(title, mediaLink, type, tags, _mediaAspectRatio);
     } catch (error, stackTrace) {
       LogUtil.error('new post', error, stackTrace);
       return false;

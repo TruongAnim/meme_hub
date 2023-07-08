@@ -7,7 +7,9 @@ import 'package:visibility_detector/visibility_detector.dart';
 
 class VideoPlayerWidget extends StatefulWidget {
   final String source;
-  const VideoPlayerWidget({super.key, required this.source});
+  final Widget placeholder;
+  const VideoPlayerWidget(
+      {super.key, required this.source, required this.placeholder});
 
   @override
   _VideoPlayerWidgetState createState() => _VideoPlayerWidgetState();
@@ -24,7 +26,6 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
     _controller = Get.find();
     _videoController = VideoPlayerController.network(widget.source);
     _videoController.initialize().then((_) {
-      print('ratio ${_videoController.value.aspectRatio}');
       setState(() {});
     });
     _videoController.addListener(() {
@@ -74,7 +75,7 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
                 child: VideoPlayer(_videoController)),
           )
         else
-          Container(),
+          widget.placeholder,
         Positioned.fill(
           child: GestureDetector(
             onTap: _togglePlayPause,

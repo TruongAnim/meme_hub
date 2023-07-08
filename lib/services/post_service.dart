@@ -11,8 +11,8 @@ class PostService {
   static PostService get instance => _instance;
   final Dio _dio = Dio();
 
-  Future<bool> newPost(
-      String title, String mediaLink, String type, List<String> tags) async {
+  Future<bool> newPost(String title, String mediaLink, String type,
+      List<String> tags, double mediaAspectRatio) async {
     const url = '${ApiConstants.baseUrl}/post/new-post';
     try {
       final response = await _dio.post(
@@ -21,7 +21,8 @@ class PostService {
           'title': title,
           'mediaLink': mediaLink,
           'type': type,
-          'tags': tags
+          'tags': tags,
+          'mediaAspectRatio': mediaAspectRatio,
         },
         options: Options(
           headers: {

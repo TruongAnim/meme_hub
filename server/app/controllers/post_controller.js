@@ -4,17 +4,17 @@ const Tag = require("../models/tag");
 class PostController {
   async newPost(req, res, next) {
     try {
-      const { tags, title, type, mediaLink } = req.body;
+      const { tags, title, type, mediaLink, mediaAspectRatio} = req.body;
       var post = new Post({
         userId: req.user.id,
         tags,
         title,
         type,
         mediaLink,
+        mediaAspectRatio,
       });
       for (var i in tags) {
         var tag = await Tag.findById(tags[i]);
-        console.log(tag);
         tag.posts.push(post.id);
         await tag.save();
       }

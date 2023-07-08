@@ -1,6 +1,6 @@
 class CommonUtils {
   static String getUsernameFromEmail(String email) {
-    return '${email.toString().split('@')[0]}';
+    return email.toString().split('@')[0];
   }
 
   static bool compareListOrderless<T>(List<T> l1, List<T> l2) {

@@ -13,7 +13,7 @@ import 'package:meme_hub/components/empty_image_holder.dart';
 import 'package:meme_hub/components/tags_dropdown.dart';
 import 'package:meme_hub/Screens/Post/widgets/video_player_widget.dart';
 import 'package:meme_hub/constants.dart';
-import 'package:meme_hub/controllers/new_post_controller.dart';
+import 'package:meme_hub/Screens/NewPost/controllers/new_post_controller.dart';
 import 'package:meme_hub/models/tag.dart';
 import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
@@ -42,7 +42,13 @@ class _NewPostScreenState extends State<NewPostScreen> {
         type = MediaType.image;
         _mediaFile = File(pickedImage.path);
       });
+      updateAspectRatio();
     }
+  }
+
+  void updateAspectRatio() async {
+    var decodedImage = await decodeImageFromList(_mediaFile!.readAsBytesSync());
+    _controller.setMediaAspectRatio(decodedImage.width / decodedImage.height);
   }
 
   void _pickVideo() async {

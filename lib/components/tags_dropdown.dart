@@ -2,13 +2,13 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/Theme/colors.dart';
-import 'package:meme_hub/controllers/new_post_controller.dart';
+import 'package:meme_hub/Screens/NewPost/controllers/new_post_controller.dart';
 import 'package:meme_hub/models/tag.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
 
 class TagsDropdown extends StatefulWidget {
-  TagsDropdown({super.key, required this.selectedTags});
-  List<Tag> selectedTags;
+  const TagsDropdown({super.key, required this.selectedTags});
+  final List<Tag> selectedTags;
 
   @override
   State<TagsDropdown> createState() => _TagsDropdownState();
@@ -60,7 +60,6 @@ class _TagsDropdownState extends State<TagsDropdown> {
             items: controller.tags.map((item) {
               return DropdownMenuItem<Tag>(
                 value: item,
-                //disable default onTap to avoid closing menu when selecting an item
                 enabled: false,
                 child: StatefulBuilder(
                   builder: (context, menuSetState) {
@@ -68,9 +67,7 @@ class _TagsDropdownState extends State<TagsDropdown> {
                     return InkWell(
                       onTap: () {
                         _onSelectItem(isSelected, item);
-                        //This rebuilds the StatefulWidget to update the button's text
                         setState(() {});
-                        //This rebuilds the dropdownMenu Widget to update the check mark
                         menuSetState(() {});
                       },
                       child: Container(

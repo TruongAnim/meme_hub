@@ -24,6 +24,7 @@ const postScheme = mongoose.Schema({
   title: { type: String, require: true},
   type: { type: String, require: true},
   mediaLink: { type: String, require: true},
+  mediaAspectRatio: { type: Number, require: true},
   createdAt: {
     type: Date,
     default: Date.now,

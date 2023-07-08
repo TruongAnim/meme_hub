@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:meme_hub/models/user.dart';
 
@@ -13,6 +14,7 @@ class Post {
   String type;
   String mediaLink;
   DateTime createdAt;
+  double mediaAspectRatio;
 
   Post({
     required this.id,
@@ -25,6 +27,7 @@ class Post {
     required this.type,
     required this.mediaLink,
     required this.createdAt,
+    required this.mediaAspectRatio,
   });
 
   Map<String, dynamic> toMap() {
@@ -38,6 +41,7 @@ class Post {
       'title': title,
       'type': type,
       'mediaLink': mediaLink,
+      'mediaAspectRatio': mediaAspectRatio,
       'createdAt': createdAt.millisecondsSinceEpoch,
     };
   }
@@ -61,6 +65,7 @@ class Post {
       title: map['title'] as String,
       type: map['type'] as String,
       mediaLink: map['mediaLink'] as String,
+      mediaAspectRatio: map['mediaAspectRatio'] * 1.0,
       createdAt: DateTime.parse(map['createdAt']).toLocal(),
     );
   }

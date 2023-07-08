@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/Screens/Post/widgets/list_tags.dart';
+import 'package:meme_hub/Screens/Post/widgets/media_placeholder.dart';
 import 'package:meme_hub/Screens/Post/widgets/post_response_item.dart';
 import 'package:meme_hub/Screens/Post/widgets/user_card_widget.dart';
 import 'package:meme_hub/Screens/Post/widgets/video_player_widget.dart';
@@ -60,6 +61,20 @@ class PostItem extends StatelessWidget {
                 post.mediaLink,
                 width: double.infinity,
                 fit: BoxFit.contain,
+                loadingBuilder: (BuildContext context, Widget child,
+                    ImageChunkEvent? loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child; // Return the actual image once it's loaded
+                  } else {
+                    return MediaPlaceholder(
+                        isLoading: true, aspectRatio: post.mediaAspectRatio);
+                  }
+                },
+                errorBuilder: (BuildContext context, Object exception,
+                    StackTrace? stackTrace) {
+                  return MediaPlaceholder(
+                      isLoading: false, aspectRatio: post.mediaAspectRatio);
+                },
               ),
             ),
           ],
@@ -67,7 +82,11 @@ class PostItem extends StatelessWidget {
             const SizedBox(height: 8),
             GestureDetector(
                 onTap: _viewMedia,
-                child: VideoPlayerWidget(source: post.mediaLink)),
+                child: VideoPlayerWidget(
+                  source: post.mediaLink,
+                  placeholder: MediaPlaceholder(
+                      isLoading: true, aspectRatio: post.mediaAspectRatio),
+                )),
           ],
           Padding(
               padding: const EdgeInsets.only(left: 16, top: 8),
