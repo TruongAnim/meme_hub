@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:meme_hub/Theme/colors.dart';
 
-class CustomButton extends StatelessWidget {
-  String title;
-  VoidCallback callback;
-  CustomButton({super.key, required this.title, required this.callback});
+class CustomLabelButton extends StatelessWidget {
+  final String title;
+  final VoidCallback callback;
+  const CustomLabelButton(
+      {super.key, required this.title, required this.callback});
 
   @override
   Widget build(BuildContext context) {

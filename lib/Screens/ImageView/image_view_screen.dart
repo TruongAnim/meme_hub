@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:meme_hub/components/custom_icon_label_button.dart';
 import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -74,9 +75,10 @@ class _ImageViewScreenState extends State<ImageViewScreen> {
             bottom: 16.0,
             left: 16.0,
             right: 16.0,
-            child: ElevatedButton(
-              onPressed: _download,
-              child: Text('Download'),
+            child: CustomIconLabelButton(
+              callback: _download,
+              title: 'Save to gallery',
+              icon: Icon(Icons.save_alt),
             ),
           )
         ],

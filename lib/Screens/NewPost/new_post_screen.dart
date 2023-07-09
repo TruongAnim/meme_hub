@@ -8,7 +8,7 @@ import 'package:meme_hub/Screens/NewPost/widgets/file_video_player_widget.dart';
 import 'package:meme_hub/Screens/NewPost/widgets/new_post_user_card_widget.dart';
 import 'package:meme_hub/Screens/NewPost/widgets/tags_dropdown.dart';
 import 'package:meme_hub/Theme/colors.dart';
-import 'package:meme_hub/components/custom_button.dart';
+import 'package:meme_hub/components/custom_label_button.dart';
 import 'package:meme_hub/Screens/NewPost/widgets/empty_image_holder.dart';
 import 'package:meme_hub/constants.dart';
 import 'package:meme_hub/Screens/NewPost/controllers/new_post_controller.dart';
@@ -170,7 +170,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
               const SizedBox(height: 16.0),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                child: CustomButton(
+                child: CustomLabelButton(
                   callback: type == MediaType.none
                       ? showPickerBottomSheet
                       : _clearMedia,

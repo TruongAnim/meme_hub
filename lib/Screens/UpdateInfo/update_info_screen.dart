@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:meme_hub/Screens/UpdateInfo/controllers/update_info_controller.dart';
 import 'package:meme_hub/Theme/colors.dart';
 import 'package:meme_hub/components/custom_app_bar.dart';
-import 'package:meme_hub/components/custom_button.dart';
+import 'package:meme_hub/components/custom_label_button.dart';
 import 'package:meme_hub/components/custom_text_field.dart';
 import 'package:meme_hub/models/user.dart';
 import 'package:meme_hub/utils/api_constants.dart';
@@ -73,7 +73,7 @@ class _UpdateInfoScreenState extends State<UpdateInfoScreen> {
         actions: [
           PopupMenuButton<String>(
             color: backgroundColor,
-            icon: Icon(
+            icon: const Icon(
               Icons.more_vert,
               color: lightColor,
             ),
@@ -107,7 +107,7 @@ class _UpdateInfoScreenState extends State<UpdateInfoScreen> {
                             UrlUtils.addPublicIfNeeded(currentUser.avatar)),
                     child: Stack(
                       children: [
-                        Positioned(
+                        const Positioned(
                             right: -5,
                             bottom: -5,
                             child: Icon(
@@ -131,7 +131,7 @@ class _UpdateInfoScreenState extends State<UpdateInfoScreen> {
                 icon: Icons.description_outlined,
               ),
               const SizedBox(height: 16),
-              CustomButton(
+              CustomLabelButton(
                 title: 'Update',
                 callback: updateUser,
               )

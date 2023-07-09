@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/Screens/ChangePassword/controllers/change_password_controller.dart';
 import 'package:meme_hub/components/custom_app_bar.dart';
-import 'package:meme_hub/components/custom_button.dart';
+import 'package:meme_hub/components/custom_label_button.dart';
 import 'package:meme_hub/components/custom_text_field.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
@@ -53,7 +53,7 @@ class ChangePasswordScreen extends StatelessWidget {
                 }
               }),
               const SizedBox(height: 16.0),
-              CustomButton(
+              CustomLabelButton(
                 callback: _controller.changePassword,
                 title: 'Change Password',
               ),
