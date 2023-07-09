@@ -5,7 +5,6 @@ import 'package:meme_hub/Screens/Home/widgets/drawer_widget.dart';
 import 'package:meme_hub/Screens/Home/widgets/slider_widget.dart';
 import 'package:meme_hub/Screens/Post/post_list.dart';
 import 'package:meme_hub/Screens/Home/controllers/home_controller.dart';
-import 'package:meme_hub/Theme/colors.dart';
 import 'package:meme_hub/utils/url_utils.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -50,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
             key: sliderKey,
             slideDirection: SlideDirection.RIGHT_TO_LEFT,
             appBar: SliderAppBar(
+              // appBarColor: mainColor,
               drawerIcon: GestureDetector(
                   onTap: openSlider,
                   child: Padding(
@@ -58,11 +58,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       backgroundImage: NetworkImage(getAvatar()),
                     ),
                   )),
-              title: Obx(
-                () => Text(getTagName(),
-                    style: const TextStyle(
-                        fontSize: 22, fontWeight: FontWeight.w700)),
-              ),
+              title: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(4)),
+                  child: Image.asset('assets/images/logo.png')),
+              // Obx(
+              //   () => Text(getTagName(),
+              //       style: const TextStyle(
+              //           fontSize: 22, fontWeight: FontWeight.w700)),
+              // ),
               trailing: GestureDetector(
                 onTap: () {
                   openDrawer();
@@ -75,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             slider: SliderWidget(),
             child: Container(
-                constraints: BoxConstraints.expand(),
+                constraints: const BoxConstraints.expand(),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   boxShadow: [
@@ -83,12 +86,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.black.withOpacity(0.7),
                       spreadRadius: 2,
                       blurRadius: 5,
-                      offset:
-                          Offset(0, 3), // Controls the position of the shadow
+                      offset: const Offset(
+                          0, 3), // Controls the position of the shadow
                     ),
                   ],
                 ),
-                margin: EdgeInsets.only(top: 3),
+                margin: const EdgeInsets.only(top: 3),
                 child: PostList())),
         drawer: DrawerWidget(),
         onDrawerChanged: (isOpened) {
