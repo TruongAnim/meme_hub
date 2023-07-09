@@ -20,7 +20,7 @@ class EmptyImageHolder extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8),
       child: DottedBorder(
           borderType: BorderType.RRect,
-          dashPattern: [16, 16],
+          dashPattern: const [16, 16],
           radius: const Radius.circular(16),
           color: lightColor,
           strokeWidth: 3,

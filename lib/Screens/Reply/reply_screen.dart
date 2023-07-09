@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/components/comment_item.dart';
 import 'package:meme_hub/components/reply_box.dart';
-import 'package:meme_hub/controllers/reply_controller.dart';
+import 'package:meme_hub/Screens/Reply/controllers/reply_controller.dart';
 import 'package:meme_hub/models/comment.dart';
 
 class ReplyScreen extends StatefulWidget {

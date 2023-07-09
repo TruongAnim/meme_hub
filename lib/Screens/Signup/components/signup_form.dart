@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meme_hub/Screens/Login/components/already_have_an_account_acheck.dart';
 import 'package:meme_hub/Theme/colors.dart';
-import 'package:meme_hub/controllers/signup_controller.dart';
+import 'package:meme_hub/Screens/Signup/controllers/signup_controller.dart';
+import 'package:meme_hub/constants.dart';
 import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
-
-import '../../Login/components/already_have_an_account_acheck.dart';
-import '../../../constants.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({

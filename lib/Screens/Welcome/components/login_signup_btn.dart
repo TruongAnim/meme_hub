@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/Theme/colors.dart';
-import 'package:meme_hub/controllers/welcome_controller.dart';
+import 'package:meme_hub/Screens/Welcome/controllers/welcome_controller.dart';
 
 class LoginAndSignupBtn extends StatelessWidget {
   const LoginAndSignupBtn({

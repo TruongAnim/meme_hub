@@ -52,9 +52,11 @@ class _VideoPlayerWidgetState extends State<VideoPlayerWidget> {
   }
 
   void _pausePlayer() {
-    if (_videoController.value.isPlaying) {
-      _videoController.pause();
-    }
+    try {
+      if (_videoController.value.isPlaying) {
+        _videoController.pause();
+      }
+    } catch (e) {}
   }
 
   @override

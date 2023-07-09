@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class ImageViewBinding extends Bindings {
+class ImageViewBinding implements Bindings {
   @override
   void dependencies() {}
 }

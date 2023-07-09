@@ -3,6 +3,7 @@ import 'package:meme_hub/Screens/ChangePassword/bindings/change_password_binding
 import 'package:meme_hub/Screens/ChangePassword/change_password_screen.dart';
 import 'package:meme_hub/Screens/Comment/comment_screen.dart';
 import 'package:meme_hub/Screens/Home/home_screen.dart';
+import 'package:meme_hub/Screens/ImageView/bindings/image_view_binding.dart';
 import 'package:meme_hub/Screens/ImageView/image_view_screen.dart';
 import 'package:meme_hub/Screens/Login/login_screen.dart';
 import 'package:meme_hub/Screens/Reply/reply_screen.dart';
@@ -15,12 +16,11 @@ import 'package:meme_hub/Screens/Comment/bindings/comment_binding.dart';
 import 'package:meme_hub/Screens/User/user_screen.dart';
 import 'package:meme_hub/Screens/Welcome/welcome_screen.dart';
 import 'package:meme_hub/Screens/Home/bindings/home_binding.dart';
-import 'package:meme_hub/bindings/image_view_binding.dart';
-import 'package:meme_hub/bindings/login_binding.dart';
-import 'package:meme_hub/bindings/reply_binding.dart';
-import 'package:meme_hub/bindings/signup_binding.dart';
-import 'package:meme_hub/bindings/upload_binding.dart';
-import 'package:meme_hub/bindings/welcome_binding.dart';
+import 'package:meme_hub/Screens/Login/bindings/login_binding.dart';
+import 'package:meme_hub/Screens/Reply/bindings/reply_binding.dart';
+import 'package:meme_hub/Screens/Signup/bindings/signup_binding.dart';
+import 'package:meme_hub/Screens/NewPost/bindings/new_post_binding.dart';
+import 'package:meme_hub/Screens/Welcome/bindings/welcome_binding.dart';
 
 class AppRoutes {
   static const String home = '/';
@@ -59,7 +59,7 @@ class AppRoutes {
     GetPage(
         name: AppRoutes.upload,
         page: () => NewPostScreen(),
-        binding: UploadBinding()),
+        binding: NewPostBinding()),
     GetPage(
         name: AppRoutes.comment,
         page: () => CommentScreen(),

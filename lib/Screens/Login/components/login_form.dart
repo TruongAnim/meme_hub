@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:meme_hub/Screens/Login/components/already_have_an_account_acheck.dart';
 import 'package:meme_hub/Theme/colors.dart';
 import 'package:meme_hub/constants.dart';
-import 'package:meme_hub/controllers/login_controller.dart';
+import 'package:meme_hub/Screens/Login/controllers/login_controller.dart';
 import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
 
