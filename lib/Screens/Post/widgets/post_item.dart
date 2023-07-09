@@ -32,68 +32,66 @@ class PostItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          InkWell(
-              onTap: () => controller.toUserInfo(user.id),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 16, top: 8),
-                child: UserCardWidget(
-                    user: user, message: timeago.format(post.createdAt)),
-              )),
-          Padding(
-            padding: const EdgeInsets.only(left: 16, top: 8),
-            child: Text(
-              post.title,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        InkWell(
+            onTap: () => controller.toUserInfo(user.id),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16, top: 8),
+              child: UserCardWidget(
+                  user: user, message: timeago.format(post.createdAt)),
+            )),
+        Padding(
+          padding: const EdgeInsets.only(left: 16, top: 8),
+          child: Text(
+            post.title,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          if (post.type == 'image') ...[
-            const SizedBox(height: 8),
-            GestureDetector(
-              onTap: _viewMedia,
-              child: Image.network(
-                post.mediaLink,
-                width: double.infinity,
-                fit: BoxFit.contain,
-                loadingBuilder: (BuildContext context, Widget child,
-                    ImageChunkEvent? loadingProgress) {
-                  if (loadingProgress == null) {
-                    return child; // Return the actual image once it's loaded
-                  } else {
-                    return MediaPlaceholder(
-                        isLoading: true, aspectRatio: post.mediaAspectRatio);
-                  }
-                },
-                errorBuilder: (BuildContext context, Object exception,
-                    StackTrace? stackTrace) {
+        ),
+        if (post.type == 'image') ...[
+          const SizedBox(height: 8),
+          GestureDetector(
+            onTap: _viewMedia,
+            child: Image.network(
+              post.mediaLink,
+              width: double.infinity,
+              fit: BoxFit.contain,
+              loadingBuilder: (BuildContext context, Widget child,
+                  ImageChunkEvent? loadingProgress) {
+                if (loadingProgress == null) {
+                  return child; // Return the actual image once it's loaded
+                } else {
                   return MediaPlaceholder(
-                      isLoading: false, aspectRatio: post.mediaAspectRatio);
-                },
-              ),
+                      isLoading: true, aspectRatio: post.mediaAspectRatio);
+                }
+              },
+              errorBuilder: (BuildContext context, Object exception,
+                  StackTrace? stackTrace) {
+                return MediaPlaceholder(
+                    isLoading: false, aspectRatio: post.mediaAspectRatio);
+              },
             ),
-          ],
-          if (post.type == 'video') ...[
-            const SizedBox(height: 8),
-            GestureDetector(
-                onTap: _viewMedia,
-                child: VideoPlayerWidget(
-                  source: post.mediaLink,
-                  placeholder: MediaPlaceholder(
-                      isLoading: true, aspectRatio: post.mediaAspectRatio),
-                )),
-          ],
-          Padding(
-              padding: const EdgeInsets.only(left: 16, top: 8),
-              child: SizedBox(height: 40, child: ListTags(tagIds: post.tags))),
-          PostResponseItem(post: post),
+          ),
         ],
-      ),
+        if (post.type == 'video') ...[
+          const SizedBox(height: 8),
+          GestureDetector(
+              onTap: _viewMedia,
+              child: VideoPlayerWidget(
+                source: post.mediaLink,
+                placeholder: MediaPlaceholder(
+                    isLoading: true, aspectRatio: post.mediaAspectRatio),
+              )),
+        ],
+        Padding(
+            padding: const EdgeInsets.only(left: 16, top: 8),
+            child: SizedBox(height: 40, child: ListTags(tagIds: post.tags))),
+        PostResponseItem(post: post),
+      ],
     );
   }
 }
