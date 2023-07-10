@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 const userScheme = mongoose.Schema({
-  name: { type: String, default: "username" },
+  name: { type: String, required: true, default: "username" },
   email: {
     type: String,
-    require: true,
+    required: true,
     min: 10,
     trim: true,
     validate: {
@@ -14,9 +14,9 @@ const userScheme = mongoose.Schema({
       message: "Invalid email",
     },
   },
-  avatar: { type: String,  default: "/images/default_avt.png" },
+  avatar: { type: String, required: true,  default: "/images/default_avt.png" },
   description: { type: String, default: "None" },
-  password: { type: String, require: true, min: 6, trim: true },
+  password: { type: String, required: true, min: 6, trim: true },
 });
 
 const User = mongoose.model("User", userScheme);

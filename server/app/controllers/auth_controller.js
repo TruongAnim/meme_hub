@@ -8,11 +8,11 @@ class AuthController {
       const { email, password } = req.body;
       const user = await User.findOne({ email });
       if (!user) {
-        return res.status(400).json({ msg: "User dose not exist!" });
+        return next(Error(`User <${email}> dose not exist!`));
       }
       const isMatch = await bcryptjs.compare(password, user.password);
       if (!isMatch) {
-        return res.status(400).json({ msg: "Incorrect password!" });
+        return next(Error("Incorrect password!"));
       }
       const token = jwt.sign({ id: user._id }, "passwordKey");
       res.json({
@@ -33,7 +33,7 @@ class AuthController {
       console.log({ name, email, password });
       const existingUser = await User.findOne({ email });
       if (existingUser) {
-        return res.status(400).json({ msg: "email has been used!" });
+        return next(Error(`Email <${email}> has been used!`));
       }
       const hashedPassword = await bcryptjs.hash(password, 10);
       var user = new User({ name, email, password: hashedPassword });

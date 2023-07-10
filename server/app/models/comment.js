@@ -1,25 +1,25 @@
 const mongoose = require("mongoose");
 const commentScheme = mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", require: true },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   upVotes: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      require: true,
+      required: true,
     },
   ],
   favourites: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    require: true,
+    required: true,
   }],
   comments: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Comment",
-    require: true,
+    required: true,
   }],
-  type: { type: String, require: true },
-  content: { type: String, require: true },
+  type: { type: String, required: true },
+  content: { type: String},
   mediaLink: { type: String },
   createdAt: {
     type: Date,

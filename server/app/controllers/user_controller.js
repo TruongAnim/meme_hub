@@ -14,7 +14,6 @@ class UserController {
     }
   }
   async getUserInfo(req, res, next) {
-    console.log("/api/get-user-info");
     try {
       var user = await User.findById(req.body["userId"]);
       res.json(user);
@@ -25,7 +24,6 @@ class UserController {
   async updateUserInfo(req, res, next) {
     try {
       const { name, description, avatar } = req.body;
-      console.log(`/api/update-user-info ${name}, ${description}, ${avatar}`);
       const id = req.user.id;
       var user = await User.findById(id);
       if (name && name.length > 0) {
@@ -39,7 +37,7 @@ class UserController {
       }
       await user.save();
       res.status(200).json({
-        success: true,
+        isSuccess: true,
         message: "Information updated successfully",
         data: {
           name,
@@ -62,17 +60,17 @@ class UserController {
         user.password = hashedPassword;
         user = await user.save();
         return res.json({
-          status: "success",
+          isSuccess: true,
           message: "Password changed successfully",
         });
       } else {
         return res.json({
-          status: "fail",
+          isSuccess: false,
           message: "Invalid current password",
         });
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
       next(err);
     }
   }
@@ -81,8 +79,8 @@ class UserController {
       const result = await Post.aggregate([
         {
           $match: {
-            userId: new mongoose.Types.ObjectId(userId)
-          }
+            userId: new mongoose.Types.ObjectId(userId),
+          },
         },
         {
           $addFields: {
@@ -91,7 +89,7 @@ class UserController {
         },
         {
           $group: {
-            _id: '',
+            _id: "",
             totalUpvotes: { $sum: "$upvoteCount" },
           },
         },
@@ -102,7 +100,6 @@ class UserController {
         return 0;
       }
     } catch (error) {
-      console.error("Error calculating sum of PostUpvote:", error);
       throw error;
     }
   }
@@ -111,8 +108,8 @@ class UserController {
       const result = await Comment.aggregate([
         {
           $match: {
-            userId: new mongoose.Types.ObjectId(userId)
-          }
+            userId: new mongoose.Types.ObjectId(userId),
+          },
         },
         {
           $addFields: {
@@ -121,7 +118,7 @@ class UserController {
         },
         {
           $group: {
-            _id: '',
+            _id: "",
             totalUpvotes: { $sum: "$upvoteCount" },
           },
         },
@@ -132,7 +129,6 @@ class UserController {
         return 0;
       }
     } catch (error) {
-      console.error("Error calculating sum of CommentUpvote:", error);
       throw error;
     }
   }
@@ -143,10 +139,10 @@ class UserController {
       const countComment = await Comment.countDocuments({ userId });
       const postUpvote = await this.countPostUpvote(userId);
       const commentUpvote = await this.countCommentUpvote(userId);
-      res.json({ userId, countPost, countComment, postUpvote, commentUpvote});
+      res.json({ userId, countPost, countComment, postUpvote, commentUpvote });
     } catch (err) {
       next(err);
     }
-  }
+  };
 }
 module.exports = new UserController();

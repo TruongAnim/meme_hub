@@ -121,7 +121,7 @@ class UserService {
         );
         if (response.statusCode == 200) {
           Map<String, dynamic> data = response.data;
-          if (data['status'] == 'success') {
+          if (data['isSuccess'] == true) {
             return TaskResult(isSuccess: true, message: data['message']);
           } else {
             return TaskResult(isSuccess: false, message: data['message']);
