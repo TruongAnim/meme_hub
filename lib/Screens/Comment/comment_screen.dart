@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:meme_hub/Screens/Post/widgets/post_item.dart';
+import 'package:meme_hub/Theme/colors.dart';
 import 'package:meme_hub/components/comment_box.dart';
 import 'package:meme_hub/components/comment_item.dart';
 import 'package:meme_hub/Screens/Comment/controllers/comment_controller.dart';
@@ -60,7 +61,18 @@ class _CommentScreenState extends State<CommentScreen> {
             }),
           ),
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: Offset(3, 0), // controls the shadow position
+                ),
+              ],
+            ),
             child: CommentBox(
               postId: post.id,
             ),

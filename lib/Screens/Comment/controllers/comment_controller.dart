@@ -24,16 +24,14 @@ class CommentController extends GetxController {
   }
 
   Future<bool> sendComment(
-      String commentText, List<File> commentImages, String postId) async {
+      String commentText, String type, List<File> media, String postId) async {
     try {
-      String commentType = 'text';
       String mediaLink = '';
-      if (commentImages.isNotEmpty) {
-        mediaLink = await CloudService.instance.uploadMedia(commentImages[0]);
-        commentType = 'image';
+      if (media.isNotEmpty) {
+        mediaLink = await CloudService.instance.uploadMedia(media[0]);
       }
       bool result = await CommentService.instance
-          .newComment(commentText, mediaLink, commentType, postId);
+          .newComment(commentText, mediaLink, type, postId);
       if (result) {
         updateData();
         Get.focusScope?.unfocus();

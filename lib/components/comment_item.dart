@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meme_hub/Screens/Post/widgets/media_placeholder.dart';
+import 'package:meme_hub/Screens/Post/widgets/video_player_widget.dart';
 import 'package:meme_hub/components/comment_response_item.dart';
 import 'package:meme_hub/controllers/media_controller.dart';
 import 'package:meme_hub/models/comment.dart';
@@ -14,6 +16,14 @@ class CommentItem extends StatelessWidget {
   CommentItem({super.key, required this.comment, required this.type});
   Comment comment;
   CommentItemType type;
+
+  void _viewMedia() {
+    Get.find<MediaController>().viewMedia(
+        type: comment.type,
+        name: 'user.name',
+        time: comment.createdAt,
+        url: comment.mediaLink);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,17 +78,44 @@ class CommentItem extends StatelessWidget {
                     ),
                   ),
                 if (comment.type == 'image') ...[
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 8),
                   GestureDetector(
-                      onTap: () => Get.find<MediaController>().viewMedia(
-                          type: comment.type,
-                          name: user.name,
-                          time: comment.createdAt,
-                          url: comment.mediaLink),
+                    onTap: _viewMedia,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                        comment.mediaLink,
+                        width: double.infinity,
+                        fit: BoxFit.contain,
+                        loadingBuilder: (BuildContext context, Widget child,
+                            ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child; // Return the actual image once it's loaded
+                          } else {
+                            return MediaPlaceholder(
+                                isLoading: true, aspectRatio: 1);
+                          }
+                        },
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return MediaPlaceholder(
+                              isLoading: false, aspectRatio: 1);
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+                if (comment.type == 'video') ...[
+                  const SizedBox(height: 8),
+                  GestureDetector(
+                      onTap: _viewMedia,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(10),
-                        child: Image.network(comment.mediaLink,
-                            fit: BoxFit.contain),
+                        child: VideoPlayerWidget(
+                          source: comment.mediaLink,
+                          placeholder:
+                              MediaPlaceholder(isLoading: true, aspectRatio: 1),
+                        ),
                       )),
                 ],
                 CommentResponseItem(
