@@ -13,6 +13,7 @@ class LoginController extends GetxController {
 
   Future<bool> login(String email, String password) async {
     try {
+      email = email.toLowerCase();
       bool result = await AuthService.instance.login(email, password);
 
       if (result) {

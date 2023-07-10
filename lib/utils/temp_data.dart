@@ -1,6 +1,5 @@
 import 'package:meme_hub/models/tag.dart';
 import 'package:meme_hub/models/user.dart';
-import 'package:meme_hub/utils/api_constants.dart';
 
 class TempData {
   static User getTempUser() {
@@ -9,7 +8,7 @@ class TempData {
         name: 'unknown',
         email: 'unknown',
         description: 'None',
-        avatar: '/images/user.png',
+        avatar: '/images/default_avt.png',
         token: 'unknown');
   }
 

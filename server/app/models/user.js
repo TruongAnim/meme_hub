@@ -14,7 +14,7 @@ const userScheme = mongoose.Schema({
       message: "Invalid email",
     },
   },
-  avatar: { type: String,  default: "/images/user.png" },
+  avatar: { type: String,  default: "/images/default_avt.png" },
   description: { type: String, default: "None" },
   password: { type: String, require: true, min: 6, trim: true },
 });
