@@ -10,8 +10,8 @@ function route(app){
   app.use('/api/tags', tagRouter)
   app.use('/api/auth', authRouter)
   app.use('/api/user', userRouter)
-  app.use('/', (req, res, next)=>{
-    res.render('index', {title:'Home Page'})
-  })
+  // app.use('/', (req, res, next)=>{
+  //   res.render('index', {title:'Home Page'})
+  // })
 }
 module.exports = route;

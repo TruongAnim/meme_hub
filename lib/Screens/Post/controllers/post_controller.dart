@@ -21,7 +21,7 @@ class PostController extends GetxController {
   Rx<PostStatus> status = Rx<PostStatus>(PostStatus.initial);
   RxBool hasReachedMax = RxBool(false);
   bool _isThrottled = false;
-  final int limitFetchPosts = 2;
+  final int limitFetchPosts = 5;
 
   @override
   void onReady() {
@@ -71,7 +71,7 @@ class PostController extends GetxController {
 
   Future<void> onPostFetched() async {
     print('onPostFetched');
-    await Future.delayed(const Duration(seconds: 1));
+    // await Future.delayed(const Duration(seconds: 1));
     if (hasReachedMax.value) return;
     try {
       if (status.value == PostStatus.initial) {
