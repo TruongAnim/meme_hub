@@ -12,7 +12,7 @@ class CommentService {
 
   Future<bool> newComment(
       String content, String mediaLink, String type, String postId) async {
-    const url = '${ApiConstants.baseUrl}/comment/new-comment';
+    const url = '${ApiConstants.apiUrl}/comment/new-comment';
     try {
       final response = await _dio.post(
         url,
@@ -42,7 +42,7 @@ class CommentService {
 
   Future<bool> newReply(
       String content, String mediaLink, String type, String commentId) async {
-    const url = '${ApiConstants.baseUrl}/comment/new-reply';
+    const url = '${ApiConstants.apiUrl}/comment/new-reply';
     try {
       final response = await _dio.post(
         url,
@@ -71,8 +71,8 @@ class CommentService {
   }
 
   Future<List<Comment>> getComment(String postId) async {
-    const url = '${ApiConstants.baseUrl}/comment/get-comment';
-    final response = await _dio.get(
+    const url = '${ApiConstants.apiUrl}/comment/get-comment';
+    final response = await _dio.post(
       url,
       data: {'postId': postId},
       options: Options(
@@ -90,8 +90,8 @@ class CommentService {
   }
 
   Future<List<Comment>> getReply(String commentId) async {
-    const url = '${ApiConstants.baseUrl}/comment/get-reply';
-    final response = await _dio.get(
+    const url = '${ApiConstants.apiUrl}/comment/get-reply';
+    final response = await _dio.post(
       url,
       data: {'commentId': commentId},
       options: Options(
@@ -109,7 +109,7 @@ class CommentService {
   }
 
   Future<void> upvote(String commentId, String userId, bool isUpvote) async {
-    String url = '${ApiConstants.baseUrl}/comment/upvote';
+    String url = '${ApiConstants.apiUrl}/comment/upvote';
     try {
       Map<String, dynamic> data = {
         'commentId': commentId,
@@ -134,7 +134,7 @@ class CommentService {
 
   Future<void> favourite(
       String commentId, String userId, bool isFavourite) async {
-    String url = '${ApiConstants.baseUrl}/comment/favourite';
+    String url = '${ApiConstants.apiUrl}/comment/favourite';
     try {
       Map<String, dynamic> data = {
         'commentId': commentId,

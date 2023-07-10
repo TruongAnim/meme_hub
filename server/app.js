@@ -24,9 +24,13 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 
 indexRouter(app);
 
-// catch 404 and forward to error handler
+// catch 404 error
 app.use(function (req, res, next) {
-  next(createError(404));
+  err = createError(404)
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  res.status(404).render('error');
 });
 // error handler
 app.use(errorHandler);

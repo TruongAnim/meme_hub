@@ -60,7 +60,7 @@ class DrawerItem extends StatelessWidget {
         selectedTileColor: Colors.green[50],
         selected: isSelected,
         leading: Image.network(
-            width: 25, height: 25, ApiConstants.public + tag.icon),
+            width: 25, height: 25, ApiConstants.publicUrl + tag.icon),
         title: Text(tag.name),
         trailing: getTrailing());
   }

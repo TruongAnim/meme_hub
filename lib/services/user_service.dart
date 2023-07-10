@@ -19,9 +19,9 @@ class UserService {
 
       if (token != null) {
         const url =
-            '${ApiConstants.baseUrl}/user/get-user'; // Replace with your user endpoint
+            '${ApiConstants.apiUrl}/user/get-user'; // Replace with your user endpoint
 
-        final response = await _dio.get(
+        final response = await _dio.post(
           url,
           options: Options(
             headers: {'Authorization': 'Bearer $token'},
@@ -51,9 +51,9 @@ class UserService {
   Future<TaskResult> getUserInfo(String id) async {
     try {
       const url =
-          '${ApiConstants.baseUrl}/user/get-user-info'; // Replace with your user endpoint
+          '${ApiConstants.apiUrl}/user/get-user-info'; // Replace with your user endpoint
 
-      final response = await _dio.get(
+      final response = await _dio.post(
         url,
         data: {'userId': id},
         options: Options(
@@ -78,7 +78,7 @@ class UserService {
     try {
       if (currentUser.token != null) {
         const url =
-            '${ApiConstants.baseUrl}/user/update-user-info'; // Replace with your user endpoint
+            '${ApiConstants.apiUrl}/user/update-user-info'; // Replace with your user endpoint
 
         final response = await _dio.post(
           url,
@@ -110,7 +110,7 @@ class UserService {
     try {
       if (currentUser.token != null) {
         const url =
-            '${ApiConstants.baseUrl}/user/change-password'; // Replace with your user endpoint
+            '${ApiConstants.apiUrl}/user/change-password'; // Replace with your user endpoint
 
         final response = await _dio.post(
           url,
@@ -143,9 +143,9 @@ class UserService {
   Future<TaskResult> getUserActivity(String id) async {
     try {
       const url =
-          '${ApiConstants.baseUrl}/user/get-user-activity'; // Replace with your user endpoint
+          '${ApiConstants.apiUrl}/user/get-user-activity'; // Replace with your user endpoint
 
-      final response = await _dio.get(
+      final response = await _dio.post(
         url,
         data: {'userId': id},
         options: Options(

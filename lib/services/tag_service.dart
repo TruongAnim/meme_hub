@@ -11,7 +11,7 @@ class TagService {
   final Dio _dio = Dio();
 
   Future<List<Tag>> getTags() async {
-    const url = '${ApiConstants.baseUrl}/tags/get-tags';
+    const url = '${ApiConstants.apiUrl}/tags/get-tags';
     final response = await _dio.get(
       url,
       options: Options(

@@ -16,7 +16,7 @@ class AuthService {
 
   Future<bool> login(String email, String password) async {
     const url =
-        '${ApiConstants.baseUrl}/auth/login'; // Replace with your login endpoint
+        '${ApiConstants.apiUrl}/auth/login'; // Replace with your login endpoint
 
     try {
       final response = await _dio.post(
@@ -39,7 +39,7 @@ class AuthService {
   }
 
   Future<bool> signup(String username, String email, String password) async {
-    const url = '${ApiConstants.baseUrl}/auth/signup';
+    const url = '${ApiConstants.apiUrl}/auth/signup';
 
     try {
       final response = await _dio.post(

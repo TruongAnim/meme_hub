@@ -13,7 +13,7 @@ class PostService {
 
   Future<bool> newPost(String title, String mediaLink, String type,
       List<String> tags, double mediaAspectRatio) async {
-    const url = '${ApiConstants.baseUrl}/post/new-post';
+    const url = '${ApiConstants.apiUrl}/post/new-post';
     try {
       final response = await _dio.post(
         url,
@@ -43,15 +43,16 @@ class PostService {
 
   Future<List<Post>> fetchPosts(
       {required List<String> tags, int start = 0, int limit = 100}) async {
-    String url = '${ApiConstants.baseUrl}/post/get-post/';
+    String url = '${ApiConstants.apiUrl}/post/get-post/';
     try {
-      final response = await _dio.get(
+      final response = await _dio.post(
         url,
         data: {'tags': tags, 'start': start, 'limit': limit},
         options: Options(
           headers: {
             'Authorization': 'Bearer ${UserService.instance.currentUser.token}'
           },
+          validateStatus: (status) => true,
         ),
       );
       if (response.statusCode == 200) {
@@ -61,15 +62,15 @@ class PostService {
         return [];
       }
     } catch (error, stackTrace) {
-      LogUtil.error('newPost', error, stackTrace);
+      LogUtil.error('fetchPosts', error, stackTrace);
       return [];
     }
   }
 
   Future<TaskResult> getUserPosts(String userId) async {
-    String url = '${ApiConstants.baseUrl}/post/get-user-post';
+    String url = '${ApiConstants.apiUrl}/post/get-user-post';
     try {
-      final response = await _dio.get(
+      final response = await _dio.post(
         url,
         data: {'userId': userId},
         options: Options(
@@ -86,15 +87,15 @@ class PostService {
         return TaskResult(isSuccess: false);
       }
     } catch (error, stackTrace) {
-      LogUtil.error('newPost', error, stackTrace);
+      LogUtil.error('getUserPosts', error, stackTrace);
       return TaskResult(isSuccess: false);
     }
   }
 
   Future<TaskResult> getUpvotePosts(String userId) async {
-    String url = '${ApiConstants.baseUrl}/post/get-upvote-post';
+    String url = '${ApiConstants.apiUrl}/post/get-upvote-post';
     try {
-      final response = await _dio.get(
+      final response = await _dio.post(
         url,
         data: {'userId': userId},
         options: Options(
@@ -111,15 +112,15 @@ class PostService {
         return TaskResult(isSuccess: false);
       }
     } catch (error, stackTrace) {
-      LogUtil.error('newPost', error, stackTrace);
+      LogUtil.error('getUpvotePosts', error, stackTrace);
       return TaskResult(isSuccess: false);
     }
   }
 
   Future<TaskResult> getFavouritePosts(String userId) async {
-    String url = '${ApiConstants.baseUrl}/post/get-favourite-post';
+    String url = '${ApiConstants.apiUrl}/post/get-favourite-post';
     try {
-      final response = await _dio.get(
+      final response = await _dio.post(
         url,
         data: {'userId': userId},
         options: Options(
@@ -136,13 +137,13 @@ class PostService {
         return TaskResult(isSuccess: false);
       }
     } catch (error, stackTrace) {
-      LogUtil.error('newPost', error, stackTrace);
+      LogUtil.error('getFavouritePosts', error, stackTrace);
       return TaskResult(isSuccess: false);
     }
   }
 
   Future<void> upvote(String postId, String userId, bool isUpvote) async {
-    String url = '${ApiConstants.baseUrl}/post/upvote';
+    String url = '${ApiConstants.apiUrl}/post/upvote';
     try {
       Map<String, dynamic> data = {
         'postId': postId,
@@ -161,12 +162,12 @@ class PostService {
       if (response.statusCode == 200) {
       } else {}
     } catch (error, stackTrace) {
-      LogUtil.error('newPost', error, stackTrace);
+      LogUtil.error('upvote', error, stackTrace);
     }
   }
 
   Future<void> favourite(String postId, String userId, bool isFavourite) async {
-    String url = '${ApiConstants.baseUrl}/post/favourite';
+    String url = '${ApiConstants.apiUrl}/post/favourite';
     try {
       Map<String, dynamic> data = {
         'postId': postId,
@@ -185,7 +186,7 @@ class PostService {
       if (response.statusCode == 200) {
       } else {}
     } catch (error, stackTrace) {
-      LogUtil.error('newPost', error, stackTrace);
+      LogUtil.error('favourite', error, stackTrace);
     }
   }
 }
