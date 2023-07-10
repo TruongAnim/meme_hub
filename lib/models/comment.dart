@@ -11,6 +11,7 @@ class Comment {
   List<String> comments;
   String content;
   String mediaLink;
+  double mediaAspectRatio;
   String type;
   DateTime createdAt;
   Comment({
@@ -22,6 +23,7 @@ class Comment {
     required this.content,
     required this.mediaLink,
     required this.type,
+    required this.mediaAspectRatio,
     required this.createdAt,
   });
 
@@ -35,6 +37,7 @@ class Comment {
       'content': content,
       'mediaLink': mediaLink,
       'type': type,
+      'mediaAspectRatio': mediaAspectRatio,
       'createdAt': createdAt.millisecondsSinceEpoch,
     };
   }
@@ -57,6 +60,7 @@ class Comment {
       content: map['content'] as String,
       mediaLink: map['mediaLink'] as String,
       type: map['type'] as String,
+      mediaAspectRatio: map['mediaAspectRatio'] * 1.0,
       createdAt: DateTime.parse(map['createdAt']).toLocal(),
     );
   }

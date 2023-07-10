@@ -10,8 +10,8 @@ class CommentService {
   static CommentService get instance => _instance;
   final Dio _dio = Dio();
 
-  Future<bool> newComment(
-      String content, String mediaLink, String type, String postId) async {
+  Future<bool> newComment(String content, String mediaLink, String type,
+      double mediaAspectRatio, String postId) async {
     const url = '${ApiConstants.apiUrl}/comment/new-comment';
     try {
       final response = await _dio.post(
@@ -21,6 +21,7 @@ class CommentService {
           'content': content,
           'mediaLink': mediaLink,
           'type': type,
+          'mediaAspectRatio': mediaAspectRatio,
           'postId': postId
         },
         options: Options(

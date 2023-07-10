@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:meme_hub/Screens/Comment/controllers/comment_controller.dart';
 import 'package:meme_hub/Theme/colors.dart';
+import 'package:meme_hub/utils/common_utils.dart';
 import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
 import 'package:video_player/video_player.dart';
@@ -63,13 +64,27 @@ class _CommentBoxState extends State<CommentBox> {
     });
   }
 
+  void closeKeyboard(BuildContext context) {
+    FocusScope.of(context).unfocus();
+  }
+
   void sendComment() async {
+    closeKeyboard(context);
     final String commentText = _textEditingController.text;
     final List<File> media =
         _selectedMedia.map((image) => File(image.path)).toList();
     LoadingOverlay.show();
-    bool result =
-        await _controller.sendComment(commentText, type, media, widget.postId);
+    double mediaAspectRatio = 1;
+
+    if (type == 'image') {
+      if (media.isNotEmpty) {
+        mediaAspectRatio = await CommonUtils.getImageAspectRatio(media[0]);
+      }
+    } else if (type == 'video') {
+      mediaAspectRatio = _videoPlayerController!.value.aspectRatio;
+    }
+    bool result = await _controller.sendComment(
+        commentText, type, media, mediaAspectRatio, widget.postId);
     LoadingOverlay.hide();
     if (result) {
       ToastMaker.showToast(content: 'Comment posted!');

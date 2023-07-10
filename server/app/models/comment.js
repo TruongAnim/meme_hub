@@ -21,6 +21,7 @@ const commentScheme = mongoose.Schema({
   type: { type: String, required: true },
   content: { type: String},
   mediaLink: { type: String },
+  mediaAspectRatio: { type: Number },
   createdAt: {
     type: Date,
     default: Date.now,

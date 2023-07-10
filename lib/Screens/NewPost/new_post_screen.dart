@@ -13,6 +13,7 @@ import 'package:meme_hub/Screens/NewPost/widgets/empty_image_holder.dart';
 import 'package:meme_hub/constants.dart';
 import 'package:meme_hub/Screens/NewPost/controllers/new_post_controller.dart';
 import 'package:meme_hub/models/tag.dart';
+import 'package:meme_hub/utils/common_utils.dart';
 import 'package:meme_hub/utils/loading_overlay.dart';
 import 'package:meme_hub/utils/toast_maker.dart';
 
@@ -45,8 +46,8 @@ class _NewPostScreenState extends State<NewPostScreen> {
   }
 
   void updateAspectRatio() async {
-    var decodedImage = await decodeImageFromList(_mediaFile!.readAsBytesSync());
-    _controller.setMediaAspectRatio(decodedImage.width / decodedImage.height);
+    _controller.setMediaAspectRatio(
+        await CommonUtils.getImageAspectRatio(_mediaFile!));
   }
 
   void _pickVideo() async {

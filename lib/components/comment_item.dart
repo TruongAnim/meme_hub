@@ -93,13 +93,15 @@ class CommentItem extends StatelessWidget {
                             return child; // Return the actual image once it's loaded
                           } else {
                             return MediaPlaceholder(
-                                isLoading: true, aspectRatio: 1);
+                                isLoading: true,
+                                aspectRatio: comment.mediaAspectRatio);
                           }
                         },
                         errorBuilder: (BuildContext context, Object exception,
                             StackTrace? stackTrace) {
                           return MediaPlaceholder(
-                              isLoading: false, aspectRatio: 1);
+                              isLoading: false,
+                              aspectRatio: comment.mediaAspectRatio);
                         },
                       ),
                     ),
@@ -113,8 +115,9 @@ class CommentItem extends StatelessWidget {
                         borderRadius: BorderRadius.circular(10),
                         child: VideoPlayerWidget(
                           source: comment.mediaLink,
-                          placeholder:
-                              MediaPlaceholder(isLoading: true, aspectRatio: 1),
+                          placeholder: MediaPlaceholder(
+                              isLoading: true,
+                              aspectRatio: comment.mediaAspectRatio),
                         ),
                       )),
                 ],

@@ -5,9 +5,17 @@ const Comment = require("../models/comment");
 class CommentController {
   async newComment(req, res, next) {
     try {
-      const { userId, content, mediaLink, type, postId } = req.body;
-      console.log({ userId, content, mediaLink, type });
-      var comment = new Comment({ userId, content, mediaLink, type });
+      const { userId, content, mediaLink, type, mediaAspectRatio, postId } =
+        req.body;
+      console.log({
+        userId,
+        content,
+        mediaLink,
+        type,
+        mediaAspectRatio,
+        postId,
+      });
+      var comment = new Comment({ userId, content, mediaLink, type, mediaAspectRatio });
       comment = await comment.save();
       var post = await Post.findById(postId);
       post.comments.push(comment.id);
@@ -60,18 +68,18 @@ class CommentController {
       next(err);
     }
   }
-  async upvote(req, res, next){
+  async upvote(req, res, next) {
     try {
-      const commentId = req.body['commentId'];
-      const userId = req.body['userId'];
-      const isUpvote = req.body['isUpvote'];
+      const commentId = req.body["commentId"];
+      const userId = req.body["userId"];
+      const isUpvote = req.body["isUpvote"];
       var comment = await Comment.findById(commentId);
-      if (isUpvote){
+      if (isUpvote) {
         const indexToAdd = comment.upVotes.indexOf(userId);
-        if(indexToAdd == -1){
-          comment.upVotes.push(userId)
+        if (indexToAdd == -1) {
+          comment.upVotes.push(userId);
         }
-      }else{
+      } else {
         const indexToRemove = comment.upVotes.indexOf(userId);
         if (indexToRemove > -1) {
           comment.upVotes.splice(indexToRemove, 1);
@@ -83,18 +91,18 @@ class CommentController {
       next(err);
     }
   }
-  async favourite(req, res, next){
+  async favourite(req, res, next) {
     try {
-      const commentId = req.body['commentId'];
-      const userId = req.body['userId'];
-      const isFavourite = req.body['isFavourite'];
+      const commentId = req.body["commentId"];
+      const userId = req.body["userId"];
+      const isFavourite = req.body["isFavourite"];
       var comment = await Comment.findById(commentId);
-      if (isFavourite){
+      if (isFavourite) {
         const indexToAdd = comment.favourites.indexOf(userId);
-        if(indexToAdd == -1){
-          comment.favourites.push(userId)
+        if (indexToAdd == -1) {
+          comment.favourites.push(userId);
         }
-      }else{
+      } else {
         const indexToRemove = comment.favourites.indexOf(userId);
         if (indexToRemove > -1) {
           comment.favourites.splice(indexToRemove, 1);
@@ -103,7 +111,7 @@ class CommentController {
       comment = await comment.save();
       res.json(comment);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       next(err);
     }
   }

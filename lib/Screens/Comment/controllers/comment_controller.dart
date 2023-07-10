@@ -7,6 +7,7 @@ import 'package:meme_hub/routes/app_routes.dart';
 import 'package:meme_hub/services/cloud_service.dart';
 import 'package:meme_hub/services/comment_service.dart';
 import 'package:meme_hub/services/user_service.dart';
+import 'package:meme_hub/utils/common_utils.dart';
 
 class CommentController extends GetxController {
   late String postId;
@@ -23,15 +24,15 @@ class CommentController extends GetxController {
     comments.value = await CommentService.instance.getComment(postId);
   }
 
-  Future<bool> sendComment(
-      String commentText, String type, List<File> media, String postId) async {
+  Future<bool> sendComment(String commentText, String type, List<File> media,
+      double mediaAspectRatio, String postId) async {
     try {
       String mediaLink = '';
       if (media.isNotEmpty) {
         mediaLink = await CloudService.instance.uploadMedia(media[0]);
       }
       bool result = await CommentService.instance
-          .newComment(commentText, mediaLink, type, postId);
+          .newComment(commentText, mediaLink, type, mediaAspectRatio, postId);
       if (result) {
         updateData();
         Get.focusScope?.unfocus();
