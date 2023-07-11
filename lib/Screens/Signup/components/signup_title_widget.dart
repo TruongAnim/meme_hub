@@ -12,8 +12,8 @@ class SignupTitleWidget extends StatelessWidget {
         const SizedBox(height: 8),
         Image.asset(
           'assets/images/signup_background.png',
-          fit: BoxFit.cover,
-          height: height * 0.40,
+          fit: BoxFit.fitWidth,
+          height: height * 0.4,
         ),
         const SizedBox(height: 16),
         const Text(

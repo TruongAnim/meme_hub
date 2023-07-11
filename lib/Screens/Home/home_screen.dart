@@ -45,54 +45,61 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
         key: scaffoldKey,
-        body: SliderDrawer(
-            key: sliderKey,
-            slideDirection: SlideDirection.RIGHT_TO_LEFT,
-            appBar: SliderAppBar(
-              // appBarColor: mainColor,
-              drawerIcon: GestureDetector(
-                  onTap: openSlider,
-                  child: Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(getAvatar()),
-                    ),
-                  )),
-              title: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(4)),
-                  child: Image.asset('assets/images/logo.png')),
-              // Obx(
-              //   () => Text(getTagName(),
-              //       style: const TextStyle(
-              //           fontSize: 22, fontWeight: FontWeight.w700)),
-              // ),
-              trailing: GestureDetector(
-                onTap: () {
-                  openDrawer();
-                },
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 8, bottom: 4),
-                  child: Icon(Icons.menu),
+        body: SafeArea(
+          child: SliderDrawer(
+              key: sliderKey,
+              slideDirection: SlideDirection.RIGHT_TO_LEFT,
+              appBar: SliderAppBar(
+                appBarPadding: EdgeInsets.only(top: 0),
+                appBarHeight: 45,
+                // appBarColor: mainColor,
+                drawerIcon: GestureDetector(
+                    onTap: openSlider,
+                    child: Padding(
+                      padding: const EdgeInsets.all(2),
+                      child: CircleAvatar(
+                        backgroundImage: NetworkImage(getAvatar()),
+                      ),
+                    )),
+                title: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 2),
+                  child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(4)),
+                      child: Image.asset('assets/images/logo.png')),
+                ),
+                // Obx(
+                //   () => Text(getTagName(),
+                //       style: const TextStyle(
+                //           fontSize: 22, fontWeight: FontWeight.w700)),
+                // ),
+                trailing: GestureDetector(
+                  onTap: () {
+                    openDrawer();
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 8, bottom: 4),
+                    child: Icon(Icons.menu),
+                  ),
                 ),
               ),
-            ),
-            slider: SliderWidget(),
-            child: Container(
-                constraints: const BoxConstraints.expand(),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.7),
-                      spreadRadius: 2,
-                      blurRadius: 5,
-                      offset: const Offset(
-                          0, 3), // Controls the position of the shadow
-                    ),
-                  ],
-                ),
-                margin: const EdgeInsets.only(top: 3),
-                child: PostList())),
+              slider: SliderWidget(),
+              child: Container(
+                  constraints: const BoxConstraints.expand(),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.7),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(
+                            0, 3), // Controls the position of the shadow
+                      ),
+                    ],
+                  ),
+                  margin: const EdgeInsets.only(top: 3),
+                  child: PostList())),
+        ),
         drawer: DrawerWidget(),
         onDrawerChanged: (isOpened) {
           if (!isOpened) {

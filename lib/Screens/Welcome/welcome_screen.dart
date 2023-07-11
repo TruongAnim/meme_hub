@@ -9,7 +9,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Background(
-      background: 'assets/images/welcome_background2.png',
+      background: 'assets/images/welcome_background.png',
       child: Responsive(
         desktop: DesktopWelcomeScreen(),
         mobile: MobileWelcomeScreen(),
