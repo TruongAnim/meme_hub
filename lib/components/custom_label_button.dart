@@ -15,7 +15,7 @@ class CustomLabelButton extends StatelessWidget {
       onPressed: callback,
       child: Text(
         title,
-        style: TextStyle(fontSize: 16),
+        style: const TextStyle(fontSize: 16),
       ),
     );
   }

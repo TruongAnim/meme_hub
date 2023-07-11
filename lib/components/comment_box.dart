@@ -32,14 +32,11 @@ class _CommentBoxState extends State<CommentBox> {
       type = 'image';
       setState(() {
         if (_selectedMedia.isNotEmpty) {
-          _selectedMedia[0] = image; // Replace the first item
+          _selectedMedia[0] = image;
         } else {
-          _selectedMedia.add(image); // Add the item to the list
+          _selectedMedia.add(image);
         }
       });
-      var mediaAspectRatio =
-          await CommonUtils.getImageAspectRatio(File(_selectedMedia[0].path));
-      print('mediaAspectRatio: $mediaAspectRatio');
     }
   }
 
@@ -52,9 +49,9 @@ class _CommentBoxState extends State<CommentBox> {
         _videoPlayerController = VideoPlayerController.file(File(video.path))
           ..initialize();
         if (_selectedMedia.isNotEmpty) {
-          _selectedMedia[0] = video; // Replace the first item
+          _selectedMedia[0] = video;
         } else {
-          _selectedMedia.add(video); // Add the item to the list
+          _selectedMedia.add(video);
         }
       });
     }
@@ -184,7 +181,7 @@ class _CommentBoxState extends State<CommentBox> {
               onPressed: _pickVideo,
             ),
             IconButton(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               icon: Icon(
                 Icons.send,
                 color: isReady() ? Colors.blue : Colors.grey,

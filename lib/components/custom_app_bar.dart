@@ -30,7 +30,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSize {
   }
 
   @override
-  // TODO: implement child
   Widget get child => throw UnimplementedError();
 
   @override

@@ -15,8 +15,8 @@ enum CommentItemType { inPost, fullSize, inReply }
 
 class CommentItem extends StatelessWidget {
   CommentItem({super.key, required this.comment, required this.type});
-  Comment comment;
-  CommentItemType type;
+  final Comment comment;
+  final CommentItemType type;
   User user = TempData.getTempUser();
 
   void _viewMedia() {
