@@ -37,6 +37,9 @@ class _CommentBoxState extends State<CommentBox> {
           _selectedMedia.add(image); // Add the item to the list
         }
       });
+      var mediaAspectRatio =
+          await CommonUtils.getImageAspectRatio(File(_selectedMedia[0].path));
+      print('mediaAspectRatio: $mediaAspectRatio');
     }
   }
 

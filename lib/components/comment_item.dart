@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meme_hub/Screens/Post/controllers/post_controller.dart';
 import 'package:meme_hub/Screens/Post/widgets/media_placeholder.dart';
 import 'package:meme_hub/Screens/Post/widgets/video_player_widget.dart';
 import 'package:meme_hub/components/comment_response_item.dart';
@@ -16,18 +17,18 @@ class CommentItem extends StatelessWidget {
   CommentItem({super.key, required this.comment, required this.type});
   Comment comment;
   CommentItemType type;
+  User user = TempData.getTempUser();
 
   void _viewMedia() {
     Get.find<MediaController>().viewMedia(
         type: comment.type,
-        name: 'user.name',
+        name: user.name,
         time: comment.createdAt,
         url: comment.mediaLink);
   }
 
   @override
   Widget build(BuildContext context) {
-    User user = TempData.getTempUser();
     if (comment.userId is User) {
       user = comment.userId;
     }
@@ -46,16 +47,20 @@ class CommentItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
                 Row(
                   children: [
-                    Text(
-                      user.name,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
+                    InkWell(
+                      onTap: () =>
+                          Get.find<PostController>().toUserInfo(user.id),
+                      child: Text(
+                        user.name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 8.0),
