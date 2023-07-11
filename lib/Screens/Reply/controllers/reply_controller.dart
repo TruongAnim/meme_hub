@@ -22,16 +22,16 @@ class ReplyController extends GetxController {
     comments.value = await CommentService.instance.getReply(commentId);
   }
 
-  Future<bool> sendComment(
-      String commentText, List<File> commentImages, String commentId) async {
+  Future<bool> sendComment(String commentText, String type, List<File> media,
+      double mediaAspectRatio, String commonId) async {
     try {
-      String mediaLink = commentImages.isNotEmpty
-          ? await CloudService.instance.uploadMedia(commentImages[0])
-          : '';
+      String mediaLink = '';
+      if (media.isNotEmpty) {
+        mediaLink = await CloudService.instance.uploadMedia(media[0]);
+      }
       bool result = await CommentService.instance
-          .newReply(commentText, mediaLink, 'image', commentId);
+          .newReply(commentText, mediaLink, type, mediaAspectRatio, commentId);
       if (result) {
-        Get.focusScope?.unfocus();
         updateData();
       }
       return result;

@@ -7,7 +7,6 @@ import 'package:meme_hub/routes/app_routes.dart';
 import 'package:meme_hub/services/cloud_service.dart';
 import 'package:meme_hub/services/comment_service.dart';
 import 'package:meme_hub/services/user_service.dart';
-import 'package:meme_hub/utils/common_utils.dart';
 
 class CommentController extends GetxController {
   late String postId;
@@ -35,7 +34,6 @@ class CommentController extends GetxController {
           .newComment(commentText, mediaLink, type, mediaAspectRatio, postId);
       if (result) {
         updateData();
-        Get.focusScope?.unfocus();
       }
       return result;
     } catch (err) {

@@ -41,8 +41,8 @@ class CommentService {
     }
   }
 
-  Future<bool> newReply(
-      String content, String mediaLink, String type, String commentId) async {
+  Future<bool> newReply(String content, String mediaLink, String type,
+      double mediaAspectRatio, String commentId) async {
     const url = '${ApiConstants.apiUrl}/comment/new-reply';
     try {
       final response = await _dio.post(
@@ -52,6 +52,7 @@ class CommentService {
           'content': content,
           'mediaLink': mediaLink,
           'type': type,
+          'mediaAspectRatio': mediaAspectRatio,
           'commentId': commentId
         },
         options: Options(

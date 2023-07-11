@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:meme_hub/Theme/colors.dart';
 import 'package:meme_hub/components/comment_item.dart';
 import 'package:meme_hub/components/reply_box.dart';
 import 'package:meme_hub/Screens/Reply/controllers/reply_controller.dart';
@@ -27,7 +28,7 @@ class _ReplyScreenState extends State<ReplyScreen> {
     if (index >= 0 && index <= _controller.comments.length) {
       _scrollController.animateTo(
         index * 500.0,
-        duration: Duration(milliseconds: 1000),
+        duration: const Duration(milliseconds: 1000),
         curve: Curves.ease,
       );
     }
@@ -40,10 +41,10 @@ class _ReplyScreenState extends State<ReplyScreen> {
         children: [
           Expanded(
             child: Obx(() {
-              if (_controller.comments.isNotEmpty) _scrollTo(1);
+              // if (_controller.comments.isNotEmpty) _scrollTo(1);
               return ListView.separated(
                 controller: _scrollController,
-                separatorBuilder: (context, index) => Divider(
+                separatorBuilder: (context, index) => const Divider(
                   color: Colors.grey,
                   thickness: 1,
                 ),
@@ -64,7 +65,18 @@ class _ReplyScreenState extends State<ReplyScreen> {
             }),
           ),
           Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 2,
+                  blurRadius: 5,
+                  offset: const Offset(3, 0), // controls the shadow position
+                ),
+              ],
+            ),
             child: ReplyBox(
               commentId: comment.id,
             ),

@@ -8,20 +8,24 @@ const commentScheme = mongoose.Schema({
       required: true,
     },
   ],
-  favourites: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  }],
-  comments: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Comment",
-    required: true,
-  }],
+  favourites: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+  ],
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
+      required: true,
+    },
+  ],
   type: { type: String, required: true },
-  content: { type: String},
+  content: { type: String },
   mediaLink: { type: String },
-  mediaAspectRatio: { type: Number },
+  mediaAspectRatio: { type: Number, default: 1.0 },
   createdAt: {
     type: Date,
     default: Date.now,

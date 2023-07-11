@@ -89,8 +89,7 @@ class _CommentBoxState extends State<CommentBox> {
     if (result) {
       ToastMaker.showToast(content: 'Comment posted!');
       _textEditingController.clear();
-      _selectedMedia.clear();
-      type = 'text';
+      _removeMedia(0);
     } else {
       ToastMaker.showToast(content: 'Error!');
     }

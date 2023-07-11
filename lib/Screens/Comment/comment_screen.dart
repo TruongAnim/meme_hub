@@ -42,7 +42,7 @@ class _CommentScreenState extends State<CommentScreen> {
         children: [
           Expanded(
             child: Obx(() {
-              if (_controller.comments.isNotEmpty) _scrollTo(1);
+              // if (_controller.comments.isNotEmpty) _scrollTo(1);
               return ListView.separated(
                 controller: _scrollController,
                 separatorBuilder: (context, index) => const Divider(
