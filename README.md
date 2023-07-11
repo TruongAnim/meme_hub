@@ -1,4 +1,4 @@
-# MemeHub (9GAG Clone)
+# MemeHub
 
 A meme app android app that written using flutter.
 
@@ -10,7 +10,7 @@ A meme app android app that written using flutter.
 - Reply others comment.
 - Update user info, change password.
 - Meme collection that store the memes you like.
-- And sign-in, log-in of course.
+- And sign-up, log-in, log out.
 
 ### State management: [GetX](https://pub.dev/packages/get)
 
