@@ -52,13 +52,13 @@ class _UserScreenBodyState extends State<UserScreenBody> {
                   backgroundColor: backgroundColor,
                   expandedHeight: 300,
                   floating: false,
-                  leading: BackButton(
+                  leading: const BackButton(
                     color: lightColor,
                   ),
                   actions: <Widget>[
                     PopupMenuButton(
                       color: backgroundColor,
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.more_vert,
                         color: lightColor,
                       ),
@@ -67,12 +67,12 @@ class _UserScreenBodyState extends State<UserScreenBody> {
                           borderSide: BorderSide.none),
                       itemBuilder: (BuildContext context) {
                         return [
-                          PopupMenuItem(
+                          const PopupMenuItem(
                             value: 'report',
                             textStyle: TextStyle(color: mainColor),
                             child: Text('Report'),
                           ),
-                          PopupMenuItem(
+                          const PopupMenuItem(
                             value: 'block',
                             textStyle: TextStyle(color: mainColor),
                             child: Text('Block'),
@@ -85,13 +85,13 @@ class _UserScreenBodyState extends State<UserScreenBody> {
                 ),
                 SliverPersistentHeader(
                   delegate: SliverAppBarDelegate(
-                    TabBar(
+                    const TabBar(
                       labelColor: secondaryColor,
                       unselectedLabelColor: lightTextColor,
                       indicatorColor: linkColor,
                       dividerColor: mainColor,
                       automaticIndicatorColorAdjustment: true,
-                      tabs: const [
+                      tabs: [
                         Tab(icon: Icon(Icons.dashboard)),
                         Tab(icon: Icon(Icons.arrow_upward)),
                         Tab(
@@ -131,8 +131,8 @@ class _UserScreenBodyState extends State<UserScreenBody> {
                       );
                     }),
                 FadedSlideAnimation(
-                    beginOffset: Offset(0, 0.3),
-                    endOffset: Offset(0, 0),
+                    beginOffset: const Offset(0, 0.3),
+                    endOffset: const Offset(0, 0),
                     slideCurve: Curves.linearToEaseOut,
                     child: GetBuilder<UserController>(
                         id: 'favouritePost',

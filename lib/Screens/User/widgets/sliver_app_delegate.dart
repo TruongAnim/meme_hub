@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meme_hub/Theme/colors.dart';
-// import 'package:toktok/Theme/colors.dart';
 
 class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   SliverAppBarDelegate(this._tabBar);

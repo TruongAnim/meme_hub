@@ -40,7 +40,7 @@ class HeaderWidget extends StatelessWidget {
                     const SizedBox(width: 20),
                     Text(
                       _controller.user.name,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 20,
                           color: mainColor,
                           fontWeight: FontWeight.bold),
@@ -55,33 +55,33 @@ class HeaderWidget extends StatelessWidget {
                 ),
                 Text(
                   '@${CommonUtils.getUsernameFromEmail(controller.user.email)}',
-                  style: TextStyle(fontSize: 14, color: lightTextColor),
+                  style: const TextStyle(fontSize: 14, color: lightTextColor),
                 ),
                 const Spacer(),
                 FadedScaleAnimation(
-                  child: Row(
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       ImageIcon(
-                        const AssetImage(
+                        AssetImage(
                           AssetsHelper.icon_fb,
                         ),
                         color: linkColor,
                         size: 20,
                       ),
-                      const SizedBox(
+                      SizedBox(
                         width: 15,
                       ),
                       ImageIcon(
-                        const AssetImage(AssetsHelper.icon_twt),
+                        AssetImage(AssetsHelper.icon_twt),
                         color: linkColor,
                         size: 20,
                       ),
-                      const SizedBox(
+                      SizedBox(
                         width: 15,
                       ),
                       ImageIcon(
-                        const AssetImage(AssetsHelper.icon_insta),
+                        AssetImage(AssetsHelper.icon_insta),
                         color: linkColor,
                         size: 20,
                       ),
@@ -92,7 +92,7 @@ class HeaderWidget extends StatelessWidget {
                 Text(
                   _controller.user.description,
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w400,
                       color: mainColor),
